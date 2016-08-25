@@ -7,7 +7,6 @@ var Header = React.createClass({
     return (
       <div id="header" className="flex column center">
         <h1>Emily Combs</h1>
-        <SubHeader />
       </div>
     )
   }

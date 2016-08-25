@@ -18,15 +18,47 @@ html {
   font-family: 'Open Sans', sans-serif;
 }
 
+#header {
+  height: 80px;
+  width: 80%;
+  border-bottom: 1px solid black;
+  margin: 0 0 10px 0;
+}
+
+/* fonts */
 h1 {
   font-size: 2.5vw;
 }
 
-#header {
-  height: 80px;
-  background-color: blue;
+h3 {
+  font-size: 1.5vw;
 }
 
+/* components */
+.tab {
+  margin: 10px 30px 5px 30px;
+  padding: 0 0 8px 0;
+  border-bottom: 1px solid white;
+}
+
+.tab:after {
+  content: '';
+	display: block;
+	margin: 5px auto;
+	height: 1px;
+	width: 0px;
+	background: transparent;
+	transition: width .5s ease, background-color .5s ease;
+}
+
+.tab.selected:after {
+	width: 100%;
+	background: black;
+}
+
+.tab:hover {
+  cursor: pointer;
+}
 
 /* flex stylings */
 

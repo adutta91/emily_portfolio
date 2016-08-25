@@ -5,6 +5,10 @@ var TabStore = new Store(Dispatcher);
 
 var _selectedTab = "aboutMe"
 
+TabStore.selectedTab = function() {
+  return _selectedTab;
+};
+
 TabStore.__onDispatch = function(payload) {
   switch(payload.actionType) {
     case 'TAB_SELECTED':
@@ -15,7 +19,7 @@ TabStore.__onDispatch = function(payload) {
 };
 
 var selectTab = function(tab) {
-  _selectedTab = "aboutMe";
+  _selectedTab = tab;
 }
 
 module.exports = TabStore;

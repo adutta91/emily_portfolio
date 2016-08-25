@@ -1,9 +1,9 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 
-var Greeting = require('./components/greeting');
+var App = require('./components/app');
 
 document.addEventListener('DOMContentLoaded', function() {
   var root = document.getElementById('root');
-  ReactDOM.render(<Greeting/>, root);
+  ReactDOM.render(<App/>, root);
 });
