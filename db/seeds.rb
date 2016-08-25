@@ -12,7 +12,7 @@
     title: Faker::Lorem.word,
     description: Faker::Lorem.paragraph(3),
     start_date: Faker::Time.between(52.days.ago, 8.days.ago),
-    end_date: Faker::Time.between(7.days.ago, Date.now),
+    end_date: Faker::Time.between(7.days.ago, Date.today),
     location: Faker::Address.country
   )
 end
