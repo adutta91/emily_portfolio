@@ -2,12 +2,15 @@ class ProjectsController < ApplicationController
 
   def create
     @project = Project.create(project_params)
+    render :show
   end
 
   def show
+    @project = find_project
   end
 
   def index
+    @projects = Project.all
   end
 
   private
