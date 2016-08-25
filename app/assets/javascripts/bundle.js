@@ -47,21 +47,11 @@
 	var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(34);
 	
-	var EmilyPortfolio = React.createClass({
-	  displayName: 'EmilyPortfolio',
-	
-	  render: function () {
-	    return React.createElement(
-	      'div',
-	      null,
-	      'Hello, World!'
-	    );
-	  }
-	});
+	var Greeting = __webpack_require__(172);
 	
 	document.addEventListener('DOMContentLoaded', function () {
 	  var root = document.getElementById('root');
-	  ReactDOM.render(React.createElement(EmilyPortfolio, null), root);
+	  ReactDOM.render(React.createElement(Greeting, null), root);
 	});
 
 /***/ },
@@ -21414,6 +21404,114 @@
 	
 	module.exports = ReactDOMNullInputValuePropHook;
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
+
+/***/ },
+/* 172 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	
+	var Header = __webpack_require__(173);
+	
+	var Greeting = React.createClass({
+	  displayName: 'Greeting',
+	
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(Header, null)
+	    );
+	  }
+	});
+	
+	module.exports = Greeting;
+
+/***/ },
+/* 173 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	
+	var SubHeader = __webpack_require__(174);
+	
+	var Header = React.createClass({
+	  displayName: 'Header',
+	
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      { id: 'header', className: 'flex column center' },
+	      React.createElement(
+	        'h1',
+	        null,
+	        'Emily Combs'
+	      ),
+	      React.createElement(SubHeader, null)
+	    );
+	  }
+	});
+	
+	module.exports = Header;
+
+/***/ },
+/* 174 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	
+	var TABS = __webpack_require__(175);
+	var TABNAMES = __webpack_require__(176);
+	
+	var SubHeader = React.createClass({
+	  displayName: 'SubHeader',
+	
+	  getInitialState: function () {
+	    return {
+	      selectedTab: "aboutMe"
+	    };
+	  },
+	
+	  getTabs: function () {
+	    var currentTab = this.state.selectedTab;
+	    return TABS.tabs.map(function (tab) {
+	      var className = tab === currentTab ? "tab selected" : "tab";
+	      return React.createElement(
+	        'div',
+	        { key: tab, id: tab, className: className },
+	        TABNAMES[tab]
+	      );
+	    });
+	  },
+	
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      { id: 'subHeader', className: 'flex center' },
+	      this.getTabs()
+	    );
+	  }
+	});
+	
+	module.exports = SubHeader;
+
+/***/ },
+/* 175 */
+/***/ function(module, exports) {
+
+	module.exports = {
+	  tabs: ["aboutMe", "projects", "contact"]
+	};
+
+/***/ },
+/* 176 */
+/***/ function(module, exports) {
+
+	module.exports = {
+	  "aboutMe": "About Me",
+	  "projects": "Projects",
+	  "contact": "Contact Me"
+	};
 
 /***/ }
 /******/ ]);
