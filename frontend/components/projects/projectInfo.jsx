@@ -8,8 +8,8 @@ var ProjectInfo = React.createClass({
           <h1>Project Title</h1>
           <h3>Project Location</h3>
         </div>
+        <h5>Project description:</h5>
         <p id="projectDescription">
-          <h5>Project description:</h5>
           Lots of words Lots of words Lots of words Lots of words Lots of words
           Lots of words Lots of words Lots of words Lots of words Lots of words
           Lots of words Lots of words Lots of words Lots of words Lots of words

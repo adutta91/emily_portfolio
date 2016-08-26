@@ -6,16 +6,20 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
   <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+  <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css" />
 
+  <script src="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.js"></script>
   <script src="http://www.webglearth.com/v2/api.js"></script>
-  <script>
-    function initialize() {
-      var earth = new WE.map('earth_div');
-      WE.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
-        attribution: '© OpenStreetMap contributors'
-      }).addTo(earth);
-    }
-  </script>
+
+  <style>
+    html, body{padding: 0; margin: 0; overflow: hidden;}
+    #mapL, #mapWE {position:absolute !important; top: 0; right: 0; bottom: 0; left: 0;
+                   background-color: #fff; position: absolute !important;}
+    #mapL {right: 50%;}
+    #mapWE {left: 50%;}
+    #coords {position: absolute; bottom: 0;}
+  </style>
+  
 </head>
 <body>
 
