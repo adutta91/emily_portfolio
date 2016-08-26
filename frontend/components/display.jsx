@@ -30,7 +30,7 @@ var Display = React.createClass({
 
   render: function() {
     return (
-      <div>
+      <div id="display" className="flex">
         { this.getTab() }
       </div>
     )

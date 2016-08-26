@@ -21924,7 +21924,7 @@
 	  render: function () {
 	    return React.createElement(
 	      'div',
-	      null,
+	      { id: 'display', className: 'flex' },
 	      this.getTab()
 	    );
 	  }
@@ -28478,8 +28478,10 @@
 
 	var React = __webpack_require__(1);
 	
+	var ProjectInfo = __webpack_require__(208);
+	
 	var Projects = React.createClass({
-	  displayName: "Projects",
+	  displayName: 'Projects',
 	
 	
 	  componentDidMount: function () {
@@ -28487,7 +28489,12 @@
 	  },
 	
 	  render: function () {
-	    return React.createElement("div", { id: "earth_div" });
+	    return React.createElement(
+	      'div',
+	      { id: 'projectsTab', className: 'flex' },
+	      React.createElement('div', { id: 'earth_div' }),
+	      React.createElement(ProjectInfo, null)
+	    );
 	  }
 	});
 	
@@ -28512,6 +28519,49 @@
 	});
 	
 	module.exports = Contact;
+
+/***/ },
+/* 208 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	
+	var ProjectInfo = React.createClass({
+	  displayName: "ProjectInfo",
+	
+	  render: function () {
+	    return React.createElement(
+	      "div",
+	      { id: "projectDetail", className: "flex column center" },
+	      React.createElement(
+	        "div",
+	        { id: "projectHeader" },
+	        React.createElement(
+	          "h1",
+	          null,
+	          "Project Title"
+	        ),
+	        React.createElement(
+	          "h3",
+	          null,
+	          "Project Location"
+	        )
+	      ),
+	      React.createElement(
+	        "p",
+	        { id: "projectDescription" },
+	        React.createElement(
+	          "h5",
+	          null,
+	          "Project description:"
+	        ),
+	        "Lots of words Lots of words Lots of words Lots of words Lots of words Lots of words Lots of words Lots of words Lots of words Lots of words Lots of words Lots of words Lots of words Lots of words Lots of words Lots of words Lots of words Lots of words Lots of words Lots of words Lots of words Lots of words Lots of words Lots of words Lots of words Lots of words Lots of words Lots of words Lots of words Lots of words Lots of words Lots of words Lots of words Lots of words Lots of words"
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = ProjectInfo;
 
 /***/ }
 /******/ ]);

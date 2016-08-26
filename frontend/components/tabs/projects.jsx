@@ -1,5 +1,7 @@
 var React = require('react');
 
+var ProjectInfo = require('../projects/projectInfo');
+
 var Projects = React.createClass({
 
   componentDidMount: function() {
@@ -8,7 +10,10 @@ var Projects = React.createClass({
 
   render: function() {
     return (
-      <div id="earth_div"></div>
+      <div id="projectsTab" className="flex">
+        <div id="earth_div"></div>
+        <ProjectInfo />
+      </div>
     )
   }
 });
