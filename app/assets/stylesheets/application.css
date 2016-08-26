@@ -60,6 +60,17 @@ h3 {
   cursor: pointer;
 }
 
+.crop {
+  background: url("http://www.zalaw.com/images/happy-dog.jpg") no-repeat center center;
+  width: 30vw;
+  height: 50vw;
+}
+
+.description {
+  width: 50vw;
+  margin: 0 0 0 30px;
+}
+
 /* flex stylings */
 
 .flex {

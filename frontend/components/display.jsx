@@ -2,6 +2,8 @@ var React = require('react');
 
 var TabStore = require('../stores/tabStore');
 
+var TABCOMPONENTS = require('../assets/tabComponents');
+
 var Display = React.createClass({
 
   getInitialState: function() {
@@ -22,10 +24,14 @@ var Display = React.createClass({
     this.setState({ tab: TabStore.selectedTab() });
   },
 
+  getTab: function() {
+    return TABCOMPONENTS[this.state.tab]
+  },
+
   render: function() {
     return (
       <div>
-
+        { this.getTab() }
       </div>
     )
   }
