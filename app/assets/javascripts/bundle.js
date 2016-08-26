@@ -28480,13 +28480,32 @@
 	
 	var ProjectInfo = __webpack_require__(208);
 	
+	var ProjectUtil = __webpack_require__(210);
+	var ProjectStore = __webpack_require__(209);
+	
 	var Projects = React.createClass({
 	  displayName: 'Projects',
 	
 	
+	  getInitialState: function () {
+	    return {
+	      projects: ProjectStore.projects()
+	    };
+	  },
+	
 	  componentDidMount: function () {
-	    var globe = initializeGlobe();
-	    addMarkers(globe);
+	    this.globe = initializeGlobe();
+	    this.projectListener = ProjectStore.addListener(this.update);
+	    ProjectUtil.fetchProjects();
+	  },
+	
+	  componentWillUnmount: function () {
+	    this.projectListener.remove();
+	  },
+	
+	  update: function () {
+	    this.setState({ projects: ProjectStore.projects() });
+	    addMarkers(this.globe);
 	  },
 	
 	  render: function () {
@@ -28580,6 +28599,72 @@
 	});
 	
 	module.exports = ProjectInfo;
+
+/***/ },
+/* 209 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Store = __webpack_require__(186).Store;
+	var Dispatcher = __webpack_require__(179);
+	
+	var ProjectStore = new Store(Dispatcher);
+	
+	var _projects = [];
+	
+	ProjectStore.projects = function () {
+	  return _projects;
+	};
+	
+	ProjectStore.__onDispatch = function (payload) {
+	  switch (payload.actionType) {
+	    case 'RECEIVE_PROJECTS':
+	      resetProjects(payload.projects);
+	      ProjectStore.__emitChange();
+	      break;
+	  }
+	};
+	
+	var resetProjects = function (projects) {
+	  _projects = projects;
+	};
+	
+	module.exports = ProjectStore;
+
+/***/ },
+/* 210 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var ProjectActions = __webpack_require__(211);
+	
+	module.exports = {
+	  fetchProjects: function () {
+	    $.ajax({
+	      url: 'api/projects',
+	      method: 'GET',
+	      success: function (projects) {
+	        debugger;
+	      },
+	      error: function (error) {
+	        alert(error.responseText);
+	      }
+	    });
+	  }
+	};
+
+/***/ },
+/* 211 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Dispatcher = __webpack_require__(179);
+	
+	module.exports = {
+	  receiveProjects: function (projects) {
+	    Dispatcher.dispatch({
+	      actionType: "RECEIVE_PROJECTS",
+	      projects: projects
+	    });
+	  }
+	};
 
 /***/ }
 /******/ ]);

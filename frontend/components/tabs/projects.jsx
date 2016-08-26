@@ -2,11 +2,30 @@ var React = require('react');
 
 var ProjectInfo = require('../projects/projectInfo');
 
+var ProjectUtil = require('../../utils/projectUtil');
+var ProjectStore = require('../../stores/projectStore');
+
 var Projects = React.createClass({
 
+  getInitialState: function() {
+    return ({
+      projects: ProjectStore.projects()
+    })
+  },
+
   componentDidMount: function() {
-    var globe = initializeGlobe();
-    addMarkers(globe);
+    this.globe = initializeGlobe();
+    this.projectListener = ProjectStore.addListener(this.update);
+    ProjectUtil.fetchProjects();
+  },
+
+  componentWillUnmount: function() {
+    this.projectListener.remove();
+  },
+
+  update: function() {
+    this.setState({ projects: ProjectStore.projects() });
+    addMarkers(this.globe);
   },
 
   render: function() {
