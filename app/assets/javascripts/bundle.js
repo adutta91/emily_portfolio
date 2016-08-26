@@ -28412,9 +28412,13 @@
 	
 	var React = __webpack_require__(1);
 	var AboutMe = __webpack_require__(204);
+	var Projects = __webpack_require__(206);
+	var Contact = __webpack_require__(207);
 	
 	module.exports = {
-	  "aboutMe": React.createElement(AboutMe, null)
+	  "aboutMe": React.createElement(AboutMe, null),
+	  "projects": React.createElement(Projects, null),
+	  "contact": React.createElement(Contact, null)
 	};
 
 /***/ },
@@ -28467,6 +28471,47 @@
 	});
 	
 	module.exports = Description;
+
+/***/ },
+/* 206 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	
+	var Projects = React.createClass({
+	  displayName: "Projects",
+	
+	
+	  componentDidMount: function () {
+	    initialize();
+	  },
+	
+	  render: function () {
+	    return React.createElement("div", { id: "earth_div" });
+	  }
+	});
+	
+	module.exports = Projects;
+
+/***/ },
+/* 207 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	
+	var Contact = React.createClass({
+	  displayName: 'Contact',
+	
+	  render: function () {
+	    return React.createElement(
+	      'h1',
+	      null,
+	      ' ~ Contact display in progress ~ '
+	    );
+	  }
+	});
+	
+	module.exports = Contact;
 
 /***/ }
 /******/ ]);

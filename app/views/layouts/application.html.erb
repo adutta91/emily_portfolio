@@ -1,11 +1,21 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>EmilyPortfolio</title>
+  <title>Emily's Portfolio</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
   <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+
+  <script src="http://www.webglearth.com/v2/api.js"></script>
+  <script>
+    function initialize() {
+      var earth = new WE.map('earth_div');
+      WE.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
+        attribution: '© OpenStreetMap contributors'
+      }).addTo(earth);
+    }
+  </script>
 </head>
 <body>
 
