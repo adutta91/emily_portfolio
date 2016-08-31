@@ -23,7 +23,7 @@ var Display = React.createClass({
   update: function() {
     this.setState({ tab: TabStore.selectedTab() });
   },
-
+  
   getTab: function() {
     return TABCOMPONENTS[this.state.tab]
   },

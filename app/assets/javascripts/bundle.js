@@ -28408,7 +28408,6 @@
 /* 202 */
 /***/ function(module, exports, __webpack_require__) {
 
-	
 	var React = __webpack_require__(1);
 	var AboutMe = __webpack_require__(203);
 	var Projects = __webpack_require__(205);
@@ -28431,10 +28430,20 @@
 	var AboutMe = React.createClass({
 	  displayName: 'AboutMe',
 	
+	  componentDidMount: function () {
+	    var tab = document.getElementsByClassName('displayTab')[0];
+	    tab.classList.add("loaded");
+	  },
+	
+	  componentWillUnmount: function () {
+	    var tab = document.getElementsByClassName('loaded')[0];
+	    tab.classList.remove("loaded");
+	  },
+	
 	  render: function () {
 	    return React.createElement(
 	      'div',
-	      { id: 'aboutMe', className: 'flex center' },
+	      { id: 'aboutMe', className: 'flex center displayTab' },
 	      React.createElement('div', { className: 'crop' }),
 	      React.createElement(Description, null)
 	    );
@@ -28485,10 +28494,20 @@
 	var Projects = React.createClass({
 	  displayName: 'Projects',
 	
+	  componentDidMount: function () {
+	    var tab = document.getElementsByClassName('displayTab')[0];
+	    tab.classList.add("loaded");
+	  },
+	
+	  componentWillUnmount: function () {
+	    var tab = document.getElementsByClassName('loaded')[0];
+	    tab.classList.remove("loaded");
+	  },
+	
 	  render: function () {
 	    return React.createElement(
 	      'div',
-	      { id: 'projectsTab', className: 'flex' },
+	      { id: 'projectsTab', className: 'flex displayTab' },
 	      React.createElement(Globe, null),
 	      React.createElement(ProjectInfo, null)
 	    );
@@ -28628,11 +28647,25 @@
 	var Contact = React.createClass({
 	  displayName: 'Contact',
 	
+	  componentDidMount: function () {
+	    var tab = document.getElementsByClassName('displayTab')[0];
+	    tab.classList.add("loaded");
+	  },
+	
+	  componentWillUnmount: function () {
+	    var tab = document.getElementsByClassName('loaded')[0];
+	    tab.classList.remove("loaded");
+	  },
+	
 	  render: function () {
 	    return React.createElement(
-	      'h1',
-	      null,
-	      ' ~ Contact display in progress ~ '
+	      'div',
+	      { className: 'displayTab' },
+	      React.createElement(
+	        'h1',
+	        null,
+	        ' ~ Contact display in progress ~ '
+	      )
 	    );
 	  }
 	});

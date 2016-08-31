@@ -1,4 +1,3 @@
-
 var React = require('react');
 var AboutMe = require('../components/tabs/aboutMe');
 var Projects = require('../components/tabs/projects');
