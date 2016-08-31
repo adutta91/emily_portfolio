@@ -14,7 +14,8 @@ module.exports = {
     });
   },
 
-  setProject: function(project) {
+  setProject: function(globe, project) {
+    globe.setView([project.lat, project.lng], 2.5);
     ProjectActions.setProject(project);
   }
 }

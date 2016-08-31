@@ -28431,7 +28431,7 @@
 	  displayName: 'AboutMe',
 	
 	  componentDidMount: function () {
-	    this.enterTimer = window.setTimeout(this.changeClass, 500);
+	    this.enterTimer = window.setTimeout(this.changeClass, 250);
 	  },
 	
 	  componentWillUnmount: function () {
@@ -28614,7 +28614,8 @@
 	    });
 	  },
 	
-	  setProject: function (project) {
+	  setProject: function (globe, project) {
+	    globe.setView([project.lat, project.lng], 2.5);
 	    ProjectActions.setProject(project);
 	  }
 	};
@@ -28694,7 +28695,7 @@
 	  displayName: 'Contact',
 	
 	  componentDidMount: function () {
-	    this.enterTimer = window.setTimeout(this.changeClass, 500);
+	    this.enterTimer = window.setTimeout(this.changeClass, 250);
 	  },
 	
 	  componentWillUnmount: function () {
@@ -28799,15 +28800,10 @@
 	    projects.forEach(function (project, idx) {
 	      var marker = WE.marker([project.lat, project.lng]).addTo(globe);
 	      marker.element.addEventListener("click", function () {
-	        markerClicked(globe, project);
+	        ProjectUtil.setProject(globe, project);
 	      });
 	    });
 	  }
-	};
-	
-	var markerClicked = function (globe, project) {
-	  globe.setView([project.lat, project.lng], 2.5);
-	  ProjectUtil.setProject(project);
 	};
 	
 	module.exports = Globe;

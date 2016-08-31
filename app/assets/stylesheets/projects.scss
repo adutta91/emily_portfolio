@@ -34,6 +34,7 @@
 
 #projectDescription {
   line-height: 24px;
+  margin: 10px 0;
 }
 
 #projectList {
@@ -52,6 +53,11 @@
   width: 80px;
   height: 40px;
   text-align: center;
+}
+
+#projectItem:hover {
+  cursor: pointer;
+  
 }
 
 .we-pm-icon {

@@ -2,7 +2,7 @@ var React = require('react');
 
 var Contact = React.createClass({
   componentDidMount: function() {
-    this.enterTimer = window.setTimeout(this.changeClass, 500);
+    this.enterTimer = window.setTimeout(this.changeClass, 250);
   },
 
   componentWillUnmount: function() {

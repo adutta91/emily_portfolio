@@ -4,7 +4,7 @@ var Description = require('./description');
 
 var AboutMe = React.createClass({
   componentDidMount: function() {
-    this.enterTimer = window.setTimeout(this.changeClass, 500);
+    this.enterTimer = window.setTimeout(this.changeClass, 250);
   },
 
   componentWillUnmount: function() {

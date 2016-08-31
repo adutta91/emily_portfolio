@@ -68,14 +68,9 @@ var addMarkers = function(globe, projects) {
   if (projects.length > 0 && globe.c) {
     projects.forEach(function(project, idx) {
       var marker = WE.marker([project.lat, project.lng]).addTo(globe);
-      marker.element.addEventListener("click", function() { markerClicked(globe, project) });
+      marker.element.addEventListener("click", function() { ProjectUtil.setProject(globe, project) });
     });
   }
-};
-
-var markerClicked = function(globe, project) {
-  globe.setView([project.lat, project.lng], 2.5);
-  ProjectUtil.setProject(project);
 };
 
 module.exports = Globe;
