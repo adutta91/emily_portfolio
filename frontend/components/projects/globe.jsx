@@ -52,7 +52,7 @@ var animate = function(globe) {
   var before = null;
   requestAnimationFrame(function animate(now) {
       var c = globe.getPosition();
-      var elapsed = before? now - before: 0;
+      var elapsed = before ? now - before : 0;
       before = now;
       globe.setCenter([c[0], c[1] + 0.1*(elapsed/30)]);
       requestAnimationFrame(animate);
@@ -69,7 +69,8 @@ var addMarkers = function(globe, projects) {
 };
 
 var markerClicked = function(globe, project) {
-  globe.setView([project.lat, project.lng], 3.0);
+  globe.setCenter([project.lat, project.lng]);
+  globe.setZoom(2.5);
   ProjectUtil.setProject(project);
 };
 

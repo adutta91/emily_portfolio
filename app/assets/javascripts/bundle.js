@@ -28787,7 +28787,8 @@
 	};
 	
 	var markerClicked = function (globe, project) {
-	  globe.setView([project.lat, project.lng], 3.0);
+	  globe.setCenter([project.lat, project.lng]);
+	  globe.setZoom(2.5);
 	  ProjectUtil.setProject(project);
 	};
 	
