@@ -7,22 +7,28 @@ var Globe = React.createClass({
 
   getInitialState: function() {
     return ({
-      markers: this.props.markers,
-      globe: {}
+      markers: ProjectStore.projects(),
+      globe: {},
+      mounted: false
     });
   },
 
   componentDidMount: function() {
+    this.state.mounted = true;
     this.state.globe = initializeGlobe();
     this.projectListener = ProjectStore.addListener(this.update);
+    ProjectUtil.fetchProjects();
   },
 
   componentWillUnmount: function() {
+    this.state.mounted = false;
     this.projectListener.remove();
   },
 
   update: function() {
-    this.setState({ markers: ProjectStore.projects() })
+    if (this.state.mounted) {
+      this.setState({ markers: ProjectStore.projects() });
+    }
   },
 
   render: function() {
@@ -54,7 +60,7 @@ var animate = function(globe) {
 };
 
 var addMarkers = function(globe, projects) {
-  if (projects) {
+  if (projects.length > 0 && globe.c) {
     projects.forEach(function(project, idx) {
       var marker = WE.marker([project.lat, project.lng]).addTo(globe);
       marker.element.addEventListener("click", function() { alert('hey ' + idx) })

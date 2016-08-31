@@ -28481,36 +28481,15 @@
 	var Globe = __webpack_require__(211);
 	
 	var ProjectUtil = __webpack_require__(207);
-	var ProjectStore = __webpack_require__(209);
 	
 	var Projects = React.createClass({
 	  displayName: 'Projects',
-	
-	
-	  getInitialState: function () {
-	    return {
-	      projects: ProjectStore.projects()
-	    };
-	  },
-	
-	  componentDidMount: function () {
-	    this.projectListener = ProjectStore.addListener(this.update);
-	    ProjectUtil.fetchProjects();
-	  },
-	
-	  componentWillUnmount: function () {
-	    this.projectListener.remove();
-	  },
-	
-	  update: function () {
-	    this.setState({ projects: ProjectStore.projects() });
-	  },
 	
 	  render: function () {
 	    return React.createElement(
 	      'div',
 	      { id: 'projectsTab', className: 'flex' },
-	      React.createElement(Globe, { markers: this.state.projects }),
+	      React.createElement(Globe, null),
 	      React.createElement(ProjectInfo, null)
 	    );
 	  }
@@ -28675,22 +28654,28 @@
 	
 	  getInitialState: function () {
 	    return {
-	      markers: this.props.markers,
-	      globe: {}
+	      markers: ProjectStore.projects(),
+	      globe: {},
+	      mounted: false
 	    };
 	  },
 	
 	  componentDidMount: function () {
+	    this.state.mounted = true;
 	    this.state.globe = initializeGlobe();
 	    this.projectListener = ProjectStore.addListener(this.update);
+	    ProjectUtil.fetchProjects();
 	  },
 	
 	  componentWillUnmount: function () {
+	    this.state.mounted = false;
 	    this.projectListener.remove();
 	  },
 	
 	  update: function () {
-	    this.setState({ markers: ProjectStore.projects() });
+	    if (this.state.mounted) {
+	      this.setState({ markers: ProjectStore.projects() });
+	    }
 	  },
 	
 	  render: function () {
@@ -28720,7 +28705,7 @@
 	};
 	
 	var addMarkers = function (globe, projects) {
-	  if (projects) {
+	  if (projects.length > 0 && globe.c) {
 	    projects.forEach(function (project, idx) {
 	      var marker = WE.marker([project.lat, project.lng]).addTo(globe);
 	      marker.element.addEventListener("click", function () {
