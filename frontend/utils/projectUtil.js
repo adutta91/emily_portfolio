@@ -6,7 +6,7 @@ module.exports = {
       url: 'api/projects',
       method: 'GET',
       success: function(projects) {
-        debugger;
+        ProjectActions.receiveProjects(projects);
       },
       error: function(error) {
         alert(error.responseText);

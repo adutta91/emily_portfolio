@@ -40,7 +40,7 @@ h3, h5 {
 
 #projectDetail {
   width: 50%;
-  height: 80%;
+  min-height: 80%;
   margin-left: 20px;
   align-self: flex-start;
 }
