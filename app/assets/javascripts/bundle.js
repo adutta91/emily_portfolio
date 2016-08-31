@@ -47,7 +47,7 @@
 	var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(34);
 	
-	var App = __webpack_require__(183);
+	var App = __webpack_require__(172);
 	
 	document.addEventListener('DOMContentLoaded', function () {
 	  var root = document.getElementById('root');
@@ -21406,7 +21406,33 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 172 */,
+/* 172 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	
+	var Header = __webpack_require__(173);
+	var SubHeader = __webpack_require__(174);
+	var Display = __webpack_require__(201);
+	
+	var App = React.createClass({
+	  displayName: 'App',
+	
+	
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      { id: 'app', className: 'flex column center' },
+	      React.createElement(Header, null),
+	      React.createElement(SubHeader, null),
+	      React.createElement(Display, null)
+	    );
+	  }
+	});
+	
+	module.exports = App;
+
+/***/ },
 /* 173 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -21442,7 +21468,7 @@
 	var TABNAMES = __webpack_require__(176);
 	
 	var TabUtil = __webpack_require__(177);
-	var TabStore = __webpack_require__(185);
+	var TabStore = __webpack_require__(183);
 	
 	var SubHeader = React.createClass({
 	  displayName: 'SubHeader',
@@ -21862,6 +21888,7 @@
 /* 183 */
 /***/ function(module, exports, __webpack_require__) {
 
+<<<<<<< HEAD
 	var React = __webpack_require__(1);
 	
 	var Header = __webpack_require__(173);
@@ -21937,6 +21964,9 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var Store = __webpack_require__(186).Store;
+=======
+	var Store = __webpack_require__(184).Store;
+>>>>>>> f38001f055ab9c4307c35d93398c911d93d6c0ea
 	var Dispatcher = __webpack_require__(179);
 	
 	var TabStore = new Store(Dispatcher);
@@ -21963,7 +21993,7 @@
 	module.exports = TabStore;
 
 /***/ },
-/* 186 */
+/* 184 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -21975,15 +22005,15 @@
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 */
 	
-	module.exports.Container = __webpack_require__(187);
-	module.exports.MapStore = __webpack_require__(190);
-	module.exports.Mixin = __webpack_require__(202);
-	module.exports.ReduceStore = __webpack_require__(191);
-	module.exports.Store = __webpack_require__(192);
+	module.exports.Container = __webpack_require__(185);
+	module.exports.MapStore = __webpack_require__(188);
+	module.exports.Mixin = __webpack_require__(200);
+	module.exports.ReduceStore = __webpack_require__(189);
+	module.exports.Store = __webpack_require__(190);
 
 
 /***/ },
-/* 187 */
+/* 185 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -22005,10 +22035,10 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var FluxStoreGroup = __webpack_require__(188);
+	var FluxStoreGroup = __webpack_require__(186);
 	
 	var invariant = __webpack_require__(182);
-	var shallowEqual = __webpack_require__(189);
+	var shallowEqual = __webpack_require__(187);
 	
 	var DEFAULT_OPTIONS = {
 	  pure: true,
@@ -22166,7 +22196,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 188 */
+/* 186 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -22247,7 +22277,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 189 */
+/* 187 */
 /***/ function(module, exports) {
 
 	/**
@@ -22302,7 +22332,7 @@
 	module.exports = shallowEqual;
 
 /***/ },
-/* 190 */
+/* 188 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -22323,8 +22353,8 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var FluxReduceStore = __webpack_require__(191);
-	var Immutable = __webpack_require__(201);
+	var FluxReduceStore = __webpack_require__(189);
+	var Immutable = __webpack_require__(199);
 	
 	var invariant = __webpack_require__(182);
 	
@@ -22452,7 +22482,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 191 */
+/* 189 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -22473,9 +22503,9 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var FluxStore = __webpack_require__(192);
+	var FluxStore = __webpack_require__(190);
 	
-	var abstractMethod = __webpack_require__(200);
+	var abstractMethod = __webpack_require__(198);
 	var invariant = __webpack_require__(182);
 	
 	var FluxReduceStore = (function (_FluxStore) {
@@ -22559,7 +22589,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 192 */
+/* 190 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -22578,7 +22608,7 @@
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 	
-	var _require = __webpack_require__(193);
+	var _require = __webpack_require__(191);
 	
 	var EventEmitter = _require.EventEmitter;
 	
@@ -22742,7 +22772,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 193 */
+/* 191 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -22755,14 +22785,14 @@
 	 */
 	
 	var fbemitter = {
-	  EventEmitter: __webpack_require__(194)
+	  EventEmitter: __webpack_require__(192)
 	};
 	
 	module.exports = fbemitter;
 
 
 /***/ },
-/* 194 */
+/* 192 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -22781,11 +22811,11 @@
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 	
-	var EmitterSubscription = __webpack_require__(195);
-	var EventSubscriptionVendor = __webpack_require__(197);
+	var EmitterSubscription = __webpack_require__(193);
+	var EventSubscriptionVendor = __webpack_require__(195);
 	
-	var emptyFunction = __webpack_require__(199);
-	var invariant = __webpack_require__(198);
+	var emptyFunction = __webpack_require__(197);
+	var invariant = __webpack_require__(196);
 	
 	/**
 	 * @class BaseEventEmitter
@@ -22959,7 +22989,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 195 */
+/* 193 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -22980,7 +23010,7 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var EventSubscription = __webpack_require__(196);
+	var EventSubscription = __webpack_require__(194);
 	
 	/**
 	 * EmitterSubscription represents a subscription with listener and context data.
@@ -23012,7 +23042,7 @@
 	module.exports = EmitterSubscription;
 
 /***/ },
-/* 196 */
+/* 194 */
 /***/ function(module, exports) {
 
 	/**
@@ -23066,7 +23096,7 @@
 	module.exports = EventSubscription;
 
 /***/ },
-/* 197 */
+/* 195 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -23085,7 +23115,7 @@
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 	
-	var invariant = __webpack_require__(198);
+	var invariant = __webpack_require__(196);
 	
 	/**
 	 * EventSubscriptionVendor stores a set of EventSubscriptions that are
@@ -23175,7 +23205,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 198 */
+/* 196 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -23230,7 +23260,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 199 */
+/* 197 */
 /***/ function(module, exports) {
 
 	/**
@@ -23272,7 +23302,7 @@
 	module.exports = emptyFunction;
 
 /***/ },
-/* 200 */
+/* 198 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -23299,7 +23329,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 201 */
+/* 199 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -28283,7 +28313,7 @@
 	}));
 
 /***/ },
-/* 202 */
+/* 200 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -28300,7 +28330,7 @@
 	
 	'use strict';
 	
-	var FluxStoreGroup = __webpack_require__(188);
+	var FluxStoreGroup = __webpack_require__(186);
 	
 	var invariant = __webpack_require__(182);
 	
@@ -28406,14 +28436,65 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 203 */
+/* 201 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	
+	var TabStore = __webpack_require__(183);
+	
+	var TABCOMPONENTS = __webpack_require__(202);
+	
+	var Display = React.createClass({
+	  displayName: 'Display',
+	
+	
+	  getInitialState: function () {
+	    return {
+	      tab: TabStore.selectedTab()
+	    };
+	  },
+	
+	  componentDidMount: function () {
+	    this.tabListener = TabStore.addListener(this.update);
+	  },
+	
+	  componentWillUnmount: function () {
+	    this.tabListener.remove();
+	  },
+	
+	  update: function () {
+	    this.setState({ tab: TabStore.selectedTab() });
+	  },
+	
+	  getTab: function () {
+	    return TABCOMPONENTS[this.state.tab];
+	  },
+	
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      null,
+	      this.getTab()
+	    );
+	  }
+	});
+	
+	module.exports = Display;
+
+/***/ },
+/* 202 */
 /***/ function(module, exports, __webpack_require__) {
 
 	
 	var React = __webpack_require__(1);
+<<<<<<< HEAD
 	var AboutMe = __webpack_require__(204);
 	var Projects = __webpack_require__(206);
 	var Contact = __webpack_require__(207);
+=======
+	var AboutMe = __webpack_require__(203);
+>>>>>>> f38001f055ab9c4307c35d93398c911d93d6c0ea
 	
 	module.exports = {
 	  "aboutMe": React.createElement(AboutMe, null),
@@ -28422,12 +28503,12 @@
 	};
 
 /***/ },
-/* 204 */
+/* 203 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	
-	var Description = __webpack_require__(205);
+	var Description = __webpack_require__(204);
 	
 	var AboutMe = React.createClass({
 	  displayName: 'AboutMe',
@@ -28445,7 +28526,7 @@
 	module.exports = AboutMe;
 
 /***/ },
-/* 205 */
+/* 204 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
