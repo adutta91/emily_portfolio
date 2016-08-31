@@ -28411,7 +28411,7 @@
 	var React = __webpack_require__(1);
 	var AboutMe = __webpack_require__(203);
 	var Projects = __webpack_require__(205);
-	var Contact = __webpack_require__(210);
+	var Contact = __webpack_require__(216);
 	
 	module.exports = {
 	  "aboutMe": React.createElement(AboutMe, null),
@@ -28491,9 +28491,9 @@
 	var React = __webpack_require__(1);
 	
 	var ProjectInfo = __webpack_require__(206);
-	var Globe = __webpack_require__(211);
+	var Globe = __webpack_require__(208);
 	
-	var ProjectUtil = __webpack_require__(207);
+	var ProjectUtil = __webpack_require__(211);
 	
 	var Projects = React.createClass({
 	  displayName: 'Projects',
@@ -28530,7 +28530,7 @@
 
 	var React = __webpack_require__(1);
 	
-	var ProjectStore = __webpack_require__(209);
+	var ProjectStore = __webpack_require__(207);
 	
 	var ProjectInfo = React.createClass({
 	  displayName: 'ProjectInfo',
@@ -28598,54 +28598,6 @@
 /* 207 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var ProjectActions = __webpack_require__(208);
-	
-	module.exports = {
-	  fetchProjects: function () {
-	    $.ajax({
-	      url: 'api/projects',
-	      method: 'GET',
-	      success: function (projects) {
-	        ProjectActions.receiveProjects(projects);
-	      },
-	      error: function (error) {
-	        alert(error.responseText);
-	      }
-	    });
-	  },
-	
-	  setProject: function (globe, project) {
-	    globe.setView([project.lat, project.lng], 2.5);
-	    ProjectActions.setProject(project);
-	  }
-	};
-
-/***/ },
-/* 208 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var Dispatcher = __webpack_require__(179);
-	
-	module.exports = {
-	  receiveProjects: function (projects) {
-	    Dispatcher.dispatch({
-	      actionType: "RECEIVE_PROJECTS",
-	      projects: projects
-	    });
-	  },
-	
-	  setProject: function (project) {
-	    Dispatcher.dispatch({
-	      actionType: "VIEW_PROJECT",
-	      project: project
-	    });
-	  }
-	};
-
-/***/ },
-/* 209 */
-/***/ function(module, exports, __webpack_require__) {
-
 	var Store = __webpack_require__(184).Store;
 	var Dispatcher = __webpack_require__(179);
 	
@@ -28686,56 +28638,18 @@
 	module.exports = ProjectStore;
 
 /***/ },
-/* 210 */
+/* 208 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	
-	var Contact = React.createClass({
-	  displayName: 'Contact',
+	var ProjectList = __webpack_require__(209);
 	
-	  componentDidMount: function () {
-	    this.enterTimer = window.setTimeout(this.changeClass, 250);
-	  },
+	var GlobeStore = __webpack_require__(213);
+	var GlobeUtil = __webpack_require__(214);
 	
-	  componentWillUnmount: function () {
-	    window.clearTimeout(this.enterTimer);
-	  },
-	
-	  changeClass: function () {
-	    var tab = document.getElementsByClassName('hidden')[0];
-	    tab.classList.remove("hidden");
-	    tab.classList.add("loaded");
-	  },
-	
-	  render: function () {
-	    return React.createElement(
-	      'div',
-	      { className: 'hidden' },
-	      React.createElement(
-	        'h1',
-	        null,
-	        ' ~ Contact display in progress ~ '
-	      )
-	    );
-	  }
-	});
-	
-	module.exports = Contact;
-
-/***/ },
-/* 211 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	
-	var ProjectList = __webpack_require__(220);
-	
-	var GlobeStore = __webpack_require__(223);
-	var GlobeUtil = __webpack_require__(221);
-	
-	var ProjectStore = __webpack_require__(209);
-	var ProjectUtil = __webpack_require__(207);
+	var ProjectStore = __webpack_require__(207);
+	var ProjectUtil = __webpack_require__(211);
 	
 	var Globe = React.createClass({
 	  displayName: 'Globe',
@@ -28780,11 +28694,11 @@
 	});
 	
 	var initializeGlobe = function () {
-	  var globe = new WE.map('globe_div', { tilting: false, zoom: 2.0, position: [34.44805, -119.242889] });
+	  var globe = new WE.map('globe_div', { tilting: false, zoom: 1.5, position: [34.44805, -119.242889] });
 	  WE.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 	    attribution: '© OpenStreetMap contributors'
 	  }).addTo(globe);
-	  // animate(globe);
+	  animate(globe);
 	  GlobeUtil.setGlobe(globe);
 	};
 	
@@ -28802,6 +28716,7 @@
 	var addMarkers = function (globe, projects) {
 	  if (projects.length > 0 && globe.c) {
 	    projects.forEach(function (project, idx) {
+	      // var marker = WE.marker([project.lat, project.lng], "http://res.cloudinary.com/dzyfczxnr/image/upload/c_scale,w_28/v1472684320/portfolio/map-marker-icon.png", 28, 28).addTo(globe);
 	      var marker = WE.marker([project.lat, project.lng]).addTo(globe);
 	      marker.element.addEventListener("click", function () {
 	        ProjectUtil.setProject(globe, project);
@@ -28813,21 +28728,13 @@
 	module.exports = Globe;
 
 /***/ },
-/* 212 */,
-/* 213 */,
-/* 214 */,
-/* 215 */,
-/* 216 */,
-/* 217 */,
-/* 218 */,
-/* 219 */,
-/* 220 */
+/* 209 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	
-	var ProjectStore = __webpack_require__(209);
-	var ProjectItem = __webpack_require__(224);
+	var ProjectStore = __webpack_require__(207);
+	var ProjectItem = __webpack_require__(210);
 	
 	var ProjectList = React.createClass({
 	  displayName: 'ProjectList',
@@ -28871,72 +28778,15 @@
 	module.exports = ProjectList;
 
 /***/ },
-/* 221 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var GlobeActions = __webpack_require__(222);
-	
-	module.exports = {
-	  setGlobe: function (globe) {
-	    GlobeActions.setGlobe(globe);
-	  }
-	};
-
-/***/ },
-/* 222 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var Dispatcher = __webpack_require__(179);
-	
-	module.exports = {
-	  setGlobe: function (globe) {
-	    Dispatcher.dispatch({
-	      actionType: "RECEIVE_GLOBE",
-	      globe: globe
-	    });
-	  }
-	};
-
-/***/ },
-/* 223 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var Store = __webpack_require__(184).Store;
-	var Dispatcher = __webpack_require__(179);
-	
-	var GlobeStore = new Store(Dispatcher);
-	
-	var _globe = {};
-	
-	GlobeStore.globe = function () {
-	  return _globe;
-	};
-	
-	GlobeStore.__onDispatch = function (payload) {
-	  switch (payload.actionType) {
-	    case 'RECEIVE_GLOBE':
-	      resetGlobe(payload.globe);
-	      GlobeStore.__emitChange();
-	      break;
-	  }
-	};
-	
-	var resetGlobe = function (globe) {
-	  _globe = globe;
-	};
-	
-	module.exports = GlobeStore;
-
-/***/ },
-/* 224 */
+/* 210 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	
-	var ProjectUtil = __webpack_require__(207);
+	var ProjectUtil = __webpack_require__(211);
 	
-	var ProjectStore = __webpack_require__(209);
-	var GlobeStore = __webpack_require__(223);
+	var ProjectStore = __webpack_require__(207);
+	var GlobeStore = __webpack_require__(213);
 	
 	var ProjectItem = React.createClass({
 	  displayName: 'ProjectItem',
@@ -28966,6 +28816,149 @@
 	});
 	
 	module.exports = ProjectItem;
+
+/***/ },
+/* 211 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var ProjectActions = __webpack_require__(212);
+	
+	module.exports = {
+	  fetchProjects: function () {
+	    $.ajax({
+	      url: 'api/projects',
+	      method: 'GET',
+	      success: function (projects) {
+	        ProjectActions.receiveProjects(projects);
+	      },
+	      error: function (error) {
+	        alert(error.responseText);
+	      }
+	    });
+	  },
+	
+	  setProject: function (globe, project) {
+	    globe.setView([project.lat, project.lng], 2.5);
+	    ProjectActions.setProject(project);
+	  }
+	};
+
+/***/ },
+/* 212 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Dispatcher = __webpack_require__(179);
+	
+	module.exports = {
+	  receiveProjects: function (projects) {
+	    Dispatcher.dispatch({
+	      actionType: "RECEIVE_PROJECTS",
+	      projects: projects
+	    });
+	  },
+	
+	  setProject: function (project) {
+	    Dispatcher.dispatch({
+	      actionType: "VIEW_PROJECT",
+	      project: project
+	    });
+	  }
+	};
+
+/***/ },
+/* 213 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Store = __webpack_require__(184).Store;
+	var Dispatcher = __webpack_require__(179);
+	
+	var GlobeStore = new Store(Dispatcher);
+	
+	var _globe = {};
+	
+	GlobeStore.globe = function () {
+	  return _globe;
+	};
+	
+	GlobeStore.__onDispatch = function (payload) {
+	  switch (payload.actionType) {
+	    case 'RECEIVE_GLOBE':
+	      resetGlobe(payload.globe);
+	      GlobeStore.__emitChange();
+	      break;
+	  }
+	};
+	
+	var resetGlobe = function (globe) {
+	  _globe = globe;
+	};
+	
+	module.exports = GlobeStore;
+
+/***/ },
+/* 214 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var GlobeActions = __webpack_require__(215);
+	
+	module.exports = {
+	  setGlobe: function (globe) {
+	    GlobeActions.setGlobe(globe);
+	  }
+	};
+
+/***/ },
+/* 215 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Dispatcher = __webpack_require__(179);
+	
+	module.exports = {
+	  setGlobe: function (globe) {
+	    Dispatcher.dispatch({
+	      actionType: "RECEIVE_GLOBE",
+	      globe: globe
+	    });
+	  }
+	};
+
+/***/ },
+/* 216 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	
+	var Contact = React.createClass({
+	  displayName: 'Contact',
+	
+	  componentDidMount: function () {
+	    this.enterTimer = window.setTimeout(this.changeClass, 250);
+	  },
+	
+	  componentWillUnmount: function () {
+	    window.clearTimeout(this.enterTimer);
+	  },
+	
+	  changeClass: function () {
+	    var tab = document.getElementsByClassName('hidden')[0];
+	    tab.classList.remove("hidden");
+	    tab.classList.add("loaded");
+	  },
+	
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      { className: 'hidden' },
+	      React.createElement(
+	        'h1',
+	        null,
+	        ' ~ Contact display in progress ~ '
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = Contact;
 
 /***/ }
 /******/ ]);
