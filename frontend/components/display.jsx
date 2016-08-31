@@ -23,14 +23,14 @@ var Display = React.createClass({
   update: function() {
     this.setState({ tab: TabStore.selectedTab() });
   },
-  
+
   getTab: function() {
     return TABCOMPONENTS[this.state.tab]
   },
 
   render: function() {
     return (
-      <div id="display" className="flex">
+      <div id="display" className="flex center">
         { this.getTab() }
       </div>
     )

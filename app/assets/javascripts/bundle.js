@@ -28396,7 +28396,7 @@
 	  render: function () {
 	    return React.createElement(
 	      'div',
-	      { id: 'display', className: 'flex' },
+	      { id: 'display', className: 'flex center' },
 	      this.getTab()
 	    );
 	  }
@@ -28728,6 +28728,8 @@
 
 	var React = __webpack_require__(1);
 	
+	var ProjectList = __webpack_require__(220);
+	
 	var ProjectUtil = __webpack_require__(207);
 	var ProjectStore = __webpack_require__(209);
 	
@@ -28763,7 +28765,12 @@
 	
 	  render: function () {
 	    addMarkers(this.state.globe, this.state.markers);
-	    return React.createElement('div', { id: 'globe_div' });
+	    return React.createElement(
+	      'div',
+	      { id: 'globeWrapper', className: 'flex column center' },
+	      React.createElement('div', { id: 'globe_div' }),
+	      React.createElement(ProjectList, null)
+	    );
 	  }
 	});
 	
@@ -28804,6 +28811,69 @@
 	};
 	
 	module.exports = Globe;
+
+/***/ },
+/* 212 */,
+/* 213 */,
+/* 214 */,
+/* 215 */,
+/* 216 */,
+/* 217 */,
+/* 218 */,
+/* 219 */,
+/* 220 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	
+	var ProjectStore = __webpack_require__(209);
+	
+	var ProjectList = React.createClass({
+	  displayName: 'ProjectList',
+	
+	
+	  getInitialState: function () {
+	    return {
+	      projects: ProjectStore.projects()
+	    };
+	  },
+	
+	  componentDidMount: function () {
+	    this.projectListener = ProjectStore.addListener(this.update);
+	  },
+	
+	  componentWillUnmount: function () {
+	    this.projectListener.remove();
+	  },
+	
+	  update: function () {
+	    this.setState({ projects: ProjectStore.projects() });
+	  },
+	
+	  getProjects: function () {
+	    if (this.state.projects.length > 0) {
+	      return this.state.projects.map(function (project) {
+	        return React.createElement(
+	          'div',
+	          { id: 'projectItem', className: 'flex center', key: project.title },
+	          ' ',
+	          project.title,
+	          ' '
+	        );
+	      });
+	    }
+	  },
+	
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      { id: 'projectList', className: 'flex' },
+	      this.getProjects()
+	    );
+	  }
+	});
+	
+	module.exports = ProjectList;
 
 /***/ }
 /******/ ]);

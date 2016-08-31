@@ -1,34 +1,5 @@
-
-#projectsTab {
+#display {
   width: 80vw;
-  height: 80vh;
-}
-
-#projectDetail {
-  width: 50%;
-  min-height: 80%;
-  margin-left: 20px;
-  align-self: flex-start;
-}
-
-#projectPrompt {
-  width: 50%;
-  min-height: 80%;
-  margin-left: 20px;
-  align-self: flex-start;
-}
-
-#earth_div {
-  width: 50%;
-  height: 100%;
-}
-
-#projectHeader {
-  width: 100%;
-}
-
-#projectDescription {
-  line-height: 24px;
 }
 
 .hidden {

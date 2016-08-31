@@ -1,5 +1,7 @@
 var React = require('react');
 
+var ProjectList = require('./projectList');
+
 var ProjectUtil = require('../../utils/projectUtil');
 var ProjectStore = require('../../stores/projectStore');
 
@@ -34,7 +36,10 @@ var Globe = React.createClass({
   render: function() {
     addMarkers(this.state.globe, this.state.markers);
     return (
-      <div id="globe_div"></div>
+      <div id="globeWrapper" className="flex column center">
+        <div id="globe_div"></div>
+        <ProjectList />
+      </div>
     )
   }
 });
