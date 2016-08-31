@@ -11,8 +11,9 @@
 #  updated_at  :datetime         not null
 #  lat         :string
 #  lng         :string
+#  location    :string
 #
 
 class Project < ActiveRecord::Base
-  validates :title, :description, :lat, :lng, :start_date, :end_date, presence: true
+  validates :title, :description, :lat, :location, :lng, :start_date, :end_date, presence: true
 end

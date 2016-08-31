@@ -9,10 +9,11 @@
 
 10.times do
   Project.create(
-    title: Faker::Lorem.word,
+    title: Faker::Book.title,
     description: Faker::Lorem.paragraph(3),
     start_date: Faker::Time.between(52.days.ago, 8.days.ago),
     end_date: Faker::Time.between(7.days.ago, Date.today),
+    location: Faker::Address.city,
     lat: Faker::Address.latitude,
     lng: Faker::Address.longitude
   )

@@ -69,8 +69,7 @@ var addMarkers = function(globe, projects) {
 };
 
 var markerClicked = function(globe, project) {
-  globe.setCenter([project.lat, project.lng]);
-  globe.setZoom(2.5);
+  globe.setView([project.lat, project.lng], 2.5);
   ProjectUtil.setProject(project);
 };
 

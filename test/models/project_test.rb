@@ -11,6 +11,7 @@
 #  updated_at  :datetime         not null
 #  lat         :string
 #  lng         :string
+#  location    :string
 #
 
 require 'test_helper'

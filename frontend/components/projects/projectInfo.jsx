@@ -27,7 +27,7 @@ var ProjectInfo = React.createClass({
         <div id="projectDetail" className="flex column center">
           <div id="projectHeader">
             <h1>{this.state.project.title}</h1>
-            <h3>Project Location</h3>
+            <h3>{this.state.project.location}</h3>
           </div>
           <p id="projectDescription">
             {this.state.project.description}
