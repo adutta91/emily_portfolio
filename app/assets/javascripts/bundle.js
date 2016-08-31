@@ -28607,9 +28607,14 @@
 	var ProjectStore = new Store(Dispatcher);
 	
 	var _projects = [];
+	var _viewedProject = {};
 	
 	ProjectStore.projects = function () {
 	  return _projects;
+	};
+	
+	ProjectStore.viewedProject = function () {
+	  return _viewedProject;
 	};
 	
 	ProjectStore.__onDispatch = function (payload) {
@@ -28618,11 +28623,19 @@
 	      resetProjects(payload.projects);
 	      ProjectStore.__emitChange();
 	      break;
+	    case 'VIEW_PROJECT':
+	      resetViewedProject(payload.project);
+	      ProjectStore.__emitChange();
+	      break;
 	  }
 	};
 	
 	var resetProjects = function (projects) {
 	  _projects = projects;
+	};
+	
+	var resetViewedProject = function (project) {
+	  _viewedProject = project;
 	};
 	
 	module.exports = ProjectStore;
@@ -28687,12 +28700,23 @@
 	});
 	
 	var initializeGlobe = function () {
-	  var globe = new WE.map('globe_div');
+	  var globe = new WE.map('globe_div', { tilting: false, zoom: 2.0, position: [34.44805, -119.242889] });
 	  WE.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 	    attribution: '© OpenStreetMap contributors'
 	  }).addTo(globe);
-	
+	  // animate(globe);
 	  return globe;
+	};
+	
+	var animate = function (globe) {
+	  var before = null;
+	  requestAnimationFrame(function animate(now) {
+	    var c = globe.getPosition();
+	    var elapsed = before ? now - before : 0;
+	    before = now;
+	    globe.setCenter([c[0], c[1] + 0.1 * (elapsed / 30)]);
+	    requestAnimationFrame(animate);
+	  });
 	};
 	
 	var addMarkers = function (globe, projects) {
@@ -28704,12 +28728,6 @@
 	      });
 	    });
 	  }
-	
-	  // var json = {"profile": "mercator", "name": "Grand Canyon USGS", "format": "png", "bounds": [-112.26379395, 35.98245136, -112.10998535, 36.13343831], "minzoom": 10, "version": "1.0.0", "maxzoom": 16, "center": [-112.18688965, 36.057944835, 13], "type": "overlay", "description": "", "basename": "grandcanyon", "tilejson": "2.0.0", "sheme": "xyz", "tiles": ["http://tileserver.maptiler.com/grandcanyon/{z}/{x}/{y}.png"]};
-	  // var marker = WE.marker([json.center[1], json.center[0]]).addTo(globe);
-	  // marker.element.addEventListener("click", function() {
-	  //   alert('hey!!!')
-	  // });
 	};
 	
 	module.exports = Globe;
