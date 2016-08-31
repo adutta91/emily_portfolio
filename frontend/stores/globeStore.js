@@ -5,6 +5,10 @@ var GlobeStore = new Store(Dispatcher);
 
 var _globe = {};
 
+GlobeStore.globe = function() {
+  return _globe;
+};
+
 GlobeStore.__onDispatch = function(payload) {
   switch(payload.actionType) {
     case 'RECEIVE_GLOBE':

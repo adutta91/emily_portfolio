@@ -2,35 +2,39 @@ var React = require('react');
 
 var ProjectList = require('./projectList');
 
-var ProjectUtil = require('../../utils/projectUtil');
+var GlobeStore = require('../../stores/globeStore');
+var GlobeUtil = require('../../utils/globeUtil');
+
 var ProjectStore = require('../../stores/projectStore');
+var ProjectUtil = require('../../utils/projectUtil');
 
 var Globe = React.createClass({
 
   getInitialState: function() {
     return ({
       markers: ProjectStore.projects(),
-      globe: {},
-      mounted: false
+      globe: GlobeStore.globe()
     });
   },
 
   componentDidMount: function() {
-    this.state.mounted = true;
-    this.state.globe = initializeGlobe();
-    this.projectListener = ProjectStore.addListener(this.update);
+    this.globeListener = GlobeStore.addListener(this.updateGlobes);
+    this.projectListener = ProjectStore.addListener(this.updateProjects);
+    initializeGlobe();
     ProjectUtil.fetchProjects();
   },
 
   componentWillUnmount: function() {
-    this.state.mounted = false;
     this.projectListener.remove();
+    this.globeListener.remove();
   },
 
-  update: function() {
-    if (this.state.mounted) {
-      this.setState({ markers: ProjectStore.projects() });
-    }
+  updateProjects: function() {
+    this.setState({ markers: ProjectStore.projects() });
+  },
+
+  updateGlobes: function() {
+    this.setState({ globe: GlobeStore.globe() });
   },
 
   render: function() {
@@ -50,7 +54,7 @@ var initializeGlobe = function() {
     attribution: '© OpenStreetMap contributors'
   }).addTo(globe);
   // animate(globe);
-  return globe;
+  GlobeUtil.setGlobe(globe);
 };
 
 var animate = function(globe) {

@@ -28731,8 +28731,11 @@
 	
 	var ProjectList = __webpack_require__(220);
 	
-	var ProjectUtil = __webpack_require__(207);
+	var GlobeStore = __webpack_require__(223);
+	var GlobeUtil = __webpack_require__(221);
+	
 	var ProjectStore = __webpack_require__(209);
+	var ProjectUtil = __webpack_require__(207);
 	
 	var Globe = React.createClass({
 	  displayName: 'Globe',
@@ -28741,27 +28744,28 @@
 	  getInitialState: function () {
 	    return {
 	      markers: ProjectStore.projects(),
-	      globe: {},
-	      mounted: false
+	      globe: GlobeStore.globe()
 	    };
 	  },
 	
 	  componentDidMount: function () {
-	    this.state.mounted = true;
-	    this.state.globe = initializeGlobe();
-	    this.projectListener = ProjectStore.addListener(this.update);
+	    this.globeListener = GlobeStore.addListener(this.updateGlobes);
+	    this.projectListener = ProjectStore.addListener(this.updateProjects);
+	    initializeGlobe();
 	    ProjectUtil.fetchProjects();
 	  },
 	
 	  componentWillUnmount: function () {
-	    this.state.mounted = false;
 	    this.projectListener.remove();
+	    this.globeListener.remove();
 	  },
 	
-	  update: function () {
-	    if (this.state.mounted) {
-	      this.setState({ markers: ProjectStore.projects() });
-	    }
+	  updateProjects: function () {
+	    this.setState({ markers: ProjectStore.projects() });
+	  },
+	
+	  updateGlobes: function () {
+	    this.setState({ globe: GlobeStore.globe() });
 	  },
 	
 	  render: function () {
@@ -28781,7 +28785,7 @@
 	    attribution: '© OpenStreetMap contributors'
 	  }).addTo(globe);
 	  // animate(globe);
-	  return globe;
+	  GlobeUtil.setGlobe(globe);
 	};
 	
 	var animate = function (globe) {
@@ -28870,6 +28874,63 @@
 	});
 	
 	module.exports = ProjectList;
+
+/***/ },
+/* 221 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var GlobeActions = __webpack_require__(222);
+	
+	module.exports = {
+	  setGlobe: function (globe) {
+	    GlobeActions.setGlobe(globe);
+	  }
+	};
+
+/***/ },
+/* 222 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Dispatcher = __webpack_require__(179);
+	
+	module.exports = {
+	  setGlobe: function (globe) {
+	    Dispatcher.dispatch({
+	      actionType: "RECEIVE_GLOBE",
+	      globe: globe
+	    });
+	  }
+	};
+
+/***/ },
+/* 223 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Store = __webpack_require__(184).Store;
+	var Dispatcher = __webpack_require__(179);
+	
+	var GlobeStore = new Store(Dispatcher);
+	
+	var _globe = {};
+	
+	GlobeStore.globe = function () {
+	  return _globe;
+	};
+	
+	GlobeStore.__onDispatch = function (payload) {
+	  switch (payload.actionType) {
+	    case 'RECEIVE_GLOBE':
+	      resetGlobe(payload.globe);
+	      GlobeStore.__emitChange();
+	      break;
+	  }
+	};
+	
+	var resetGlobe = function (globe) {
+	  _globe = globe;
+	};
+	
+	module.exports = GlobeStore;
 
 /***/ }
 /******/ ]);
