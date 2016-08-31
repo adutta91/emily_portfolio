@@ -1,25 +1,50 @@
 var React = require('react');
 
+var ProjectStore = require('../../stores/projectStore');
+
 var ProjectInfo = React.createClass({
-  render: function() {
-    return (
-      <div id="projectDetail" className="flex column center">
-        <div id="projectHeader">
-          <h1>Project Title</h1>
-          <h3>Project Location</h3>
+  getInitialState: function() {
+    return ({
+      project: null
+    });
+  },
+
+  componentDidMount: function() {
+    this.projectListener = ProjectStore.addListener(this.update);
+  },
+
+  componentWillUnmount: function() {
+    this.projectListener.remove();
+  },
+
+  update: function() {
+    this.setState({ project: ProjectStore.viewedProject() });
+  },
+
+  displayProjectInfo: function() {
+    if (this.state.project && this.state.project.title) {
+      return (
+        <div id="projectDetail" className="flex column center">
+          <div id="projectHeader">
+            <h1>{this.state.project.title}</h1>
+            <h3>Project Location</h3>
+          </div>
+          <p id="projectDescription">
+            {this.state.project.description}
+          </p>
         </div>
-        <h5>Project description:</h5>
-        <p id="projectDescription">
-          Lots of words Lots of words Lots of words Lots of words Lots of words
-          Lots of words Lots of words Lots of words Lots of words Lots of words
-          Lots of words Lots of words Lots of words Lots of words Lots of words
-          Lots of words Lots of words Lots of words Lots of words Lots of words
-          Lots of words Lots of words Lots of words Lots of words Lots of words
-          Lots of words Lots of words Lots of words Lots of words Lots of words
-          Lots of words Lots of words Lots of words Lots of words Lots of words
+      )
+    } else {
+      return (
+        <p className="flex center" id="projectPrompt">
+          Choose a project!
         </p>
-      </div>
-    )
+      )
+    }
+  },
+
+  render: function() {
+    return this.displayProjectInfo();
   }
 });
 

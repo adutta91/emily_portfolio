@@ -28522,38 +28522,65 @@
 
 	var React = __webpack_require__(1);
 	
-	var ProjectInfo = React.createClass({
-	  displayName: "ProjectInfo",
+	var ProjectStore = __webpack_require__(209);
 	
-	  render: function () {
-	    return React.createElement(
-	      "div",
-	      { id: "projectDetail", className: "flex column center" },
-	      React.createElement(
-	        "div",
-	        { id: "projectHeader" },
+	var ProjectInfo = React.createClass({
+	  displayName: 'ProjectInfo',
+	
+	  getInitialState: function () {
+	    return {
+	      project: null
+	    };
+	  },
+	
+	  componentDidMount: function () {
+	    this.projectListener = ProjectStore.addListener(this.update);
+	  },
+	
+	  componentWillUnmount: function () {
+	    this.projectListener.remove();
+	  },
+	
+	  update: function () {
+	    this.setState({ project: ProjectStore.viewedProject() });
+	  },
+	
+	  displayProjectInfo: function () {
+	    if (this.state.project && this.state.project.title) {
+	      return React.createElement(
+	        'div',
+	        { id: 'projectDetail', className: 'flex column center' },
 	        React.createElement(
-	          "h1",
-	          null,
-	          "Project Title"
+	          'div',
+	          { id: 'projectHeader' },
+	          React.createElement(
+	            'h1',
+	            null,
+	            this.state.project.title
+	          ),
+	          React.createElement(
+	            'h3',
+	            null,
+	            'Project Location'
+	          )
 	        ),
 	        React.createElement(
-	          "h3",
-	          null,
-	          "Project Location"
+	          'p',
+	          { id: 'projectDescription' },
+	          this.state.project.description
 	        )
-	      ),
-	      React.createElement(
-	        "h5",
-	        null,
-	        "Project description:"
-	      ),
-	      React.createElement(
-	        "p",
-	        { id: "projectDescription" },
-	        "Lots of words Lots of words Lots of words Lots of words Lots of words Lots of words Lots of words Lots of words Lots of words Lots of words Lots of words Lots of words Lots of words Lots of words Lots of words Lots of words Lots of words Lots of words Lots of words Lots of words Lots of words Lots of words Lots of words Lots of words Lots of words Lots of words Lots of words Lots of words Lots of words Lots of words Lots of words Lots of words Lots of words Lots of words Lots of words"
-	      )
-	    );
+	      );
+	    } else {
+	      return React.createElement(
+	        'p',
+	        { className: 'flex center', id: 'projectPrompt' },
+	        'Choose a project!'
+	      );
+	    }
+	  },
+	
+	  render: function () {
+	    return this.displayProjectInfo();
 	  }
 	});
 	
@@ -28577,6 +28604,10 @@
 	        alert(error.responseText);
 	      }
 	    });
+	  },
+	
+	  setProject: function (project) {
+	    ProjectActions.setProject(project);
 	  }
 	};
 
@@ -28591,6 +28622,13 @@
 	    Dispatcher.dispatch({
 	      actionType: "RECEIVE_PROJECTS",
 	      projects: projects
+	    });
+	  },
+	
+	  setProject: function (project) {
+	    Dispatcher.dispatch({
+	      actionType: "VIEW_PROJECT",
+	      project: project
 	    });
 	  }
 	};
@@ -28742,10 +28780,15 @@
 	    projects.forEach(function (project, idx) {
 	      var marker = WE.marker([project.lat, project.lng]).addTo(globe);
 	      marker.element.addEventListener("click", function () {
-	        alert('hey ' + idx);
+	        markerClicked(globe, project);
 	      });
 	    });
 	  }
+	};
+	
+	var markerClicked = function (globe, project) {
+	  globe.setView([project.lat, project.lng], 3.0);
+	  ProjectUtil.setProject(project);
 	};
 	
 	module.exports = Globe;

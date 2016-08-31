@@ -12,5 +12,9 @@ module.exports = {
         alert(error.responseText);
       }
     });
+  },
+
+  setProject: function(project) {
+    ProjectActions.setProject(project);
   }
 }
