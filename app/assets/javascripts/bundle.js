@@ -21888,85 +21888,7 @@
 /* 183 */
 /***/ function(module, exports, __webpack_require__) {
 
-<<<<<<< HEAD
-	var React = __webpack_require__(1);
-	
-	var Header = __webpack_require__(173);
-	var SubHeader = __webpack_require__(174);
-	var Display = __webpack_require__(184);
-	
-	var App = React.createClass({
-	  displayName: 'App',
-	
-	
-	  render: function () {
-	    return React.createElement(
-	      'div',
-	      { id: 'app', className: 'flex column center' },
-	      React.createElement(Header, null),
-	      React.createElement(SubHeader, null),
-	      React.createElement(Display, null)
-	    );
-	  }
-	});
-	
-	module.exports = App;
-
-/***/ },
-/* 184 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	
-	var TabStore = __webpack_require__(185);
-	
-	var TABCOMPONENTS = __webpack_require__(203);
-	
-	var Display = React.createClass({
-	  displayName: 'Display',
-	
-	
-	  getInitialState: function () {
-	    return {
-	      tab: TabStore.selectedTab()
-	    };
-	  },
-	
-	  componentDidMount: function () {
-	    this.tabListener = TabStore.addListener(this.update);
-	  },
-	
-	  componentWillUnmount: function () {
-	    this.tabListener.remove();
-	  },
-	
-	  update: function () {
-	    this.setState({ tab: TabStore.selectedTab() });
-	  },
-	
-	  getTab: function () {
-	    return TABCOMPONENTS[this.state.tab];
-	  },
-	
-	  render: function () {
-	    return React.createElement(
-	      'div',
-	      { id: 'display', className: 'flex' },
-	      this.getTab()
-	    );
-	  }
-	});
-	
-	module.exports = Display;
-
-/***/ },
-/* 185 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var Store = __webpack_require__(186).Store;
-=======
 	var Store = __webpack_require__(184).Store;
->>>>>>> f38001f055ab9c4307c35d93398c911d93d6c0ea
 	var Dispatcher = __webpack_require__(179);
 	
 	var TabStore = new Store(Dispatcher);
@@ -28474,7 +28396,7 @@
 	  render: function () {
 	    return React.createElement(
 	      'div',
-	      null,
+	      { id: 'display', className: 'flex' },
 	      this.getTab()
 	    );
 	  }
@@ -28488,13 +28410,9 @@
 
 	
 	var React = __webpack_require__(1);
-<<<<<<< HEAD
-	var AboutMe = __webpack_require__(204);
-	var Projects = __webpack_require__(206);
-	var Contact = __webpack_require__(207);
-=======
 	var AboutMe = __webpack_require__(203);
->>>>>>> f38001f055ab9c4307c35d93398c911d93d6c0ea
+	var Projects = __webpack_require__(205);
+	var Contact = __webpack_require__(210);
 	
 	module.exports = {
 	  "aboutMe": React.createElement(AboutMe, null),
@@ -28554,14 +28472,14 @@
 	module.exports = Description;
 
 /***/ },
-/* 206 */
+/* 205 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	
-	var ProjectInfo = __webpack_require__(208);
+	var ProjectInfo = __webpack_require__(206);
 	
-	var ProjectUtil = __webpack_require__(210);
+	var ProjectUtil = __webpack_require__(207);
 	var ProjectStore = __webpack_require__(209);
 	
 	var Projects = React.createClass({
@@ -28619,27 +28537,7 @@
 	module.exports = Projects;
 
 /***/ },
-/* 207 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	
-	var Contact = React.createClass({
-	  displayName: 'Contact',
-	
-	  render: function () {
-	    return React.createElement(
-	      'h1',
-	      null,
-	      ' ~ Contact display in progress ~ '
-	    );
-	  }
-	});
-	
-	module.exports = Contact;
-
-/***/ },
-/* 208 */
+/* 206 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -28682,10 +28580,46 @@
 	module.exports = ProjectInfo;
 
 /***/ },
+/* 207 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var ProjectActions = __webpack_require__(208);
+	
+	module.exports = {
+	  fetchProjects: function () {
+	    $.ajax({
+	      url: 'api/projects',
+	      method: 'GET',
+	      success: function (projects) {
+	        debugger;
+	      },
+	      error: function (error) {
+	        alert(error.responseText);
+	      }
+	    });
+	  }
+	};
+
+/***/ },
+/* 208 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Dispatcher = __webpack_require__(179);
+	
+	module.exports = {
+	  receiveProjects: function (projects) {
+	    Dispatcher.dispatch({
+	      actionType: "RECEIVE_PROJECTS",
+	      projects: projects
+	    });
+	  }
+	};
+
+/***/ },
 /* 209 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Store = __webpack_require__(186).Store;
+	var Store = __webpack_require__(184).Store;
 	var Dispatcher = __webpack_require__(179);
 	
 	var ProjectStore = new Store(Dispatcher);
@@ -28715,37 +28649,21 @@
 /* 210 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var ProjectActions = __webpack_require__(211);
+	var React = __webpack_require__(1);
 	
-	module.exports = {
-	  fetchProjects: function () {
-	    $.ajax({
-	      url: 'api/projects',
-	      method: 'GET',
-	      success: function (projects) {
-	        debugger;
-	      },
-	      error: function (error) {
-	        alert(error.responseText);
-	      }
-	    });
-	  }
-	};
-
-/***/ },
-/* 211 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var Dispatcher = __webpack_require__(179);
+	var Contact = React.createClass({
+	  displayName: 'Contact',
 	
-	module.exports = {
-	  receiveProjects: function (projects) {
-	    Dispatcher.dispatch({
-	      actionType: "RECEIVE_PROJECTS",
-	      projects: projects
-	    });
+	  render: function () {
+	    return React.createElement(
+	      'h1',
+	      null,
+	      ' ~ Contact display in progress ~ '
+	    );
 	  }
-	};
+	});
+	
+	module.exports = Contact;
 
 /***/ }
 /******/ ]);
