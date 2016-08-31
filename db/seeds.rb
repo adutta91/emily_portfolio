@@ -7,14 +7,43 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 
-10.times do
-  Project.create(
-    title: Faker::Book.title,
-    description: Faker::Lorem.paragraph(3),
-    start_date: Faker::Time.between(52.days.ago, 8.days.ago),
-    end_date: Faker::Time.between(7.days.ago, Date.today),
-    location: Faker::Address.city,
-    lat: Faker::Address.latitude,
-    lng: Faker::Address.longitude
-  )
-end
+Project.create(
+  title: "Sierra Ski Trip",
+  description: "A wonderful mountain retreat where we spent our hours skiing,
+                cooking, reading and spending copious amounts of time in front
+                of the fire and watching the snow fall gently outside. We spent
+                the New Year's there, and the fireworks display in the Alpine
+                air was brilliant and beautiful and the perfect way to greet the
+                future.",
+  start_date: "December 2016",
+  end_date: "January 2017",
+  location: "Kirkwood, CA",
+  lat: "38.7023082",
+  lng: "-120.0722442"
+)
+
+Project.create(
+  title: "Wine Tasting",
+  description: "We took an introduction to wine tasting class together, trying
+                several wines that to our extraordinarily sophisticated palates
+                were quite yummy (technical term).",
+  start_date: "July 2016",
+  end_date: "July 2016",
+  location: "Baltimore, MD",
+  lat: "39.290385",
+  lng: "-76.61218930000001"
+)
+
+Project.create(
+  title: "Spanish Adventure",
+  description: "Nearly rolling in Manchego and jamon serrano, we toured the Spanish
+                country, with a homebase in Barcelona. Travelling with only
+                backpacks made moving around easier, and we strove to speak only
+                Spanish to get around and attempt to experience the country more
+                purely in that fashion.",
+  start_date: "June 2017",
+  end_date: "July 2017",
+  location: "Barcelona, Spain",
+  lat: "41.3851",
+  lng: "2.1734"
+)

@@ -35,7 +35,7 @@ var ProjectList = React.createClass({
 
   render: function() {
     return (
-      <div id="projectList" className="flex">
+      <div id="projectList" className="flex center">
         { this.getProjects() }
       </div>
     )

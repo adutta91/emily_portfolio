@@ -28570,6 +28570,13 @@
 	            'h3',
 	            null,
 	            this.state.project.location
+	          ),
+	          React.createElement(
+	            'h5',
+	            null,
+	            this.state.project.start_date,
+	            ' - ',
+	            this.state.project.end_date
 	          )
 	        ),
 	        React.createElement(
@@ -28694,11 +28701,14 @@
 	});
 	
 	var initializeGlobe = function () {
-	  var globe = new WE.map('globe_div', { tilting: false, zoom: 1.5, position: [34.44805, -119.242889] });
+	  var globe = new WE.map('globe_div', { tilting: false, zoom: 2.5, position: [34.44805, -119.242889] });
 	  WE.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 	    attribution: '© OpenStreetMap contributors'
 	  }).addTo(globe);
-	  animate(globe);
+	
+	  // UNCOMMENT TO MAKE THE GLOBE CONSTANTLY SPIN SLOWLY
+	  // animate(globe);
+	
 	  GlobeUtil.setGlobe(globe);
 	};
 	
@@ -28716,8 +28726,7 @@
 	var addMarkers = function (globe, projects) {
 	  if (projects.length > 0 && globe.c) {
 	    projects.forEach(function (project, idx) {
-	      // var marker = WE.marker([project.lat, project.lng], "http://res.cloudinary.com/dzyfczxnr/image/upload/c_scale,w_28/v1472684320/portfolio/map-marker-icon.png", 28, 28).addTo(globe);
-	      var marker = WE.marker([project.lat, project.lng]).addTo(globe);
+	      var marker = WE.marker([project.lat, project.lng], "http://res.cloudinary.com/dzyfczxnr/image/upload/c_scale,w_28/v1472684320/portfolio/map-marker-icon.png", 28, 28).addTo(globe);
 	      marker.element.addEventListener("click", function () {
 	        ProjectUtil.setProject(globe, project);
 	      });
@@ -28769,7 +28778,7 @@
 	  render: function () {
 	    return React.createElement(
 	      'div',
-	      { id: 'projectList', className: 'flex' },
+	      { id: 'projectList', className: 'flex center' },
 	      this.getProjects()
 	    );
 	  }

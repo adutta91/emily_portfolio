@@ -28,6 +28,7 @@ var ProjectInfo = React.createClass({
           <div id="projectHeader">
             <h1>{this.state.project.title}</h1>
             <h3>{this.state.project.location}</h3>
+            <h5>{this.state.project.start_date} - {this.state.project.end_date}</h5>
           </div>
           <p id="projectDescription">
             {this.state.project.description}
