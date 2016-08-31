@@ -7,18 +7,22 @@ var ProjectUtil = require('../../utils/projectUtil');
 
 var Projects = React.createClass({
   componentDidMount: function() {
-    var tab = document.getElementsByClassName('displayTab')[0];
-    tab.classList.add("loaded");
+    this.enterTimer = window.setTimeout(this.changeClass, 250);
   },
 
   componentWillUnmount: function() {
-    var tab = document.getElementsByClassName('loaded')[0];
-    tab.classList.remove("loaded");
+    window.clearTimeout(this.enterTimer)
+  },
+
+  changeClass: function() {
+    var tab = document.getElementsByClassName('hidden')[0];
+    tab.classList.remove("hidden");
+    tab.classList.add("loaded");
   },
 
   render: function() {
     return (
-      <div id="projectsTab" className="flex displayTab">
+      <div id="projectsTab" className="flex hidden">
         <Globe />
         <ProjectInfo />
       </div>

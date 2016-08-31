@@ -31,12 +31,12 @@
   line-height: 24px;
 }
 
-.displayTab {
+.hidden {
   opacity: 0;
-  transition:1s;
+  transition:.5s;
 }
 
-.displayTab.loaded {
+.loaded {
   opacity: 1;
-  transition:1s;
+  transition:.5s;
 }

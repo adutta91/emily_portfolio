@@ -28431,19 +28431,23 @@
 	  displayName: 'AboutMe',
 	
 	  componentDidMount: function () {
-	    var tab = document.getElementsByClassName('displayTab')[0];
-	    tab.classList.add("loaded");
+	    this.enterTimer = window.setTimeout(this.changeClass, 500);
 	  },
 	
 	  componentWillUnmount: function () {
-	    var tab = document.getElementsByClassName('loaded')[0];
-	    tab.classList.remove("loaded");
+	    window.clearTimeout(this.enterTimer);
+	  },
+	
+	  changeClass: function () {
+	    var tab = document.getElementsByClassName('hidden')[0];
+	    tab.classList.remove("hidden");
+	    tab.classList.add("loaded");
 	  },
 	
 	  render: function () {
 	    return React.createElement(
 	      'div',
-	      { id: 'aboutMe', className: 'flex center displayTab' },
+	      { id: 'aboutMe', className: 'flex center hidden' },
 	      React.createElement('div', { className: 'crop' }),
 	      React.createElement(Description, null)
 	    );
@@ -28495,19 +28499,23 @@
 	  displayName: 'Projects',
 	
 	  componentDidMount: function () {
-	    var tab = document.getElementsByClassName('displayTab')[0];
-	    tab.classList.add("loaded");
+	    this.enterTimer = window.setTimeout(this.changeClass, 250);
 	  },
 	
 	  componentWillUnmount: function () {
-	    var tab = document.getElementsByClassName('loaded')[0];
-	    tab.classList.remove("loaded");
+	    window.clearTimeout(this.enterTimer);
+	  },
+	
+	  changeClass: function () {
+	    var tab = document.getElementsByClassName('hidden')[0];
+	    tab.classList.remove("hidden");
+	    tab.classList.add("loaded");
 	  },
 	
 	  render: function () {
 	    return React.createElement(
 	      'div',
-	      { id: 'projectsTab', className: 'flex displayTab' },
+	      { id: 'projectsTab', className: 'flex hidden' },
 	      React.createElement(Globe, null),
 	      React.createElement(ProjectInfo, null)
 	    );
@@ -28686,19 +28694,23 @@
 	  displayName: 'Contact',
 	
 	  componentDidMount: function () {
-	    var tab = document.getElementsByClassName('displayTab')[0];
-	    tab.classList.add("loaded");
+	    this.enterTimer = window.setTimeout(this.changeClass, 500);
 	  },
 	
 	  componentWillUnmount: function () {
-	    var tab = document.getElementsByClassName('loaded')[0];
-	    tab.classList.remove("loaded");
+	    window.clearTimeout(this.enterTimer);
+	  },
+	
+	  changeClass: function () {
+	    var tab = document.getElementsByClassName('hidden')[0];
+	    tab.classList.remove("hidden");
+	    tab.classList.add("loaded");
 	  },
 	
 	  render: function () {
 	    return React.createElement(
 	      'div',
-	      { className: 'displayTab' },
+	      { className: 'hidden' },
 	      React.createElement(
 	        'h1',
 	        null,

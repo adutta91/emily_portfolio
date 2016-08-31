@@ -4,18 +4,22 @@ var Description = require('./description');
 
 var AboutMe = React.createClass({
   componentDidMount: function() {
-    var tab = document.getElementsByClassName('displayTab')[0];
-    tab.classList.add("loaded");
+    this.enterTimer = window.setTimeout(this.changeClass, 500);
   },
 
   componentWillUnmount: function() {
-    var tab = document.getElementsByClassName('loaded')[0];
-    tab.classList.remove("loaded");
+    window.clearTimeout(this.enterTimer)
+  },
+
+  changeClass: function() {
+    var tab = document.getElementsByClassName('hidden')[0];
+    tab.classList.remove("hidden");
+    tab.classList.add("loaded");
   },
 
   render: function() {
     return (
-      <div id="aboutMe" className="flex center displayTab">
+      <div id="aboutMe" className="flex center hidden">
         <div className="crop">
          </div>
         <Description />
