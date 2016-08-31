@@ -1,6 +1,7 @@
 var React = require('react');
 
 var ProjectStore = require('../../stores/projectStore');
+var ProjectItem = require('./projectItem');
 
 var ProjectList = React.createClass({
 
@@ -26,7 +27,7 @@ var ProjectList = React.createClass({
     if (this.state.projects.length > 0) {
       return this.state.projects.map(function(project) {
         return (
-          <div id="projectItem" className="flex center" key={project.title}> {project.title} </div>
+          <ProjectItem key={project.title} project={project}/>
         )
       });
     }

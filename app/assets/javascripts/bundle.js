@@ -28827,6 +28827,7 @@
 	var React = __webpack_require__(1);
 	
 	var ProjectStore = __webpack_require__(209);
+	var ProjectItem = __webpack_require__(224);
 	
 	var ProjectList = React.createClass({
 	  displayName: 'ProjectList',
@@ -28853,13 +28854,7 @@
 	  getProjects: function () {
 	    if (this.state.projects.length > 0) {
 	      return this.state.projects.map(function (project) {
-	        return React.createElement(
-	          'div',
-	          { id: 'projectItem', className: 'flex center', key: project.title },
-	          ' ',
-	          project.title,
-	          ' '
-	        );
+	        return React.createElement(ProjectItem, { key: project.title, project: project });
 	      });
 	    }
 	  },
@@ -28931,6 +28926,46 @@
 	};
 	
 	module.exports = GlobeStore;
+
+/***/ },
+/* 224 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	
+	var ProjectUtil = __webpack_require__(207);
+	
+	var ProjectStore = __webpack_require__(209);
+	var GlobeStore = __webpack_require__(223);
+	
+	var ProjectItem = React.createClass({
+	  displayName: 'ProjectItem',
+	
+	
+	  setProject: function () {
+	    ProjectUtil.setProject(GlobeStore.globe(), this.props.project);
+	  },
+	
+	  getClassName: function () {
+	    if (ProjectStore.viewedProject().title === this.props.project.title) {
+	      return "projectItem selected";
+	    } else {
+	      return "projectItem";
+	    }
+	  },
+	
+	  render: function () {
+	    var className = this.getClassName() + " flex center";
+	    return React.createElement(
+	      'div',
+	      { className: className,
+	        onClick: this.setProject },
+	      this.props.project.title
+	    );
+	  }
+	});
+	
+	module.exports = ProjectItem;
 
 /***/ }
 /******/ ]);

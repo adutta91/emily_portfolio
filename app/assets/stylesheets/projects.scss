@@ -9,6 +9,7 @@
 
 #projectDetail {
   min-height: 80%;
+  margin-left: 10px;
   align-self: flex-start;
 }
 
@@ -26,6 +27,7 @@
 
 #globeWrapper {
   width: 60%;
+  margin-right: 10px;
 }
 
 #projectHeader {
@@ -44,7 +46,7 @@
   overflow: scroll;
 }
 
-#projectItem {
+.projectItem {
   font-size: 12px;
   padding: 5px;
   border: 1px solid black;
@@ -53,13 +55,18 @@
   width: 80px;
   height: 40px;
   text-align: center;
+  transition: 1s;
 }
 
-#projectItem:hover {
+.projectItem:hover {
   cursor: pointer;
-  
+  transition: 1s;
 }
 
+.projectItem.selected {
+	background: #88b7d5;
+  transition: 1s;
+}
 .we-pm-icon {
   transition: .5s;
 }
