@@ -21510,11 +21510,9 @@
 	    var id = "#" + tab;
 	    var headerBuffer = $(window).height() * .075;
 	    var separator = id + "Separator";
-	    $(id).click(function () {
-	      $('html, body').animate({
-	        scrollTop: $(separator).offset().top - headerBuffer
-	      }, 750);
-	    });
+	    $('html, body').animate({
+	      scrollTop: $(separator).offset().top - headerBuffer
+	    }, 750);
 	    TabUtil.selectTab(tab);
 	  },
 	
