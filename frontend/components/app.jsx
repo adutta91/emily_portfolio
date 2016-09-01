@@ -5,6 +5,7 @@ var SubHeader = require('./header/subHeader');
 var AboutMe = require('./tabs/aboutMe');
 var Projects = require('./tabs/projects');
 var Contact = require ('./tabs/contact');
+var ProjectForm = require('./projects/projectForm');
 
 var Modal = require('boron/DropModal');
 var ModalUtil = require('../utils/modalUtil');
@@ -14,18 +15,6 @@ var ModalStyle = require('../assets/modalStyle');
 var ContentStyle = require('../assets/contentStyle');
 
 var App = React.createClass({
-
-  getInitialState: function() {
-    return ({
-      projectTitle: "",
-      projectStartDate: "",
-      projectEndDate: "",
-      projectLocation: "",
-      projectLatCoord: "",
-      projectLngCoord: "",
-      projectDesc: ""
-    });
-  },
 
   showModal: function(){
     this.refs.modal.show();
@@ -69,24 +58,7 @@ var App = React.createClass({
         <Modal ref="modal"
                modalStyle={ModalStyle}
                contentStyle={ContentStyle}>
-           <img src="http://res.cloudinary.com/dzyfczxnr/image/upload/v1472766011/portfolio/close.png"
-                id="closeModalButton"
-                onClick={this.hideModal}/>
-           <form id="projectForm" className="flex">
-              <div className="flex column">
-                <input type="text" placeholder="title" value={this.state.projectTitle}/>
-                <input type="text" placeholder="start date" value={this.state.projectStartDate}/>
-                <input type="text" placeholder="end date" value={this.state.projectEndDate}/>
-                <input type="text" placeholder="location" value={this.state.projectLocation}/>
-                <div id="coordsForm">
-                  <input type="text" placeholder="lat" value={this.state.projectLatCoord}/>
-                  <input type="text" placeholder="lng" value={this.state.projectLngCoord}/>
-                </div>
-                <div id="projectFormSubmit" onClick={this.submitForm}>submit!</div>
-              </div>
-              <textarea id="projectFormDesc" placeholder="description" value={this.state.projectDesc}></textarea>
-           </form>
-
+            <ProjectForm />
         </Modal>
       </div>
     )

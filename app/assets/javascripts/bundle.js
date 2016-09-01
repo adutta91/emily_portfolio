@@ -21416,6 +21416,7 @@
 	var AboutMe = __webpack_require__(203);
 	var Projects = __webpack_require__(205);
 	var Contact = __webpack_require__(217);
+	var ProjectForm = __webpack_require__(232);
 	
 	var Modal = __webpack_require__(221);
 	var ModalUtil = __webpack_require__(218);
@@ -21427,18 +21428,6 @@
 	var App = React.createClass({
 	  displayName: 'App',
 	
-	
-	  getInitialState: function () {
-	    return {
-	      projectTitle: "",
-	      projectStartDate: "",
-	      projectEndDate: "",
-	      projectLocation: "",
-	      projectLatCoord: "",
-	      projectLngCoord: "",
-	      projectDesc: ""
-	    };
-	  },
 	
 	  showModal: function () {
 	    this.refs.modal.show();
@@ -21487,33 +21476,7 @@
 	        { ref: 'modal',
 	          modalStyle: ModalStyle,
 	          contentStyle: ContentStyle },
-	        React.createElement('img', { src: 'http://res.cloudinary.com/dzyfczxnr/image/upload/v1472766011/portfolio/close.png',
-	          id: 'closeModalButton',
-	          onClick: this.hideModal }),
-	        React.createElement(
-	          'form',
-	          { id: 'projectForm', className: 'flex' },
-	          React.createElement(
-	            'div',
-	            { className: 'flex column' },
-	            React.createElement('input', { type: 'text', placeholder: 'title', value: this.state.projectTitle }),
-	            React.createElement('input', { type: 'text', placeholder: 'start date', value: this.state.projectStartDate }),
-	            React.createElement('input', { type: 'text', placeholder: 'end date', value: this.state.projectEndDate }),
-	            React.createElement('input', { type: 'text', placeholder: 'location', value: this.state.projectLocation }),
-	            React.createElement(
-	              'div',
-	              { id: 'coordsForm' },
-	              React.createElement('input', { type: 'text', placeholder: 'lat', value: this.state.projectLatCoord }),
-	              React.createElement('input', { type: 'text', placeholder: 'lng', value: this.state.projectLngCoord })
-	            ),
-	            React.createElement(
-	              'div',
-	              { id: 'projectFormSubmit', onClick: this.submitForm },
-	              'submit!'
-	            )
-	          ),
-	          React.createElement('textarea', { id: 'projectFormDesc', placeholder: 'description', value: this.state.projectDesc })
-	        )
+	        React.createElement(ProjectForm, null)
 	      )
 	    );
 	  }
@@ -29866,6 +29829,65 @@
 	  justifyContent: "space-around",
 	  width: "100%"
 	};
+
+/***/ },
+/* 232 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	
+	var ProjectForm = React.createClass({
+	  displayName: "ProjectForm",
+	
+	
+	  getInitialState: function () {
+	    return {
+	      projectTitle: "",
+	      projectStartDate: "",
+	      projectEndDate: "",
+	      projectLocation: "",
+	      projectLatCoord: "",
+	      projectLngCoord: "",
+	      projectDesc: ""
+	    };
+	  },
+	
+	  render: function () {
+	    return React.createElement(
+	      "div",
+	      { id: "projectModal" },
+	      React.createElement("img", { src: "http://res.cloudinary.com/dzyfczxnr/image/upload/v1472766011/portfolio/close.png",
+	        id: "closeModalButton",
+	        onClick: this.hideModal }),
+	      React.createElement(
+	        "form",
+	        { id: "projectForm", className: "flex" },
+	        React.createElement(
+	          "div",
+	          { className: "flex column" },
+	          React.createElement("input", { type: "text", placeholder: "title", value: this.state.projectTitle }),
+	          React.createElement("input", { type: "text", placeholder: "start date", value: this.state.projectStartDate }),
+	          React.createElement("input", { type: "text", placeholder: "end date", value: this.state.projectEndDate }),
+	          React.createElement("input", { type: "text", placeholder: "location", value: this.state.projectLocation }),
+	          React.createElement(
+	            "div",
+	            { className: "flex center", id: "coordsForm" },
+	            React.createElement("input", { type: "text", placeholder: "lat", value: this.state.projectLatCoord }),
+	            React.createElement("input", { type: "text", placeholder: "lng", value: this.state.projectLngCoord })
+	          ),
+	          React.createElement(
+	            "div",
+	            { id: "projectFormSubmit", onClick: this.submitForm },
+	            "submit!"
+	          )
+	        ),
+	        React.createElement("textarea", { id: "projectFormDesc", placeholder: "description", value: this.state.projectDesc })
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = ProjectForm;
 
 /***/ }
 /******/ ]);

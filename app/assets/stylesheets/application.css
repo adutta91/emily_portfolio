@@ -36,9 +36,10 @@ input {
 textarea {
   color: #2580d0;
   width: 50%;
+  height: 75%;
   padding: 10px;
   font-size: 1.7vw;
-  margin: 10px 0;
+  margin: 10px 45px;
   border: 1px solid grey;
 }
 
