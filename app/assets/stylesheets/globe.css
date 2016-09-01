@@ -1,0 +1,38 @@
+#mapL, #mapWE {
+  position:absolute !important;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: #fff;
+  position: absolute !important;
+}
+
+#mapWE {
+  left: 50%;
+}
+
+#coords {
+  position: absolute;
+  bottom: 0;
+}
+
+#globe_div {
+  width: 40vw;
+  height: 70vh;
+}
+
+#globeWrapper {
+  width: 100%;
+  margin-right: 10px;
+}
+
+.we-pm-icon {
+  transition: .5s;
+}
+
+.we-pm-icon:hover {
+  cursor: pointer;
+  transform: scale(1.25);
+  transition: .5s;
+}

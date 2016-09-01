@@ -21414,6 +21414,7 @@
 	var Header = __webpack_require__(173);
 	var SubHeader = __webpack_require__(174);
 	var AboutMe = __webpack_require__(203);
+	var Projects = __webpack_require__(205);
 	
 	var Display = __webpack_require__(201);
 	
@@ -21424,9 +21425,10 @@
 	  render: function () {
 	    return React.createElement(
 	      'div',
-	      { id: 'app', className: 'flex column center' },
+	      { id: 'app', className: '' },
 	      React.createElement(Header, null),
-	      React.createElement(AboutMe, null)
+	      React.createElement(AboutMe, null),
+	      React.createElement(Projects, null)
 	    );
 	  }
 	});
@@ -21450,7 +21452,7 @@
 	      { id: 'header', className: 'flex center' },
 	      React.createElement(
 	        'h1',
-	        null,
+	        { id: 'name' },
 	        'Emily Combs'
 	      ),
 	      React.createElement(SubHeader, null)
@@ -28449,7 +28451,7 @@
 	  render: function () {
 	    return React.createElement(
 	      'div',
-	      { id: 'aboutMeDisplay', className: 'flex center hidden' },
+	      { id: 'aboutMeDisplay', className: 'sectionDisplay flex center hidden' },
 	      React.createElement('div', { className: 'crop' }),
 	      React.createElement(Description, null)
 	    );
@@ -28517,7 +28519,7 @@
 	  render: function () {
 	    return React.createElement(
 	      'div',
-	      { id: 'projectsTab', className: 'flex hidden' },
+	      { id: 'projectsDisplay', className: 'sectionDisplay flex hidden' },
 	      React.createElement(Globe, null),
 	      React.createElement(ProjectInfo, null)
 	    );

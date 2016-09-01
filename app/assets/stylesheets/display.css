@@ -2,10 +2,15 @@
   width: 80vw;
 }
 
-#aboutMeDisplay {
+#projectsDisplay {
+  width: 80vw;
+  margin: 0 auto;
+  border-bottom: 1px solid black;
+}
+
+.sectionDisplay {
   width: 100vw;
   height: 100vh;
-  margin-top: 10vh;
 }
 
 .hidden {

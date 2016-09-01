@@ -25,21 +25,29 @@ h3, h5 {
 }
 
 #app {
-  overflow: scroll;
+  overflow-y: scroll;
+  height:200vh;
 }
 
 #header {
-  width: 80%;
+  width: 100%;
   border-bottom: 1px solid black;
   margin: 0 0 10px 0;
   justify-content: space-between;
   position: fixed;
-  top: 10px;
+  top: 0px;
+  height: 7.5vh;
+  z-index: 1000;
+  background-color: white;
 }
 
 #subHeader {
   width: 40%;
   justify-content: space-around;
+}
+
+#name {
+  margin-left: 15px;
 }
 
 /* fonts */
@@ -73,23 +81,8 @@ h5 {
   background-position: bottom;
   transition: all .5s ease;
   color: white;
-  border-radius: 5px 5px 0 0;
+  /*border-radius: 5px 5px 0 0;*/
 }
-/*
-.tab:after {
-  content: '';
-	display: block;
-	margin: 5px auto;
-	height: 1px;
-	width: 0px;
-	background: transparent;
-	transition: width .5s ease, background-color .5s ease;
-}
-
-.tab.selected:after {
-	width: 100%;
-	background: black;
-}*/
 
 .tab:hover {
   cursor: pointer;

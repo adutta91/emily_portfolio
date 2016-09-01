@@ -6,7 +6,7 @@ var Header = React.createClass({
   render: function() {
     return (
       <div id="header" className="flex center">
-        <h1>Emily Combs</h1>
+        <h1 id="name">Emily Combs</h1>
         <SubHeader />
       </div>
     )  }
