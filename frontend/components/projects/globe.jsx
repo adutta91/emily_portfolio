@@ -53,21 +53,21 @@ var initializeGlobe = function() {
   WE.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
     attribution: '© OpenStreetMap contributors'
   }).addTo(globe);
-
-  // UNCOMMENT TO MAKE THE GLOBE CONSTANTLY SPIN SLOWLY
-  // animate(globe);
-
+  animate(globe);
   GlobeUtil.setGlobe(globe);
 };
 
 var animate = function(globe) {
   var before = null;
   requestAnimationFrame(function animate(now) {
+    var gs = GlobeStore;
+    if (gs.animation()) {
       var c = globe.getPosition();
       var elapsed = before ? now - before : 0;
       before = now;
       globe.setCenter([c[0], c[1] + 0.1*(elapsed/30)]);
       requestAnimationFrame(animate);
+    }
   });
 };
 

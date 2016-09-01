@@ -6,5 +6,11 @@ module.exports = {
       actionType: "RECEIVE_GLOBE",
       globe: globe
     })
+  },
+
+  toggleAnimation: function() {
+    Dispatcher.dispatch({
+      actionType: "TOGGLE_ANIMATION"
+    });
   }
 };

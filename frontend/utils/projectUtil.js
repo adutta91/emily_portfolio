@@ -1,5 +1,7 @@
 var ProjectActions = require('../actions/projectActions');
 
+var GlobeUtil = require('./globeUtil');
+
 module.exports = {
   fetchProjects: function() {
     $.ajax({
@@ -15,6 +17,7 @@ module.exports = {
   },
 
   setProject: function(globe, project) {
+    GlobeUtil.toggleAnimation();
     globe.setView([project.lat, project.lng], 2.5);
     ProjectActions.setProject(project);
   }

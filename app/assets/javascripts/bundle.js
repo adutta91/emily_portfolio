@@ -28705,21 +28705,21 @@
 	  WE.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 	    attribution: '© OpenStreetMap contributors'
 	  }).addTo(globe);
-	
-	  // UNCOMMENT TO MAKE THE GLOBE CONSTANTLY SPIN SLOWLY
-	  // animate(globe);
-	
+	  animate(globe);
 	  GlobeUtil.setGlobe(globe);
 	};
 	
 	var animate = function (globe) {
 	  var before = null;
 	  requestAnimationFrame(function animate(now) {
-	    var c = globe.getPosition();
-	    var elapsed = before ? now - before : 0;
-	    before = now;
-	    globe.setCenter([c[0], c[1] + 0.1 * (elapsed / 30)]);
-	    requestAnimationFrame(animate);
+	    var gs = GlobeStore;
+	    if (gs.animation()) {
+	      var c = globe.getPosition();
+	      var elapsed = before ? now - before : 0;
+	      before = now;
+	      globe.setCenter([c[0], c[1] + 0.1 * (elapsed / 30)]);
+	      requestAnimationFrame(animate);
+	    }
 	  });
 	};
 	
@@ -28832,6 +28832,8 @@
 
 	var ProjectActions = __webpack_require__(212);
 	
+	var GlobeUtil = __webpack_require__(214);
+	
 	module.exports = {
 	  fetchProjects: function () {
 	    $.ajax({
@@ -28847,6 +28849,7 @@
 	  },
 	
 	  setProject: function (globe, project) {
+	    GlobeUtil.toggleAnimation();
 	    globe.setView([project.lat, project.lng], 2.5);
 	    ProjectActions.setProject(project);
 	  }
@@ -28884,9 +28887,14 @@
 	var GlobeStore = new Store(Dispatcher);
 	
 	var _globe = {};
+	var _animation = true;
 	
 	GlobeStore.globe = function () {
 	  return _globe;
+	};
+	
+	GlobeStore.animation = function () {
+	  return _animation;
 	};
 	
 	GlobeStore.__onDispatch = function (payload) {
@@ -28895,11 +28903,19 @@
 	      resetGlobe(payload.globe);
 	      GlobeStore.__emitChange();
 	      break;
+	    case 'TOGGLE_ANIMATION':
+	      toggleAnimation();
+	      GlobeStore.__emitChange();
+	      break;
 	  }
 	};
 	
 	var resetGlobe = function (globe) {
 	  _globe = globe;
+	};
+	
+	var toggleAnimation = function () {
+	  _animation = !_animation;
 	};
 	
 	module.exports = GlobeStore;
@@ -28913,6 +28929,10 @@
 	module.exports = {
 	  setGlobe: function (globe) {
 	    GlobeActions.setGlobe(globe);
+	  },
+	
+	  toggleAnimation: function () {
+	    GlobeActions.toggleAnimation();
 	  }
 	};
 
@@ -28927,6 +28947,12 @@
 	    Dispatcher.dispatch({
 	      actionType: "RECEIVE_GLOBE",
 	      globe: globe
+	    });
+	  },
+	
+	  toggleAnimation: function () {
+	    Dispatcher.dispatch({
+	      actionType: "TOGGLE_ANIMATION"
 	    });
 	  }
 	};
