@@ -21423,9 +21423,7 @@
 	    return React.createElement(
 	      'div',
 	      { id: 'app', className: 'flex column center' },
-	      React.createElement(Header, null),
-	      React.createElement(SubHeader, null),
-	      React.createElement(Display, null)
+	      React.createElement(Header, null)
 	    );
 	  }
 	});
@@ -21446,12 +21444,13 @@
 	  render: function () {
 	    return React.createElement(
 	      'div',
-	      { id: 'header', className: 'flex column center' },
+	      { id: 'header', className: 'flex center' },
 	      React.createElement(
 	        'h1',
 	        null,
 	        'Emily Combs'
-	      )
+	      ),
+	      React.createElement(SubHeader, null)
 	    );
 	  }
 	});
@@ -28411,7 +28410,7 @@
 	var React = __webpack_require__(1);
 	var AboutMe = __webpack_require__(203);
 	var Projects = __webpack_require__(205);
-	var Contact = __webpack_require__(216);
+	var Contact = __webpack_require__(217);
 	
 	module.exports = {
 	  "aboutMe": React.createElement(AboutMe, null),
@@ -28493,7 +28492,7 @@
 	var ProjectInfo = __webpack_require__(206);
 	var Globe = __webpack_require__(208);
 	
-	var ProjectUtil = __webpack_require__(211);
+	var ProjectUtil = __webpack_require__(214);
 	
 	var Projects = React.createClass({
 	  displayName: 'Projects',
@@ -28652,11 +28651,11 @@
 	
 	var ProjectList = __webpack_require__(209);
 	
-	var GlobeStore = __webpack_require__(213);
-	var GlobeUtil = __webpack_require__(214);
+	var GlobeStore = __webpack_require__(216);
+	var GlobeUtil = __webpack_require__(211);
 	
 	var ProjectStore = __webpack_require__(207);
-	var ProjectUtil = __webpack_require__(211);
+	var ProjectUtil = __webpack_require__(214);
 	
 	var Globe = React.createClass({
 	  displayName: 'Globe',
@@ -28728,11 +28727,11 @@
 
 	var React = __webpack_require__(1);
 	
-	var StartRotationButton = __webpack_require__(217);
-	var ProjectItem = __webpack_require__(210);
+	var StartRotationButton = __webpack_require__(210);
+	var ProjectItem = __webpack_require__(213);
 	
 	var ProjectStore = __webpack_require__(207);
-	var GlobeStore = __webpack_require__(213);
+	var GlobeStore = __webpack_require__(216);
 	
 	var ProjectList = React.createClass({
 	  displayName: 'ProjectList',
@@ -28787,11 +28786,83 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
+	var GlobeUtil = __webpack_require__(211);
 	
-	var ProjectUtil = __webpack_require__(211);
+	var StartRotationButton = React.createClass({
+	  displayName: 'StartRotationButton',
+	
+	  click: function () {
+	    GlobeUtil.startAnimation();
+	  },
+	
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      { id: 'rotationButton', onClick: this.click },
+	      'spin!'
+	    );
+	  }
+	});
+	
+	module.exports = StartRotationButton;
+
+/***/ },
+/* 211 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var GlobeActions = __webpack_require__(212);
+	
+	module.exports = {
+	  setGlobe: function (globe) {
+	    GlobeActions.setGlobe(globe);
+	  },
+	
+	  stopAnimation: function () {
+	    GlobeActions.stopAnimation();
+	  },
+	
+	  startAnimation: function () {
+	    GlobeActions.startAnimation();
+	  }
+	};
+
+/***/ },
+/* 212 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Dispatcher = __webpack_require__(179);
+	
+	module.exports = {
+	  setGlobe: function (globe) {
+	    Dispatcher.dispatch({
+	      actionType: "RECEIVE_GLOBE",
+	      globe: globe
+	    });
+	  },
+	
+	  stopAnimation: function () {
+	    Dispatcher.dispatch({
+	      actionType: "STOP_ANIMATION"
+	    });
+	  },
+	
+	  startAnimation: function () {
+	    Dispatcher.dispatch({
+	      actionType: "START_ANIMATION"
+	    });
+	  }
+	};
+
+/***/ },
+/* 213 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	
+	var ProjectUtil = __webpack_require__(214);
 	
 	var ProjectStore = __webpack_require__(207);
-	var GlobeStore = __webpack_require__(213);
+	var GlobeStore = __webpack_require__(216);
 	
 	var ProjectItem = React.createClass({
 	  displayName: 'ProjectItem',
@@ -28823,12 +28894,12 @@
 	module.exports = ProjectItem;
 
 /***/ },
-/* 211 */
+/* 214 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var ProjectActions = __webpack_require__(212);
+	var ProjectActions = __webpack_require__(215);
 	
-	var GlobeUtil = __webpack_require__(214);
+	var GlobeUtil = __webpack_require__(211);
 	
 	module.exports = {
 	  fetchProjects: function () {
@@ -28852,7 +28923,7 @@
 	};
 
 /***/ },
-/* 212 */
+/* 215 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Dispatcher = __webpack_require__(179);
@@ -28874,7 +28945,7 @@
 	};
 
 /***/ },
-/* 213 */
+/* 216 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Store = __webpack_require__(184).Store;
@@ -28935,54 +29006,7 @@
 	module.exports = GlobeStore;
 
 /***/ },
-/* 214 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var GlobeActions = __webpack_require__(215);
-	
-	module.exports = {
-	  setGlobe: function (globe) {
-	    GlobeActions.setGlobe(globe);
-	  },
-	
-	  stopAnimation: function () {
-	    GlobeActions.stopAnimation();
-	  },
-	
-	  startAnimation: function () {
-	    GlobeActions.startAnimation();
-	  }
-	};
-
-/***/ },
-/* 215 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var Dispatcher = __webpack_require__(179);
-	
-	module.exports = {
-	  setGlobe: function (globe) {
-	    Dispatcher.dispatch({
-	      actionType: "RECEIVE_GLOBE",
-	      globe: globe
-	    });
-	  },
-	
-	  stopAnimation: function () {
-	    Dispatcher.dispatch({
-	      actionType: "STOP_ANIMATION"
-	    });
-	  },
-	
-	  startAnimation: function () {
-	    Dispatcher.dispatch({
-	      actionType: "START_ANIMATION"
-	    });
-	  }
-	};
-
-/***/ },
-/* 216 */
+/* 217 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -29018,31 +29042,6 @@
 	});
 	
 	module.exports = Contact;
-
-/***/ },
-/* 217 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var GlobeUtil = __webpack_require__(214);
-	
-	var StartRotationButton = React.createClass({
-	  displayName: 'StartRotationButton',
-	
-	  click: function () {
-	    GlobeUtil.startAnimation();
-	  },
-	
-	  render: function () {
-	    return React.createElement(
-	      'div',
-	      { id: 'rotationButton', onClick: this.click },
-	      'spin!'
-	    );
-	  }
-	});
-	
-	module.exports = StartRotationButton;
 
 /***/ }
 /******/ ]);

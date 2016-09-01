@@ -10,8 +10,6 @@ var App = React.createClass({
     return (
       <div id="app" className="flex column center">
         <Header />
-        <SubHeader />
-        <Display />
       </div>
     )
   }

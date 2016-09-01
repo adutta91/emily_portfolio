@@ -19,11 +19,9 @@ html {
 }
 
 h1 {
-  margin-top: 20px;
 }
 
 h3, h5 {
-  margin: 10px 0;
 }
 
 #app {
@@ -31,10 +29,16 @@ h3, h5 {
 }
 
 #header {
-  height: 80px;
+  height: 7.5vh;
   width: 80%;
   border-bottom: 1px solid black;
   margin: 0 0 10px 0;
+  justify-content: space-between;
+}
+
+#subHeader {
+  width: 40%;
+  justify-content: space-around;
 }
 
 /* fonts */
@@ -57,11 +61,20 @@ h5 {
 
 /* components */
 .tab {
-  margin: 10px 30px 5px 30px;
-  padding: 0 0 8px 0;
-  border-bottom: 1px solid white;
+  background: linear-gradient(to top, #2580d0 50%, white 50%);
+  background-size: 100% 200%;
+  background-position: top;
+  padding: 8px 5px;
+  transition: all .5s ease;
 }
 
+.tab.selected {
+  background-position: bottom;
+  transition: all .5s ease;
+  color: white;
+  border-radius: 5px 5px 0 0;
+}
+/*
 .tab:after {
   content: '';
 	display: block;
@@ -75,7 +88,7 @@ h5 {
 .tab.selected:after {
 	width: 100%;
 	background: black;
-}
+}*/
 
 .tab:hover {
   cursor: pointer;
