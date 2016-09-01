@@ -21413,6 +21413,8 @@
 	
 	var Header = __webpack_require__(173);
 	var SubHeader = __webpack_require__(174);
+	var AboutMe = __webpack_require__(203);
+	
 	var Display = __webpack_require__(201);
 	
 	var App = React.createClass({
@@ -21423,7 +21425,8 @@
 	    return React.createElement(
 	      'div',
 	      { id: 'app', className: 'flex column center' },
-	      React.createElement(Header, null)
+	      React.createElement(Header, null),
+	      React.createElement(AboutMe, null)
 	    );
 	  }
 	});
@@ -28446,7 +28449,7 @@
 	  render: function () {
 	    return React.createElement(
 	      'div',
-	      { id: 'aboutMe', className: 'flex center hidden' },
+	      { id: 'aboutMeDisplay', className: 'flex center hidden' },
 	      React.createElement('div', { className: 'crop' }),
 	      React.createElement(Description, null)
 	    );

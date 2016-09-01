@@ -2,6 +2,12 @@
   width: 80vw;
 }
 
+#aboutMeDisplay {
+  width: 100vw;
+  height: 100vh;
+  margin-top: 10vh;
+}
+
 .hidden {
   opacity: 0;
   transition:.5s;

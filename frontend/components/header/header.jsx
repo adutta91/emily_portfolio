@@ -9,8 +9,7 @@ var Header = React.createClass({
         <h1>Emily Combs</h1>
         <SubHeader />
       </div>
-    )
-  }
+    )  }
 });
 
 module.exports = Header;

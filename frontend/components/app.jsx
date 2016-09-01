@@ -2,6 +2,8 @@ var React = require('react');
 
 var Header = require('./header/header');
 var SubHeader = require('./header/subHeader');
+var AboutMe = require('./tabs/aboutMe');
+
 var Display = require('./display');
 
 var App = React.createClass({
@@ -10,6 +12,7 @@ var App = React.createClass({
     return (
       <div id="app" className="flex column center">
         <Header />
+        <AboutMe />
       </div>
     )
   }
