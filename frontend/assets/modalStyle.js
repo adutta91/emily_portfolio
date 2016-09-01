@@ -1,6 +1,6 @@
 module.exports = {
-  width: "50vw",
-  height: "50vh",
+  width: "80vw",
+  height: "75vh",
   display: "flex",
   alignItems: "center",
   justifyContent: "center",

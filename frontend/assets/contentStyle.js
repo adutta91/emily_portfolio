@@ -3,5 +3,6 @@ module.exports = {
   flexDirection: "column",
   height: "100%",
   alignItems: "center",
-  justifyContent: "space-around"
+  justifyContent: "space-around",
+  width: "100%"
 }

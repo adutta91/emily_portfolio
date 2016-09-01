@@ -7,6 +7,13 @@
   margin: 0 auto;
 }
 
+#closeModalButton {
+  position: fixed;
+  top: 5px;
+  right: 5px;
+  width: 3vw;
+}
+
 .separator {
   background: black;
   height: 1px;

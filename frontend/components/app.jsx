@@ -15,15 +15,23 @@ var ContentStyle = require('../assets/contentStyle');
 
 var App = React.createClass({
 
+  getInitialState: function() {
+    return ({
+      projectTitle: "",
+      projectStartDate: "",
+      projectEndDate: "",
+      projectLocation: "",
+      projectLatCoord: "",
+      projectLngCoord: "",
+      projectDesc: ""
+    });
+  },
+
   showModal: function(){
     this.refs.modal.show();
   },
   hideModal: function(){
     this.refs.modal.hide();
-  },
-
-  callback: function() {
-    console.log("hasldfjhas");
   },
 
   componentDidMount: function() {
@@ -42,6 +50,10 @@ var App = React.createClass({
     }
   },
 
+  submitForm: function() {
+    console.log("asjdlfk");
+  },
+
   render: function() {
     return (
       <div>
@@ -57,8 +69,24 @@ var App = React.createClass({
         <Modal ref="modal"
                modalStyle={ModalStyle}
                contentStyle={ContentStyle}>
-            <h2>I am a dialog</h2>
-            <button onClick={this.hideModal}>Close</button>
+           <img src="http://res.cloudinary.com/dzyfczxnr/image/upload/v1472766011/portfolio/close.png"
+                id="closeModalButton"
+                onClick={this.hideModal}/>
+           <form id="projectForm" className="flex">
+              <div className="flex column">
+                <input type="text" placeholder="title" value={this.state.projectTitle}/>
+                <input type="text" placeholder="start date" value={this.state.projectStartDate}/>
+                <input type="text" placeholder="end date" value={this.state.projectEndDate}/>
+                <input type="text" placeholder="location" value={this.state.projectLocation}/>
+                <div id="coordsForm">
+                  <input type="text" placeholder="lat" value={this.state.projectLatCoord}/>
+                  <input type="text" placeholder="lng" value={this.state.projectLngCoord}/>
+                </div>
+                <div id="projectFormSubmit" onClick={this.submitForm}>submit!</div>
+              </div>
+              <textarea id="projectFormDesc" placeholder="description" value={this.state.projectDesc}></textarea>
+           </form>
+
         </Modal>
       </div>
     )

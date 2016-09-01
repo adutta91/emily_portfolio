@@ -24,6 +24,24 @@ h1 {
 h3, h5 {
 }
 
+input {
+  padding: 10px;
+  font-size: 2.4vw;
+  margin: 10px 0;
+  color: #2580d0;
+  border: 1px solid grey;
+  text-align: center;
+}
+
+textarea {
+  color: #2580d0;
+  width: 50%;
+  padding: 10px;
+  font-size: 1.7vw;
+  margin: 10px 0;
+  border: 1px solid grey;
+}
+
 #app {
   overflow-y: scroll;
 }
