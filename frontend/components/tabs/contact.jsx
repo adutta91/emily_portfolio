@@ -17,7 +17,7 @@ var Contact = React.createClass({
 
   render: function() {
     return (
-      <div className="hidden">
+      <div id="contactDisplay" className="sectionDisplay flex center hidden">
         <h1> ~ Contact display in progress ~ </h1>
       </div>
     )

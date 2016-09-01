@@ -4,6 +4,7 @@ var Header = require('./header/header');
 var SubHeader = require('./header/subHeader');
 var AboutMe = require('./tabs/aboutMe');
 var Projects = require('./tabs/projects');
+var Contact = require ('./tabs/contact');
 
 var Display = require('./display');
 
@@ -15,6 +16,7 @@ var App = React.createClass({
         <Header />
         <AboutMe />
         <Projects />
+        <Contact />
       </div>
     )
   }

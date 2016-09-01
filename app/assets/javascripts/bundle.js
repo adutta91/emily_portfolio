@@ -21415,6 +21415,7 @@
 	var SubHeader = __webpack_require__(174);
 	var AboutMe = __webpack_require__(203);
 	var Projects = __webpack_require__(205);
+	var Contact = __webpack_require__(217);
 	
 	var Display = __webpack_require__(201);
 	
@@ -21428,7 +21429,8 @@
 	      { id: 'app', className: '' },
 	      React.createElement(Header, null),
 	      React.createElement(AboutMe, null),
-	      React.createElement(Projects, null)
+	      React.createElement(Projects, null),
+	      React.createElement(Contact, null)
 	    );
 	  }
 	});
@@ -21502,7 +21504,7 @@
 	    var display = id + "Display";
 	    $(id).click(function () {
 	      $('html, body').animate({
-	        scrollTop: $(display).offset().top - 50
+	        scrollTop: $(display).offset().top
 	      }, 750);
 	    });
 	    TabUtil.selectTab(tab);
@@ -29048,7 +29050,7 @@
 	  render: function () {
 	    return React.createElement(
 	      'div',
-	      { className: 'hidden' },
+	      { id: 'contactDisplay', className: 'sectionDisplay flex center hidden' },
 	      React.createElement(
 	        'h1',
 	        null,

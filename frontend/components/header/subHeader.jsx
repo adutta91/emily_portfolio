@@ -32,7 +32,7 @@ var SubHeader = React.createClass({
     var display = id + "Display"
     $(id).click(function() {
       $('html, body').animate({
-          scrollTop: $(display).offset().top - 50
+          scrollTop: $(display).offset().top 
       }, 750);
     });
     TabUtil.selectTab(tab);
