@@ -14,8 +14,11 @@ var App = React.createClass({
     return (
       <div id="app" className="">
         <Header />
+        <div id="aboutMeSeparator" className="separator" />
         <AboutMe />
+        <div id="projectsSeparator" className="separator" />
         <Projects />
+        <div id="contactSeparator" className="separator" />
         <Contact />
       </div>
     )

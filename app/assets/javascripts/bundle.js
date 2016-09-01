@@ -21428,8 +21428,11 @@
 	      'div',
 	      { id: 'app', className: '' },
 	      React.createElement(Header, null),
+	      React.createElement('div', { id: 'aboutMeSeparator', className: 'separator' }),
 	      React.createElement(AboutMe, null),
+	      React.createElement('div', { id: 'projectsSeparator', className: 'separator' }),
 	      React.createElement(Projects, null),
+	      React.createElement('div', { id: 'contactSeparator', className: 'separator' }),
 	      React.createElement(Contact, null)
 	    );
 	  }
@@ -21487,7 +21490,7 @@
 	
 	  componentDidMount: function () {
 	    this.tabListener = TabStore.addListener(this.update);
-	    // addScrollListener();
+	    addScrollListener();
 	  },
 	
 	  componentWillUnmount: function () {
@@ -21501,10 +21504,11 @@
 	  selectTab: function (event) {
 	    var tab = event.currentTarget.id;
 	    var id = "#" + tab;
-	    var display = id + "Display";
+	    var headerBuffer = $(window).height() * .075;
+	    var separator = id + "Separator";
 	    $(id).click(function () {
 	      $('html, body').animate({
-	        scrollTop: $(display).offset().top
+	        scrollTop: $(separator).offset().top - headerBuffer
 	      }, 750);
 	    });
 	    TabUtil.selectTab(tab);
@@ -21535,9 +21539,27 @@
 	});
 	
 	var addScrollListener = function () {
+	  var headerBuffer = $(window).height() * .25;
 	  window.addEventListener('scroll', function () {
-	    var scrollPos = $(window).scrollTop();
-	    if (scrollPos < $("projects").scrollTop()) {} else if (scrollPos < $("contact").scrollTop()) {} else {}
+	    var scrollPos = $(window).scrollTop() + headerBuffer;
+	    if (scrollPos < $("#projectsDisplay").offset().top) {
+	      selectTab('aboutMe');
+	    } else if (scrollPos < $("#contactDisplay").offset().top) {
+	      selectTab('projects');
+	    } else {
+	      selectTab('contact');
+	    }
+	  });
+	};
+	
+	var selectTab = function (id) {
+	  var target = id;
+	  $('.tab').each(function (idx, ele) {
+	    if (ele.id === id) {
+	      ele.classList.add('selected');
+	    } else {
+	      ele.classList.remove('selected');
+	    }
 	  });
 	};
 	

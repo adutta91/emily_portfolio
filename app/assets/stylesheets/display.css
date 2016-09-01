@@ -5,7 +5,13 @@
 #projectsDisplay {
   width: 80vw;
   margin: 0 auto;
-  border-bottom: 1px solid black;
+}
+
+.separator {
+  background: black;
+  height: 1px;
+  width: 75%;
+  margin: 0 auto;
 }
 
 .sectionDisplay {
