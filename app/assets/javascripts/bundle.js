@@ -21582,7 +21582,7 @@
 	module.exports = {
 	  "aboutMe": "About Me",
 	  "projects": "Projects",
-	  "contact": "Contact Me"
+	  "contact": "Contact"
 	};
 
 /***/ },
@@ -28604,20 +28604,20 @@
 	        { id: 'projectDetail', className: 'flex column center' },
 	        React.createElement(
 	          'div',
-	          { id: 'projectHeader' },
+	          { id: 'projectHeader', className: 'flex column' },
 	          React.createElement(
 	            'h1',
-	            null,
+	            { className: 'margin' },
 	            this.state.project.title
 	          ),
 	          React.createElement(
 	            'h3',
-	            null,
+	            { className: 'margin' },
 	            this.state.project.location
 	          ),
 	          React.createElement(
 	            'h5',
-	            null,
+	            { className: 'margin' },
 	            this.state.project.start_date,
 	            ' - ',
 	            this.state.project.end_date
@@ -28819,7 +28819,7 @@
 	      'div',
 	      { id: 'projectList', className: 'flex center' },
 	      this.getProjects(),
-	      this.displayButton()
+	      React.createElement(StartRotationButton, null)
 	    );
 	  }
 	});
@@ -28832,17 +28832,46 @@
 
 	var React = __webpack_require__(1);
 	var GlobeUtil = __webpack_require__(211);
+	var GlobeStore = __webpack_require__(216);
 	
 	var StartRotationButton = React.createClass({
 	  displayName: 'StartRotationButton',
 	
+	
+	  getInitialState: function () {
+	    return {
+	      on: GlobeStore.animation()
+	    };
+	  },
+	
 	  click: function () {
-	    GlobeUtil.startAnimation();
+	    GlobeUtil.toggleAnimation();
+	  },
+	
+	  componentDidMount: function () {
+	    this.globeListener = GlobeStore.addListener(this.update);
+	  },
+	
+	  componentWillUnmount: function () {
+	    this.globeListener.remove();
+	  },
+	
+	  update: function () {
+	    this.setState({ on: GlobeStore.animation() });
+	  },
+	
+	  getClassName: function () {
+	    if (this.state.on) {
+	      return "on";
+	    } else {
+	      return "";
+	    }
 	  },
 	
 	  render: function () {
-	    return React.createElement('img', { src: 'http://res.cloudinary.com/dzyfczxnr/image/upload/v1472751493/portfolio/swirl.jpg',
+	    return React.createElement('img', { src: 'http://res.cloudinary.com/dzyfczxnr/image/upload/v1472760666/portfolio/globe.png',
 	      id: 'rotationButton',
+	      className: this.getClassName(),
 	      onClick: this.click });
 	  }
 	});
@@ -28860,12 +28889,16 @@
 	    GlobeActions.setGlobe(globe);
 	  },
 	
-	  stopAnimation: function () {
-	    GlobeActions.stopAnimation();
+	  toggleAnimation: function () {
+	    GlobeActions.toggleAnimation();
 	  },
 	
 	  startAnimation: function () {
 	    GlobeActions.startAnimation();
+	  },
+	
+	  stopAnimation: function () {
+	    GlobeActions.stopAnimation();
 	  }
 	};
 
@@ -28883,15 +28916,21 @@
 	    });
 	  },
 	
-	  stopAnimation: function () {
+	  toggleAnimation: function () {
 	    Dispatcher.dispatch({
-	      actionType: "STOP_ANIMATION"
+	      actionType: 'TOGGLE_ANIMATION'
 	    });
 	  },
 	
 	  startAnimation: function () {
 	    Dispatcher.dispatch({
 	      actionType: "START_ANIMATION"
+	    });
+	  },
+	
+	  stopAnimation: function () {
+	    Dispatcher.dispatch({
+	      actionType: "STOP_ANIMATION"
 	    });
 	  }
 	};
@@ -29013,12 +29052,16 @@
 	      resetGlobe(payload.globe);
 	      GlobeStore.__emitChange();
 	      break;
-	    case 'STOP_ANIMATION':
-	      stopAnimation();
+	    case 'TOGGLE_ANIMATION':
+	      toggleAnimation();
 	      GlobeStore.__emitChange();
 	      break;
 	    case 'START_ANIMATION':
 	      startAnimation();
+	      GlobeStore.__emitChange();
+	      break;
+	    case 'STOP_ANIMATION':
+	      stopAnimation();
 	      GlobeStore.__emitChange();
 	      break;
 	  }
@@ -29026,6 +29069,14 @@
 	
 	var resetGlobe = function (globe) {
 	  _globe = globe;
+	};
+	
+	var toggleAnimation = function () {
+	  if (_animation) {
+	    stopAnimation();
+	  } else {
+	    startAnimation();
+	  }
 	};
 	
 	var stopAnimation = function () {

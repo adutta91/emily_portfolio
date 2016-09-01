@@ -9,18 +9,20 @@
 
 #projectDetail {
   min-height: 80%;
+  width: 80%;
   margin-left: 10px;
   align-self: flex-start;
 }
 
 #projectPrompt {
-  width: 50%;
+  width: 80%;
   min-height: 80%;
   align-self: flex-start;
 }
 
 #projectHeader {
   width: 100%;
+  justify-content: space-around;
 }
 
 #projectDescription {
@@ -29,31 +31,13 @@
 }
 
 #projectList {
-  height: 20%;
   width: 100%;
   margin-top: 10px;
-  overflow: scroll;
-}
-
-#rotationButton {
-  margin-left: 20px;
-  height: 36px;
-  border-radius: 50%;
-  padding: 2px;
-  transition: .7s;
-}
-
-#rotationButton:hover {
-  cursor: pointer;
-  transform: rotate(360deg);
-  transition: .7s;
-  // background-color: #2580d0;
 }
 
 .projectItem {
   font-size: 12px;
   padding: 5px;
-  border: 1px solid black;
   margin: 5px;
   width: 80px;
   height: 40px;
@@ -69,7 +53,5 @@
 .projectItem.selected {
 	background: #2580d0;
   color: white;
-  border: 1px solid white;
-  border-radius: 5px;
   transition: 1s;
 }

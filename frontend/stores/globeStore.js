@@ -20,12 +20,16 @@ GlobeStore.__onDispatch = function(payload) {
       resetGlobe(payload.globe);
       GlobeStore.__emitChange();
       break;
-    case 'STOP_ANIMATION':
-      stopAnimation();
+    case 'TOGGLE_ANIMATION':
+      toggleAnimation();
       GlobeStore.__emitChange();
       break;
     case 'START_ANIMATION':
       startAnimation();
+      GlobeStore.__emitChange();
+      break;
+    case 'STOP_ANIMATION':
+      stopAnimation();
       GlobeStore.__emitChange();
       break;
   }
@@ -33,6 +37,14 @@ GlobeStore.__onDispatch = function(payload) {
 
 var resetGlobe = function(globe) {
   _globe = globe;
+};
+
+var toggleAnimation = function() {
+  if (_animation) {
+    stopAnimation();
+  } else {
+    startAnimation();
+  }
 };
 
 var stopAnimation = function() {

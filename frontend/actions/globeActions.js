@@ -8,9 +8,9 @@ module.exports = {
     })
   },
 
-  stopAnimation: function() {
+  toggleAnimation: function() {
     Dispatcher.dispatch({
-      actionType: "STOP_ANIMATION"
+      actionType: 'TOGGLE_ANIMATION'
     });
   },
 
@@ -18,5 +18,11 @@ module.exports = {
     Dispatcher.dispatch({
       actionType: "START_ANIMATION"
     })
+  },
+
+  stopAnimation: function() {
+    Dispatcher.dispatch({
+      actionType: "STOP_ANIMATION"
+    });
   }
 };
