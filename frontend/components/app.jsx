@@ -19,6 +19,7 @@ var App = React.createClass({
   showModal: function(){
     this.refs.modal.show();
   },
+
   hideModal: function(){
     this.refs.modal.hide();
   },
@@ -39,10 +40,6 @@ var App = React.createClass({
     }
   },
 
-  submitForm: function() {
-    console.log("asjdlfk");
-  },
-
   render: function() {
     return (
       <div>
@@ -58,7 +55,7 @@ var App = React.createClass({
         <Modal ref="modal"
                modalStyle={ModalStyle}
                contentStyle={ContentStyle}>
-            <ProjectForm />
+            <ProjectForm modalCallback={this.hideModal} />
         </Modal>
       </div>
     )

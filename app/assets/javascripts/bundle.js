@@ -21432,6 +21432,7 @@
 	  showModal: function () {
 	    this.refs.modal.show();
 	  },
+	
 	  hideModal: function () {
 	    this.refs.modal.hide();
 	  },
@@ -21450,10 +21451,6 @@
 	    if (ModalStore.projectForm()) {
 	      this.showModal();
 	    }
-	  },
-	
-	  submitForm: function () {
-	    console.log("asjdlfk");
 	  },
 	
 	  render: function () {
@@ -21476,7 +21473,7 @@
 	        { ref: 'modal',
 	          modalStyle: ModalStyle,
 	          contentStyle: ContentStyle },
-	        React.createElement(ProjectForm, null)
+	        React.createElement(ProjectForm, { modalCallback: this.hideModal })
 	      )
 	    );
 	  }
@@ -29020,6 +29017,20 @@
 	    GlobeUtil.stopAnimation();
 	    globe.setView([project.lat, project.lng], 2.5);
 	    ProjectActions.setProject(project);
+	  },
+	
+	  createProject: function (data) {
+	    $.ajax({
+	      url: 'api/projects',
+	      method: 'POST',
+	      data: data,
+	      success: function () {
+	        debugger;
+	      },
+	      error: function (error) {
+	        alert(error.responseText);
+	      }
+	    });
 	  }
 	};
 
@@ -29836,8 +29847,10 @@
 
 	var React = __webpack_require__(1);
 	
+	var ProjectUtil = __webpack_require__(214);
+	
 	var ProjectForm = React.createClass({
-	  displayName: "ProjectForm",
+	  displayName: 'ProjectForm',
 	
 	
 	  getInitialState: function () {
@@ -29852,36 +29865,78 @@
 	    };
 	  },
 	
+	  onInputChange: function (event) {
+	    var el = event.currentTarget;
+	    switch (el.id) {
+	      case 'projectTitle':
+	        this.setState({ projectTitle: el.value });
+	        break;
+	      case 'projectStartDate':
+	        this.setState({ projectStartDate: el.value });
+	        break;
+	      case 'projectEndDate':
+	        this.setState({ projectEndDate: el.value });
+	        break;
+	      case 'projectLocation':
+	        this.setState({ projectLocation: el.value });
+	        break;
+	      case 'projectLatCoord':
+	        this.setState({ projectLatCoord: el.value });
+	        break;
+	      case 'projectLngCoord':
+	        this.setState({ projectLngCoord: el.value });
+	        break;
+	      case 'projectDesc':
+	        this.setState({ projectDesc: el.value });
+	        break;
+	    }
+	  },
+	
+	  submitForm: function () {
+	    ProjectUtil.createProject({
+	      project: {
+	        title: this.state.projectTitle,
+	        start_date: this.state.projectStartDate,
+	        end_date: this.state.projectEndDate,
+	        location: this.state.projectLocation,
+	        lat: this.state.projectLatCoord,
+	        lng: this.state.projectLngCoord,
+	        description: this.state.projectDesc
+	      }
+	    });
+	    this.props.modalCallback();
+	  },
+	
 	  render: function () {
 	    return React.createElement(
-	      "div",
-	      { id: "projectModal" },
-	      React.createElement("img", { src: "http://res.cloudinary.com/dzyfczxnr/image/upload/v1472766011/portfolio/close.png",
-	        id: "closeModalButton",
+	      'div',
+	      { id: 'projectModal' },
+	      React.createElement('img', { src: 'http://res.cloudinary.com/dzyfczxnr/image/upload/v1472766011/portfolio/close.png',
+	        id: 'closeModalButton',
 	        onClick: this.hideModal }),
 	      React.createElement(
-	        "form",
-	        { id: "projectForm", className: "flex" },
+	        'form',
+	        { id: 'projectForm', className: 'flex' },
 	        React.createElement(
-	          "div",
-	          { className: "flex column" },
-	          React.createElement("input", { type: "text", placeholder: "title", value: this.state.projectTitle }),
-	          React.createElement("input", { type: "text", placeholder: "start date", value: this.state.projectStartDate }),
-	          React.createElement("input", { type: "text", placeholder: "end date", value: this.state.projectEndDate }),
-	          React.createElement("input", { type: "text", placeholder: "location", value: this.state.projectLocation }),
+	          'div',
+	          { className: 'flex column' },
+	          React.createElement('input', { id: 'projectTitle', type: 'text', onChange: this.onInputChange, placeholder: 'title', value: this.state.projectTitle }),
+	          React.createElement('input', { id: 'projectStartDate', type: 'text', onChange: this.onInputChange, placeholder: 'start date', value: this.state.projectStartDate }),
+	          React.createElement('input', { id: 'projectEndDate', type: 'text', onChange: this.onInputChange, placeholder: 'end date', value: this.state.projectEndDate }),
+	          React.createElement('input', { id: 'projectLocation', type: 'text', onChange: this.onInputChange, placeholder: 'location', value: this.state.projectLocation }),
 	          React.createElement(
-	            "div",
-	            { className: "flex center", id: "coordsForm" },
-	            React.createElement("input", { type: "text", placeholder: "lat", value: this.state.projectLatCoord }),
-	            React.createElement("input", { type: "text", placeholder: "lng", value: this.state.projectLngCoord })
+	            'div',
+	            { className: 'flex center', id: 'coordsForm' },
+	            React.createElement('input', { id: 'projectLatCoord', type: 'text', onChange: this.onInputChange, placeholder: 'lat', value: this.state.projectLatCoord }),
+	            React.createElement('input', { id: 'projectLngCoord', type: 'text', onChange: this.onInputChange, placeholder: 'lng', value: this.state.projectLngCoord })
 	          ),
 	          React.createElement(
-	            "div",
-	            { id: "projectFormSubmit", onClick: this.submitForm },
-	            "submit!"
+	            'div',
+	            { id: 'projectFormSubmit', onClick: this.submitForm },
+	            'submit!'
 	          )
 	        ),
-	        React.createElement("textarea", { id: "projectFormDesc", placeholder: "description", value: this.state.projectDesc })
+	        React.createElement('textarea', { id: 'projectDesc', onChange: this.onInputChange, placeholder: 'description', value: this.state.projectDesc })
 	      )
 	    );
 	  }
