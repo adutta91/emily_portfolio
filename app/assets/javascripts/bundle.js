@@ -21423,6 +21423,10 @@
 	  displayName: 'App',
 	
 	
+	  componentDidMount: function () {
+	    $(document).scrollTop(0);
+	  },
+	
 	  render: function () {
 	    return React.createElement(
 	      'div',

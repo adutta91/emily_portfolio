@@ -10,6 +10,10 @@ var Display = require('./display');
 
 var App = React.createClass({
 
+  componentDidMount: function() {
+    $(document).scrollTop(0);
+  },
+
   render: function() {
     return (
       <div id="app" className="">
