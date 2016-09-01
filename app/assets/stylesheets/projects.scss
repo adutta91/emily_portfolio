@@ -37,10 +37,7 @@
 
 #rotationButton {
   margin-left: 20px;
-  font-size: 14px;
-  height: 28px;
-  line-height: 28px;
-  border: 1px solid black;
+  height: 36px;
   border-radius: 50%;
   padding: 2px;
   transition: .7s;
@@ -49,10 +46,8 @@
 #rotationButton:hover {
   cursor: pointer;
   transform: rotate(360deg);
-  transition: .5s;
-  background-color: #2580d0;
-  color: white;
-  border: 1px solid white;
+  transition: .7s;
+  // background-color: #2580d0;
 }
 
 .projectItem {

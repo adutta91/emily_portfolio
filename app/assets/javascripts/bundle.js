@@ -21485,6 +21485,7 @@
 	
 	  componentDidMount: function () {
 	    this.tabListener = TabStore.addListener(this.update);
+	    // addScrollListener();
 	  },
 	
 	  componentWillUnmount: function () {
@@ -21497,6 +21498,13 @@
 	
 	  selectTab: function (event) {
 	    var tab = event.currentTarget.id;
+	    var id = "#" + tab;
+	    var display = id + "Display";
+	    $(id).click(function () {
+	      $('html, body').animate({
+	        scrollTop: $(display).offset().top - 50
+	      }, 750);
+	    });
 	    TabUtil.selectTab(tab);
 	  },
 	
@@ -21504,12 +21512,11 @@
 	    var currentTab = this.state.selectedTab;
 	    var that = this;
 	    return TABS.tabs.map(function (tab) {
-	      var className = tab === currentTab ? "tab selected" : "tab";
 	      return React.createElement(
 	        'h3',
 	        { key: tab,
 	          id: tab,
-	          className: className,
+	          className: 'tab',
 	          onClick: that.selectTab },
 	        TABNAMES[tab]
 	      );
@@ -21524,6 +21531,13 @@
 	    );
 	  }
 	});
+	
+	var addScrollListener = function () {
+	  window.addEventListener('scroll', function () {
+	    var scrollPos = $(window).scrollTop();
+	    if (scrollPos < $("projects").scrollTop()) {} else if (scrollPos < $("contact").scrollTop()) {} else {}
+	  });
+	};
 	
 	module.exports = SubHeader;
 
@@ -28801,11 +28815,9 @@
 	  },
 	
 	  render: function () {
-	    return React.createElement(
-	      'div',
-	      { id: 'rotationButton', onClick: this.click },
-	      'spin!'
-	    );
+	    return React.createElement('img', { src: 'http://res.cloudinary.com/dzyfczxnr/image/upload/v1472751493/portfolio/swirl.jpg',
+	      id: 'rotationButton',
+	      onClick: this.click });
 	  }
 	});
 	

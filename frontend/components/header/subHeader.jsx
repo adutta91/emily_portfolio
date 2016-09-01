@@ -15,6 +15,7 @@ var SubHeader = React.createClass({
 
   componentDidMount: function() {
     this.tabListener = TabStore.addListener(this.update);
+    // addScrollListener();
   },
 
   componentWillUnmount: function() {
@@ -27,6 +28,13 @@ var SubHeader = React.createClass({
 
   selectTab: function(event) {
     var tab = event.currentTarget.id;
+    var id = "#" + tab;
+    var display = id + "Display"
+    $(id).click(function() {
+      $('html, body').animate({
+          scrollTop: $(display).offset().top - 50
+      }, 750);
+    });
     TabUtil.selectTab(tab);
   },
 
@@ -34,11 +42,10 @@ var SubHeader = React.createClass({
     var currentTab = this.state.selectedTab;
     var that = this;
     return TABS.tabs.map(function(tab) {
-      var className = tab === currentTab ? "tab selected" : "tab";
       return (
         <h3 key={tab}
             id={tab}
-            className={className}
+            className="tab"
             onClick={that.selectTab}>
           {TABNAMES[tab]}
         </h3>
@@ -54,6 +61,19 @@ var SubHeader = React.createClass({
     )
   }
 });
+
+var addScrollListener = function() {
+  window.addEventListener('scroll', function() {
+    var scrollPos = $(window).scrollTop();
+    if (scrollPos < $("projects").scrollTop()) {
+
+    } else if (scrollPos < $("contact").scrollTop()) {
+
+    } else {
+
+    }
+  });
+};
 
 
 

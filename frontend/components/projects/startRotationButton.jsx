@@ -8,9 +8,9 @@ var StartRotationButton = React.createClass({
 
   render: function() {
     return (
-      <div id="rotationButton" onClick={this.click}>
-        spin!
-      </div>
+      <img src="http://res.cloudinary.com/dzyfczxnr/image/upload/v1472751493/portfolio/swirl.jpg"
+           id="rotationButton"
+           onClick={this.click}/>
     )
   }
 });
