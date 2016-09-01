@@ -1,7 +1,10 @@
 var React = require('react');
 
-var ProjectStore = require('../../stores/projectStore');
+var StartRotationButton = require('./startRotationButton');
 var ProjectItem = require('./projectItem');
+
+var ProjectStore = require('../../stores/projectStore');
+var GlobeStore = require('../../stores/globeStore');
 
 var ProjectList = React.createClass({
 
@@ -33,10 +36,17 @@ var ProjectList = React.createClass({
     }
   },
 
+  displayButton: function() {
+    if(!GlobeStore.animation()) {
+      return ( <StartRotationButton /> );
+    }
+  },
+
   render: function() {
     return (
       <div id="projectList" className="flex center">
         { this.getProjects() }
+        { this.displayButton() }
       </div>
     )
   }
