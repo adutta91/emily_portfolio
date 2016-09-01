@@ -5,7 +5,11 @@ module.exports = {
     GlobeActions.setGlobe(globe);
   },
 
-  toggleAnimation: function() {
-    GlobeActions.toggleAnimation();
+  stopAnimation: function() {
+    GlobeActions.stopAnimation();
+  },
+
+  startAnimation: function() {
+    GlobeActions.startAnimation();
   }
 }

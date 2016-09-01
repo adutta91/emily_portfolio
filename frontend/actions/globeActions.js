@@ -8,9 +8,15 @@ module.exports = {
     })
   },
 
-  toggleAnimation: function() {
+  stopAnimation: function() {
     Dispatcher.dispatch({
-      actionType: "TOGGLE_ANIMATION"
+      actionType: "STOP_ANIMATION"
     });
+  },
+
+  startAnimation: function() {
+    Dispatcher.dispatch({
+      actionType: "START_ANIMATION"
+    })
   }
 };

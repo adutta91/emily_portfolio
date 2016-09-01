@@ -17,7 +17,7 @@ module.exports = {
   },
 
   setProject: function(globe, project) {
-    GlobeUtil.toggleAnimation();
+    GlobeUtil.stopAnimation();
     globe.setView([project.lat, project.lng], 2.5);
     ProjectActions.setProject(project);
   }

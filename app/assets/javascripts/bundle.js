@@ -28705,22 +28705,8 @@
 	  WE.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 	    attribution: '© OpenStreetMap contributors'
 	  }).addTo(globe);
-	  animate(globe);
+	  GlobeUtil.startAnimation();
 	  GlobeUtil.setGlobe(globe);
-	};
-	
-	var animate = function (globe) {
-	  var before = null;
-	  requestAnimationFrame(function animate(now) {
-	    var gs = GlobeStore;
-	    if (gs.animation()) {
-	      var c = globe.getPosition();
-	      var elapsed = before ? now - before : 0;
-	      before = now;
-	      globe.setCenter([c[0], c[1] + 0.1 * (elapsed / 30)]);
-	      requestAnimationFrame(animate);
-	    }
-	  });
 	};
 	
 	var addMarkers = function (globe, projects) {
@@ -28849,7 +28835,7 @@
 	  },
 	
 	  setProject: function (globe, project) {
-	    GlobeUtil.toggleAnimation();
+	    GlobeUtil.stopAnimation();
 	    globe.setView([project.lat, project.lng], 2.5);
 	    ProjectActions.setProject(project);
 	  }
@@ -28903,8 +28889,12 @@
 	      resetGlobe(payload.globe);
 	      GlobeStore.__emitChange();
 	      break;
-	    case 'TOGGLE_ANIMATION':
-	      toggleAnimation();
+	    case 'STOP_ANIMATION':
+	      stopAnimation();
+	      GlobeStore.__emitChange();
+	      break;
+	    case 'START_ANIMATION':
+	      startAnimation();
 	      GlobeStore.__emitChange();
 	      break;
 	  }
@@ -28914,8 +28904,22 @@
 	  _globe = globe;
 	};
 	
-	var toggleAnimation = function () {
-	  _animation = !_animation;
+	var stopAnimation = function () {
+	  _animation = false;
+	};
+	
+	var startAnimation = function () {
+	  _animation = true;
+	  var before = null;
+	  requestAnimationFrame(function animate(now) {
+	    if (_animation) {
+	      var c = _globe.getPosition();
+	      var elapsed = before ? now - before : 0;
+	      before = now;
+	      _globe.setCenter([c[0], c[1] + 0.1 * (elapsed / 30)]);
+	      requestAnimationFrame(animate);
+	    }
+	  });
 	};
 	
 	module.exports = GlobeStore;
@@ -28931,8 +28935,12 @@
 	    GlobeActions.setGlobe(globe);
 	  },
 	
-	  toggleAnimation: function () {
-	    GlobeActions.toggleAnimation();
+	  stopAnimation: function () {
+	    GlobeActions.stopAnimation();
+	  },
+	
+	  startAnimation: function () {
+	    GlobeActions.startAnimation();
 	  }
 	};
 
@@ -28950,9 +28958,15 @@
 	    });
 	  },
 	
-	  toggleAnimation: function () {
+	  stopAnimation: function () {
 	    Dispatcher.dispatch({
-	      actionType: "TOGGLE_ANIMATION"
+	      actionType: "STOP_ANIMATION"
+	    });
+	  },
+	
+	  startAnimation: function () {
+	    Dispatcher.dispatch({
+	      actionType: "START_ANIMATION"
 	    });
 	  }
 	};
