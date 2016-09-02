@@ -57,6 +57,7 @@
   padding: 8px;
   border-radius: 3px;
   transition: .7s;
+  text-align: center;
 }
 
 #projectFormSubmit:hover {
@@ -79,6 +80,7 @@
 .projectItem:hover {
   cursor: pointer;
   transition: 1s;
+  background: rgba(0,0,0,.2);
 }
 
 .projectItem.selected {
