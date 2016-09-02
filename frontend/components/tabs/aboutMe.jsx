@@ -19,7 +19,7 @@ var AboutMe = React.createClass({
 
   render: function() {
     return (
-      <div id="aboutMe" className="flex center hidden">
+      <div id="aboutMeDisplay" className="sectionDisplay flex center hidden">
         <div className="crop">
          </div>
         <Description />

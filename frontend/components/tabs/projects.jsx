@@ -22,7 +22,7 @@ var Projects = React.createClass({
 
   render: function() {
     return (
-      <div id="projectsTab" className="flex hidden">
+      <div id="projectsDisplay" className="sectionDisplay flex hidden">
         <Globe />
         <ProjectInfo />
       </div>

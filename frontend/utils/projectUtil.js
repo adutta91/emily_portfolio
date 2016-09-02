@@ -20,5 +20,19 @@ module.exports = {
     GlobeUtil.stopAnimation();
     globe.setView([project.lat, project.lng], 2.5);
     ProjectActions.setProject(project);
+  },
+
+  createProject: function(data) {
+    $.ajax({
+      url: 'api/projects',
+      method: 'POST',
+      data: data,
+      success: function() {
+        debugger;
+      },
+      error: function(error) {
+        alert(error.responseText);
+      }
+    })
   }
 }

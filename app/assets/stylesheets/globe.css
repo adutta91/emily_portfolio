@@ -1,0 +1,66 @@
+#mapL, #mapWE {
+  position:absolute !important;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: #fff;
+  position: absolute !important;
+}
+
+#mapWE {
+  left: 50%;
+}
+
+#coords {
+  position: absolute;
+  bottom: 0;
+}
+
+#globe_div {
+  width: 40vw;
+  height: 70vh;
+}
+
+#globeWrapper {
+  width: 100%;
+  margin-right: 10px;
+}
+
+
+#rotationButton {
+  margin-left: 20px;
+  height: 36px;
+  border-radius: 50%;
+  padding: 2px;
+  cursor: pointer;
+  transition: 1s;
+}
+
+/*#rotationButton:hover {
+  cursor: pointer;
+  transform: rotate(360deg);
+  transition: .7s;
+}*/
+
+#rotationButton.on {
+  background-color: #2ed025;
+  -webkit-animation:spin 4s linear infinite;
+  -moz-animation:spin 4s linear infinite;
+  animation:spin 4s linear infinite;
+}
+
+.we-pm-icon {
+  transition: .5s;
+}
+
+.we-pm-icon:hover {
+  cursor: pointer;
+  transform: scale(1.25);
+  transition: .5s;
+}
+
+/* ANIMATIONS */
+@-moz-keyframes spin { 100% { -moz-transform: rotate(-360deg); } }
+@-webkit-keyframes spin { 100% { -webkit-transform: rotate(-360deg); } }
+@keyframes spin { 100% { -webkit-transform: rotate(-360deg); transform:rotate(-360deg); } }

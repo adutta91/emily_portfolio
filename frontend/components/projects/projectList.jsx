@@ -46,7 +46,7 @@ var ProjectList = React.createClass({
     return (
       <div id="projectList" className="flex center">
         { this.getProjects() }
-        { this.displayButton() }
+        <StartRotationButton />
       </div>
     )
   }

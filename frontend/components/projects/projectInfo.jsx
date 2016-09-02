@@ -25,10 +25,10 @@ var ProjectInfo = React.createClass({
     if (this.state.project && this.state.project.title) {
       return (
         <div id="projectDetail" className="flex column center">
-          <div id="projectHeader">
-            <h1>{this.state.project.title}</h1>
-            <h3>{this.state.project.location}</h3>
-            <h5>{this.state.project.start_date} - {this.state.project.end_date}</h5>
+          <div id="projectHeader" className="flex column">
+            <h1 className="margin">{this.state.project.title}</h1>
+            <h3 className="margin">{this.state.project.location}</h3>
+            <h5 className="margin">{this.state.project.start_date} - {this.state.project.end_date}</h5>
           </div>
           <p id="projectDescription">
             {this.state.project.description}

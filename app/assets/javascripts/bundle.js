@@ -21413,22 +21413,110 @@
 	
 	var Header = __webpack_require__(173);
 	var SubHeader = __webpack_require__(174);
-	var Display = __webpack_require__(201);
+	var AboutMe = __webpack_require__(203);
+	var Projects = __webpack_require__(205);
+	var Contact = __webpack_require__(217);
+	var ProjectForm = __webpack_require__(232);
+	
+	var Modal = __webpack_require__(221);
+	var ModalUtil = __webpack_require__(218);
+	var ModalStore = __webpack_require__(220);
+	
+	var ModalStyle = __webpack_require__(230);
+	var ContentStyle = __webpack_require__(231);
 	
 	var App = React.createClass({
 	  displayName: 'App',
 	
 	
+	  showModal: function () {
+	    this.refs.modal.show();
+	  },
+	
+	  hideModal: function () {
+	    this.refs.modal.hide();
+	  },
+	
+	  componentDidMount: function () {
+	    $(document).scrollTop(0);
+	    startSecretCodeListener();
+	    this.modalListener = ModalStore.addListener(this.update);
+	  },
+	
+	  componentWillUnmount: function () {
+	    this.modalListener.remove();
+	  },
+	
+	  update: function () {
+	    if (ModalStore.projectForm()) {
+	      this.showModal();
+	    }
+	  },
+	
 	  render: function () {
 	    return React.createElement(
 	      'div',
-	      { id: 'app', className: 'flex column center' },
-	      React.createElement(Header, null),
-	      React.createElement(SubHeader, null),
-	      React.createElement(Display, null)
+	      null,
+	      React.createElement(
+	        'div',
+	        { id: 'app', className: '' },
+	        React.createElement(Header, null),
+	        React.createElement('div', { id: 'aboutMeSeparator', className: 'separator' }),
+	        React.createElement(AboutMe, null),
+	        React.createElement('div', { id: 'projectsSeparator', className: 'separator' }),
+	        React.createElement(Projects, null),
+	        React.createElement('div', { id: 'contactSeparator', className: 'separator' }),
+	        React.createElement(Contact, null)
+	      ),
+	      React.createElement(
+	        Modal,
+	        { ref: 'modal',
+	          modalStyle: ModalStyle,
+	          contentStyle: ContentStyle },
+	        React.createElement(ProjectForm, { modalCallback: this.hideModal })
+	      )
 	    );
 	  }
 	});
+	
+	var startSecretCodeListener = function () {
+	  var keyMap = {
+	    69: false,
+	    77: false,
+	    73: false,
+	    76: false,
+	    89: false
+	  };
+	  $(document).keydown(function (e) {
+	    if (e.keyCode in keyMap) {
+	      keyMap[e.keyCode] = true;
+	      if (allTrue(keyMap)) {
+	        ModalUtil.toggleProjectModal();
+	        resetKeyMap(keyMap);
+	      }
+	    }
+	  }).keyup(function (e) {
+	    if (e.keyCode in keyMap) {
+	      keyMap[e.keyCode] = false;
+	    }
+	  });
+	};
+	
+	var allTrue = function (obj) {
+	  var result = true;
+	  Object.keys(obj).forEach(function (key) {
+	    if (!obj[key]) {
+	      result = false;
+	    }
+	  });
+	  return result;
+	};
+	
+	var resetKeyMap = function (obj) {
+	  Object.keys(obj).forEach(function (key) {
+	    obj[key] = false;
+	  });
+	};
 	
 	module.exports = App;
 
@@ -21446,12 +21534,13 @@
 	  render: function () {
 	    return React.createElement(
 	      'div',
-	      { id: 'header', className: 'flex column center' },
+	      { id: 'header', className: 'flex center' },
 	      React.createElement(
 	        'h1',
-	        null,
+	        { id: 'name' },
 	        'Emily Combs'
-	      )
+	      ),
+	      React.createElement(SubHeader, null)
 	    );
 	  }
 	});
@@ -21481,6 +21570,7 @@
 	
 	  componentDidMount: function () {
 	    this.tabListener = TabStore.addListener(this.update);
+	    addScrollListener();
 	  },
 	
 	  componentWillUnmount: function () {
@@ -21493,6 +21583,12 @@
 	
 	  selectTab: function (event) {
 	    var tab = event.currentTarget.id;
+	    var id = "#" + tab;
+	    var headerBuffer = $(window).height() * .075;
+	    var separator = id + "Separator";
+	    $('html, body').animate({
+	      scrollTop: $(separator).offset().top - headerBuffer
+	    }, 750);
 	    TabUtil.selectTab(tab);
 	  },
 	
@@ -21500,12 +21596,11 @@
 	    var currentTab = this.state.selectedTab;
 	    var that = this;
 	    return TABS.tabs.map(function (tab) {
-	      var className = tab === currentTab ? "tab selected" : "tab";
 	      return React.createElement(
 	        'h3',
 	        { key: tab,
 	          id: tab,
-	          className: className,
+	          className: 'tab',
 	          onClick: that.selectTab },
 	        TABNAMES[tab]
 	      );
@@ -21520,6 +21615,31 @@
 	    );
 	  }
 	});
+	
+	var addScrollListener = function () {
+	  var headerBuffer = $(window).height() * .25;
+	  window.addEventListener('scroll', function () {
+	    var scrollPos = $(window).scrollTop() + headerBuffer;
+	    if (scrollPos < $("#projectsDisplay").offset().top) {
+	      selectTab('aboutMe');
+	    } else if (scrollPos < $("#contactDisplay").offset().top) {
+	      selectTab('projects');
+	    } else {
+	      selectTab('contact');
+	    }
+	  });
+	};
+	
+	var selectTab = function (id) {
+	  var target = id;
+	  $('.tab').each(function (idx, ele) {
+	    if (ele.id === id) {
+	      ele.classList.add('selected');
+	    } else {
+	      ele.classList.remove('selected');
+	    }
+	  });
+	};
 	
 	module.exports = SubHeader;
 
@@ -21538,7 +21658,7 @@
 	module.exports = {
 	  "aboutMe": "About Me",
 	  "projects": "Projects",
-	  "contact": "Contact Me"
+	  "contact": "Contact"
 	};
 
 /***/ },
@@ -28358,68 +28478,8 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 201 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	
-	var TabStore = __webpack_require__(183);
-	
-	var TABCOMPONENTS = __webpack_require__(202);
-	
-	var Display = React.createClass({
-	  displayName: 'Display',
-	
-	
-	  getInitialState: function () {
-	    return {
-	      tab: TabStore.selectedTab()
-	    };
-	  },
-	
-	  componentDidMount: function () {
-	    this.tabListener = TabStore.addListener(this.update);
-	  },
-	
-	  componentWillUnmount: function () {
-	    this.tabListener.remove();
-	  },
-	
-	  update: function () {
-	    this.setState({ tab: TabStore.selectedTab() });
-	  },
-	
-	  getTab: function () {
-	    return TABCOMPONENTS[this.state.tab];
-	  },
-	
-	  render: function () {
-	    return React.createElement(
-	      'div',
-	      { id: 'display', className: 'flex center' },
-	      this.getTab()
-	    );
-	  }
-	});
-	
-	module.exports = Display;
-
-/***/ },
-/* 202 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var AboutMe = __webpack_require__(203);
-	var Projects = __webpack_require__(205);
-	var Contact = __webpack_require__(217);
-	
-	module.exports = {
-	  "aboutMe": React.createElement(AboutMe, null),
-	  "projects": React.createElement(Projects, null),
-	  "contact": React.createElement(Contact, null)
-	};
-
-/***/ },
+/* 201 */,
+/* 202 */,
 /* 203 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -28447,7 +28507,7 @@
 	  render: function () {
 	    return React.createElement(
 	      'div',
-	      { id: 'aboutMe', className: 'flex center hidden' },
+	      { id: 'aboutMeDisplay', className: 'sectionDisplay flex center hidden' },
 	      React.createElement('div', { className: 'crop' }),
 	      React.createElement(Description, null)
 	    );
@@ -28469,15 +28529,7 @@
 	    return React.createElement(
 	      "p",
 	      { className: "description" },
-	      "I am an amazing person who is modest, lovely, thoughtful, kind, empathetic, funny, incredible, and all other manners of positive adjectives. I have a boyfriend who loves me so incredibly much, and who thinks of me all the time.",
-	      React.createElement("br", null),
-	      " ",
-	      React.createElement("br", null),
-	      "Other description stuff here. I just want to get a sense of the space. You could talk about your education and background and what you're interested in. You could also talk about your current position and the kind of stuff you do. You could talk about your skills, interests, passions, etc.",
-	      React.createElement("br", null),
-	      " ",
-	      React.createElement("br", null),
-	      "Now is some concluding info. Perhaps talk more generally about you, what you're looking to do now, in broad strokes. Maybe talk directly to the reader, thank them for coming, or wish them a wonderful day. We can maybe even scan your signature and paste it here."
+	      "Multilingual (English, Spanish and Arabic) team leader with experience in program management, global health issues, team building, customer relations, web content development, research, analysis, product innovation, promotion, organization development and mentoring. Combines an extensive knowledge of international cultures with outstanding communication skills to ensure realization of organizational goals within the public and private sectors. Effectively manages in diverse environments addressing key issues with efficient and positive solutions."
 	    );
 	  }
 	});
@@ -28515,7 +28567,7 @@
 	  render: function () {
 	    return React.createElement(
 	      'div',
-	      { id: 'projectsTab', className: 'flex hidden' },
+	      { id: 'projectsDisplay', className: 'sectionDisplay flex hidden' },
 	      React.createElement(Globe, null),
 	      React.createElement(ProjectInfo, null)
 	    );
@@ -28560,20 +28612,20 @@
 	        { id: 'projectDetail', className: 'flex column center' },
 	        React.createElement(
 	          'div',
-	          { id: 'projectHeader' },
+	          { id: 'projectHeader', className: 'flex column' },
 	          React.createElement(
 	            'h1',
-	            null,
+	            { className: 'margin' },
 	            this.state.project.title
 	          ),
 	          React.createElement(
 	            'h3',
-	            null,
+	            { className: 'margin' },
 	            this.state.project.location
 	          ),
 	          React.createElement(
 	            'h5',
-	            null,
+	            { className: 'margin' },
 	            this.state.project.start_date,
 	            ' - ',
 	            this.state.project.end_date
@@ -28775,7 +28827,7 @@
 	      'div',
 	      { id: 'projectList', className: 'flex center' },
 	      this.getProjects(),
-	      this.displayButton()
+	      React.createElement(StartRotationButton, null)
 	    );
 	  }
 	});
@@ -28788,20 +28840,47 @@
 
 	var React = __webpack_require__(1);
 	var GlobeUtil = __webpack_require__(211);
+	var GlobeStore = __webpack_require__(216);
 	
 	var StartRotationButton = React.createClass({
 	  displayName: 'StartRotationButton',
 	
+	
+	  getInitialState: function () {
+	    return {
+	      on: GlobeStore.animation()
+	    };
+	  },
+	
 	  click: function () {
-	    GlobeUtil.startAnimation();
+	    GlobeUtil.toggleAnimation();
+	  },
+	
+	  componentDidMount: function () {
+	    this.globeListener = GlobeStore.addListener(this.update);
+	  },
+	
+	  componentWillUnmount: function () {
+	    this.globeListener.remove();
+	  },
+	
+	  update: function () {
+	    this.setState({ on: GlobeStore.animation() });
+	  },
+	
+	  getClassName: function () {
+	    if (this.state.on) {
+	      return "on";
+	    } else {
+	      return "";
+	    }
 	  },
 	
 	  render: function () {
-	    return React.createElement(
-	      'div',
-	      { id: 'rotationButton', onClick: this.click },
-	      'spin!'
-	    );
+	    return React.createElement('img', { src: 'http://res.cloudinary.com/dzyfczxnr/image/upload/v1472760666/portfolio/globe.png',
+	      id: 'rotationButton',
+	      className: this.getClassName(),
+	      onClick: this.click });
 	  }
 	});
 	
@@ -28818,12 +28897,16 @@
 	    GlobeActions.setGlobe(globe);
 	  },
 	
-	  stopAnimation: function () {
-	    GlobeActions.stopAnimation();
+	  toggleAnimation: function () {
+	    GlobeActions.toggleAnimation();
 	  },
 	
 	  startAnimation: function () {
 	    GlobeActions.startAnimation();
+	  },
+	
+	  stopAnimation: function () {
+	    GlobeActions.stopAnimation();
 	  }
 	};
 
@@ -28841,15 +28924,21 @@
 	    });
 	  },
 	
-	  stopAnimation: function () {
+	  toggleAnimation: function () {
 	    Dispatcher.dispatch({
-	      actionType: "STOP_ANIMATION"
+	      actionType: 'TOGGLE_ANIMATION'
 	    });
 	  },
 	
 	  startAnimation: function () {
 	    Dispatcher.dispatch({
 	      actionType: "START_ANIMATION"
+	    });
+	  },
+	
+	  stopAnimation: function () {
+	    Dispatcher.dispatch({
+	      actionType: "STOP_ANIMATION"
 	    });
 	  }
 	};
@@ -28920,6 +29009,20 @@
 	    GlobeUtil.stopAnimation();
 	    globe.setView([project.lat, project.lng], 2.5);
 	    ProjectActions.setProject(project);
+	  },
+	
+	  createProject: function (data) {
+	    $.ajax({
+	      url: 'api/projects',
+	      method: 'POST',
+	      data: data,
+	      success: function () {
+	        debugger;
+	      },
+	      error: function (error) {
+	        alert(error.responseText);
+	      }
+	    });
 	  }
 	};
 
@@ -28971,12 +29074,16 @@
 	      resetGlobe(payload.globe);
 	      GlobeStore.__emitChange();
 	      break;
-	    case 'STOP_ANIMATION':
-	      stopAnimation();
+	    case 'TOGGLE_ANIMATION':
+	      toggleAnimation();
 	      GlobeStore.__emitChange();
 	      break;
 	    case 'START_ANIMATION':
 	      startAnimation();
+	      GlobeStore.__emitChange();
+	      break;
+	    case 'STOP_ANIMATION':
+	      stopAnimation();
 	      GlobeStore.__emitChange();
 	      break;
 	  }
@@ -28984,6 +29091,14 @@
 	
 	var resetGlobe = function (globe) {
 	  _globe = globe;
+	};
+	
+	var toggleAnimation = function () {
+	  if (_animation) {
+	    stopAnimation();
+	  } else {
+	    startAnimation();
+	  }
 	};
 	
 	var stopAnimation = function () {
@@ -29032,7 +29147,7 @@
 	  render: function () {
 	    return React.createElement(
 	      'div',
-	      { className: 'hidden' },
+	      { id: 'contactDisplay', className: 'sectionDisplay flex center hidden' },
 	      React.createElement(
 	        'h1',
 	        null,
@@ -29043,6 +29158,783 @@
 	});
 	
 	module.exports = Contact;
+
+/***/ },
+/* 218 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var ModalActions = __webpack_require__(219);
+	
+	module.exports = {
+	  toggleProjectModal: function () {
+	    ModalActions.toggleProjectModal();
+	  }
+	};
+
+/***/ },
+/* 219 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Dispatcher = __webpack_require__(179);
+	
+	module.exports = {
+	  toggleProjectModal: function () {
+	    Dispatcher.dispatch({
+	      actionType: "TOGGLE_PROJECT_MODAL"
+	    });
+	  }
+	};
+
+/***/ },
+/* 220 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Store = __webpack_require__(184).Store;
+	var Dispatcher = __webpack_require__(179);
+	
+	var ModalStore = new Store(Dispatcher);
+	
+	var _projectForm = false;
+	
+	ModalStore.projectForm = function () {
+	  return _projectForm;
+	};
+	
+	ModalStore.__onDispatch = function (payload) {
+	  switch (payload.actionType) {
+	    case 'TOGGLE_PROJECT_MODAL':
+	      toggleProjectModal();
+	      ModalStore.__emitChange();
+	      break;
+	  }
+	};
+	
+	var toggleProjectModal = function () {
+	  _projectForm = !_projectForm;
+	};
+	
+	module.exports = ModalStore;
+
+/***/ },
+/* 221 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var modalFactory = __webpack_require__(222);
+	var insertKeyframesRule = __webpack_require__(227);
+	var appendVendorPrefix = __webpack_require__(224);
+	
+	var animation = {
+	    show: {
+	        animationDuration: '0.4s',
+	        animationTimingFunction: 'cubic-bezier(0.7,0,0.3,1)'
+	    },
+	
+	    hide: {
+	        animationDuration: '0.4s',
+	        animationTimingFunction: 'cubic-bezier(0.7,0,0.3,1)'
+	    },
+	
+	    showModalAnimation: insertKeyframesRule({
+	        '0%': {
+	            opacity: 0,
+	            transform: 'translate3d(-50%, -300px, 0)'
+	        },
+	        '100%': {
+	            opacity: 1,
+	            transform: 'translate3d(-50%, -50%, 0)'
+	        }
+	    }),
+	
+	    hideModalAnimation: insertKeyframesRule({
+	        '0%': {
+	            opacity: 1,
+	            transform: 'translate3d(-50%, -50%, 0)'
+	        },
+	        '100%': {
+	            opacity: 0,
+	            transform: 'translate3d(-50%, 100px, 0)'
+	        }
+	    }),
+	
+	    showBackdropAnimation: insertKeyframesRule({
+	        '0%': {
+	            opacity: 0
+	        },
+	        '100%': {
+	            opacity: 0.9
+	        }
+	    }),
+	
+	    hideBackdropAnimation: insertKeyframesRule({
+	        '0%': {
+	            opacity: 0.9
+	        },
+	        '100%': {
+	            opacity: 0
+	        }
+	    }),
+	
+	    showContentAnimation: insertKeyframesRule({
+	        '0%': {
+	            opacity: 0,
+	            transform: 'translate3d(0, -20px, 0)'
+	        },
+	        '100%': {
+	            opacity: 1,
+	            transform: 'translate3d(0, 0, 0)'
+	        }
+	    }),
+	
+	    hideContentAnimation: insertKeyframesRule({
+	        '0%': {
+	            opacity: 1,
+	            transform: 'translate3d(0, 0, 0)'
+	        },
+	        '100%': {
+	            opacity: 0,
+	            transform: 'translate3d(0, 50px, 0)'
+	        }
+	    })
+	};
+	
+	var showAnimation = animation.show;
+	var hideAnimation = animation.hide;
+	var showModalAnimation = animation.showModalAnimation;
+	var hideModalAnimation = animation.hideModalAnimation;
+	var showBackdropAnimation = animation.showBackdropAnimation;
+	var hideBackdropAnimation = animation.hideBackdropAnimation;
+	var showContentAnimation = animation.showContentAnimation;
+	var hideContentAnimation = animation.hideContentAnimation;
+	
+	module.exports = modalFactory({
+	    getRef: function(willHidden) {
+	        return 'modal';
+	    },
+	    getModalStyle: function(willHidden) {
+	        return appendVendorPrefix({
+	            position: "fixed",
+	            width: "500px",
+	            transform: "translate3d(-50%, -50%, 0)",
+	            top: "50%",
+	            left: "50%",
+	            backgroundColor: "white",
+	            zIndex: 1050,
+	            animationDuration: (willHidden ? hideAnimation : showAnimation).animationDuration,
+	            animationFillMode: 'forwards',
+	            animationName: willHidden ? hideModalAnimation : showModalAnimation,
+	            animationTimingFunction: (willHidden ? hideAnimation : showAnimation).animationTimingFunction
+	        })
+	    },
+	    getBackdropStyle: function(willHidden) {
+	        return appendVendorPrefix({
+	            position: "fixed",
+	            top: 0,
+	            right: 0,
+	            bottom: 0,
+	            left: 0,
+	            zIndex: 1040,
+	            backgroundColor: "#373A47",
+	            animationDuration: (willHidden ? hideAnimation : showAnimation).animationDuration,
+	            animationFillMode: 'forwards',
+	            animationName: willHidden ? hideBackdropAnimation : showBackdropAnimation,
+	            animationTimingFunction: (willHidden ? hideAnimation : showAnimation).animationTimingFunction
+	        });
+	    },
+	    getContentStyle: function(willHidden) {
+	        return appendVendorPrefix({
+	            margin: 0,
+	            opacity: 0,
+	            animationDuration: (willHidden ? hideAnimation : showAnimation).animationDuration,
+	            animationFillMode: 'forwards',
+	            animationDelay: '0.25s',
+	            animationName: showContentAnimation,
+	            animationTimingFunction: (willHidden ? hideAnimation : showAnimation).animationTimingFunction
+	        })
+	    }
+	});
+
+
+/***/ },
+/* 222 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var transitionEvents = __webpack_require__(223);
+	var appendVendorPrefix = __webpack_require__(224);
+	
+	module.exports = function(animation){
+	
+	    return React.createClass({
+	        propTypes: {
+	            className: React.PropTypes.string,
+	            // Close the modal when esc is pressed? Defaults to true.
+	            keyboard: React.PropTypes.bool,
+	            onShow: React.PropTypes.func,
+	            onHide: React.PropTypes.func,
+	            animation: React.PropTypes.object,
+	            backdrop: React.PropTypes.bool,
+	            closeOnClick: React.PropTypes.bool,
+	            modalStyle: React.PropTypes.object,
+	            backdropStyle: React.PropTypes.object,
+	            contentStyle: React.PropTypes.object,
+	        },
+	
+	        getDefaultProps: function() {
+	            return {
+	                className: "",
+	                onShow: function(){},
+	                onHide: function(){},
+	                animation: animation,
+	                keyboard: true,
+	                backdrop: true,
+	                closeOnClick: true,
+	                modalStyle: {},
+	                backdropStyle: {},
+	                contentStyle: {},
+	            };
+	        },
+	
+	        getInitialState: function(){
+	            return {
+	                willHidden: false,
+	                hidden: true
+	            }
+	        },
+	
+	        hasHidden: function(){
+	            return this.state.hidden;
+	        },
+	
+	        addTransitionListener: function(node, handle){
+	            if (node) {
+	              var endListener = function(e) {
+	                  if (e && e.target !== node) {
+	                      return;
+	                  }
+	                  transitionEvents.removeEndEventListener(node, endListener);
+	                  handle();
+	              };
+	              transitionEvents.addEndEventListener(node, endListener);
+	            }
+	        },
+	
+	        handleBackdropClick: function() {
+	            if (this.props.closeOnClick) {
+	                this.hide();
+	            }
+	        },
+	
+	        render: function() {
+	
+	            var hidden = this.hasHidden();
+	            if (hidden) return null;
+	
+	            var willHidden = this.state.willHidden;
+	            var animation = this.props.animation;
+	            var modalStyle = animation.getModalStyle(willHidden);
+	            var backdropStyle = animation.getBackdropStyle(willHidden);
+	            var contentStyle = animation.getContentStyle(willHidden);
+	            var ref = animation.getRef(willHidden);
+	            var sharp = animation.getSharp && animation.getSharp(willHidden);
+	
+	            // Apply custom style properties
+	            if (this.props.modalStyle) {
+	                var prefixedModalStyle = appendVendorPrefix(this.props.modalStyle);
+	                for (var style in prefixedModalStyle) {
+	                    modalStyle[style] = prefixedModalStyle[style];
+	                }
+	            }
+	
+	            if (this.props.backdropStyle) {
+	              var prefixedBackdropStyle = appendVendorPrefix(this.props.backdropStyle);
+	                for (var style in prefixedBackdropStyle) {
+	                    backdropStyle[style] = prefixedBackdropStyle[style];
+	                }
+	            }
+	
+	            if (this.props.contentStyle) {
+	              var prefixedContentStyle = appendVendorPrefix(this.props.contentStyle);
+	                for (var style in prefixedContentStyle) {
+	                    contentStyle[style] = prefixedContentStyle[style];
+	                }
+	            }
+	
+	            var backdrop = this.props.backdrop? React.createElement("div", {style: backdropStyle, onClick: this.props.closeOnClick? this.handleBackdropClick: null}): undefined;
+	
+	            if(willHidden) {
+	                var node = this.refs[ref];
+	                this.addTransitionListener(node, this.leave);
+	            }
+	
+	            return (React.createElement("span", null, 
+	                React.createElement("div", {ref: "modal", style: modalStyle, className: this.props.className}, 
+	                    sharp, 
+	                    React.createElement("div", {ref: "content", tabIndex: "-1", style: contentStyle}, 
+	                        this.props.children
+	                    )
+	                ), 
+	                backdrop
+	             ))
+	            ;
+	        },
+	
+	        leave: function(){
+	            this.setState({
+	                hidden: true
+	            });
+	            this.props.onHide();
+	        },
+	
+	        enter: function(){
+	            this.props.onShow();
+	        },
+	
+	        show: function(){
+	            if (!this.hasHidden()) return;
+	
+	            this.setState({
+	                willHidden: false,
+	                hidden: false
+	            });
+	
+	            setTimeout(function(){
+	              var ref = this.props.animation.getRef();
+	              var node = this.refs[ref];
+	              this.addTransitionListener(node, this.enter);
+	            }.bind(this), 0);
+	        },
+	
+	        hide: function(){
+	            if (this.hasHidden()) return;
+	
+	            this.setState({
+	                willHidden: true
+	            });
+	        },
+	
+	        toggle: function(){
+	            if (this.hasHidden())
+	                this.show();
+	            else
+	                this.hide();
+	        },
+	
+	        listenKeyboard: function(event) {
+	            if (this.props.keyboard &&
+	                    (event.key === "Escape" ||
+	                     event.keyCode === 27)) {
+	                this.hide();
+	            }
+	        },
+	
+	        componentDidMount: function(){
+	            window.addEventListener("keydown", this.listenKeyboard, true);
+	        },
+	
+	        componentWillUnmount: function() {
+	            window.removeEventListener("keydown", this.listenKeyboard, true);
+	        }
+	    });
+	}
+
+
+/***/ },
+/* 223 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	/**
+	 * EVENT_NAME_MAP is used to determine which event fired when a
+	 * transition/animation ends, based on the style property used to
+	 * define that event.
+	 */
+	var EVENT_NAME_MAP = {
+	  transitionend: {
+	    'transition': 'transitionend',
+	    'WebkitTransition': 'webkitTransitionEnd',
+	    'MozTransition': 'mozTransitionEnd',
+	    'OTransition': 'oTransitionEnd',
+	    'msTransition': 'MSTransitionEnd'
+	  },
+	
+	  animationend: {
+	    'animation': 'animationend',
+	    'WebkitAnimation': 'webkitAnimationEnd',
+	    'MozAnimation': 'mozAnimationEnd',
+	    'OAnimation': 'oAnimationEnd',
+	    'msAnimation': 'MSAnimationEnd'
+	  }
+	};
+	
+	var endEvents = [];
+	
+	function detectEvents() {
+	  var testEl = document.createElement('div');
+	  var style = testEl.style;
+	
+	  // On some platforms, in particular some releases of Android 4.x,
+	  // the un-prefixed "animation" and "transition" properties are defined on the
+	  // style object but the events that fire will still be prefixed, so we need
+	  // to check if the un-prefixed events are useable, and if not remove them
+	  // from the map
+	  if (!('AnimationEvent' in window)) {
+	    delete EVENT_NAME_MAP.animationend.animation;
+	  }
+	
+	  if (!('TransitionEvent' in window)) {
+	    delete EVENT_NAME_MAP.transitionend.transition;
+	  }
+	
+	  for (var baseEventName in EVENT_NAME_MAP) {
+	    var baseEvents = EVENT_NAME_MAP[baseEventName];
+	    for (var styleName in baseEvents) {
+	      if (styleName in style) {
+	        endEvents.push(baseEvents[styleName]);
+	        break;
+	      }
+	    }
+	  }
+	}
+	
+	if (typeof window !== 'undefined') {
+	  detectEvents();
+	}
+	
+	
+	// We use the raw {add|remove}EventListener() call because EventListener
+	// does not know how to remove event listeners and we really should
+	// clean up. Also, these events are not triggered in older browsers
+	// so we should be A-OK here.
+	
+	function addEventListener(node, eventName, eventListener) {
+	  node.addEventListener(eventName, eventListener, false);
+	}
+	
+	function removeEventListener(node, eventName, eventListener) {
+	  node.removeEventListener(eventName, eventListener, false);
+	}
+	
+	module.exports = {
+	  addEndEventListener: function(node, eventListener) {
+	    if (endEvents.length === 0) {
+	      // If CSS transitions are not supported, trigger an "end animation"
+	      // event immediately.
+	      window.setTimeout(eventListener, 0);
+	      return;
+	    }
+	    endEvents.forEach(function(endEvent) {
+	      addEventListener(node, endEvent, eventListener);
+	    });
+	  },
+	
+	  removeEndEventListener: function(node, eventListener) {
+	    if (endEvents.length === 0) {
+	      return;
+	    }
+	    endEvents.forEach(function(endEvent) {
+	      removeEventListener(node, endEvent, eventListener);
+	    });
+	  }
+	};
+
+
+/***/ },
+/* 224 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var getVendorPropertyName = __webpack_require__(225);
+	
+	module.exports = function(target, sources) {
+	  var to = Object(target);
+	  var hasOwnProperty = Object.prototype.hasOwnProperty;
+	
+	  for (var nextIndex = 1; nextIndex < arguments.length; nextIndex++) {
+	    var nextSource = arguments[nextIndex];
+	    if (nextSource == null) {
+	      continue;
+	    }
+	
+	    var from = Object(nextSource);
+	
+	    for (var key in from) {
+	      if (hasOwnProperty.call(from, key)) {
+	        to[key] = from[key];
+	      }
+	    }
+	  }
+	
+	  var prefixed = {};
+	  for (var key in to) {
+	    prefixed[getVendorPropertyName(key)] = to[key]
+	  }
+	
+	  return prefixed
+	}
+
+
+/***/ },
+/* 225 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var builtinStyle = __webpack_require__(226);
+	var prefixes = ['Moz', 'Webkit', 'O', 'ms'];
+	var domVendorPrefix;
+	
+	// Helper function to get the proper vendor property name. (transition => WebkitTransition)
+	module.exports = function(prop, isSupportTest) {
+	
+	  var vendorProp;
+	  if (prop in builtinStyle) return prop;
+	
+	  var UpperProp = prop.charAt(0).toUpperCase() + prop.substr(1);
+	
+	  if (domVendorPrefix) {
+	
+	    vendorProp = domVendorPrefix + UpperProp;
+	    if (vendorProp in builtinStyle) {
+	      return vendorProp;
+	    }
+	  } else {
+	
+	    for (var i = 0; i < prefixes.length; ++i) {
+	      vendorProp = prefixes[i] + UpperProp;
+	      if (vendorProp in builtinStyle) {
+	        domVendorPrefix = prefixes[i];
+	        return vendorProp;
+	      }
+	    }
+	  }
+	
+	  // if support test, not fallback to origin prop name
+	  if (!isSupportTest) {
+	    return prop;
+	  }
+	
+	}
+
+
+/***/ },
+/* 226 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	module.exports = document.createElement('div').style;
+
+
+/***/ },
+/* 227 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var insertRule = __webpack_require__(228);
+	var vendorPrefix = __webpack_require__(229)();
+	var index = 0;
+	
+	module.exports = function(keyframes) {
+	  // random name
+	  var name = 'anim_' + (++index) + (+new Date);
+	  var css = "@" + vendorPrefix + "keyframes " + name + " {";
+	
+	  for (var key in keyframes) {
+	    css += key + " {";
+	
+	    for (var property in keyframes[key]) {
+	      var part = ":" + keyframes[key][property] + ";";
+	      // We do vendor prefix for every property
+	      css += vendorPrefix + property + part;
+	      css += property + part;
+	    }
+	
+	    css += "}";
+	  }
+	
+	  css += "}";
+	
+	  insertRule(css);
+	
+	  return name
+	}
+
+
+/***/ },
+/* 228 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	var extraSheet;
+	
+	module.exports = function(css) {
+	
+	  if (!extraSheet) {
+	    // First time, create an extra stylesheet for adding rules
+	    extraSheet = document.createElement('style');
+	    document.getElementsByTagName('head')[0].appendChild(extraSheet);
+	    // Keep reference to actual StyleSheet object (`styleSheet` for IE < 9)
+	    extraSheet = extraSheet.sheet || extraSheet.styleSheet;
+	  }
+	
+	  var index = (extraSheet.cssRules || extraSheet.rules).length;
+	  extraSheet.insertRule(css, index);
+	
+	  return extraSheet;
+	}
+
+
+/***/ },
+/* 229 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	var cssVendorPrefix;
+	
+	module.exports = function() {
+	
+	  if (cssVendorPrefix) return cssVendorPrefix;
+	
+	  var styles = window.getComputedStyle(document.documentElement, '');
+	  var pre = (Array.prototype.slice.call(styles).join('').match(/-(moz|webkit|ms)-/) || (styles.OLink === '' && ['', 'o']))[1];
+	
+	  return cssVendorPrefix = '-' + pre + '-';
+	}
+
+
+/***/ },
+/* 230 */
+/***/ function(module, exports) {
+
+	module.exports = {
+	  width: "80vw",
+	  height: "75vh",
+	  display: "flex",
+	  alignItems: "center",
+	  justifyContent: "center",
+	  boxShadow: "3px 3px 5px 1px rgba(0,0,0,0.75)"
+	};
+
+/***/ },
+/* 231 */
+/***/ function(module, exports) {
+
+	module.exports = {
+	  display: "flex",
+	  flexDirection: "column",
+	  height: "100%",
+	  alignItems: "center",
+	  justifyContent: "space-around",
+	  width: "100%"
+	};
+
+/***/ },
+/* 232 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	
+	var ProjectUtil = __webpack_require__(214);
+	
+	var ProjectForm = React.createClass({
+	  displayName: 'ProjectForm',
+	
+	
+	  getInitialState: function () {
+	    return {
+	      projectTitle: "",
+	      projectStartDate: "",
+	      projectEndDate: "",
+	      projectLocation: "",
+	      projectLatCoord: "",
+	      projectLngCoord: "",
+	      projectDesc: ""
+	    };
+	  },
+	
+	  onInputChange: function (event) {
+	    var el = event.currentTarget;
+	    switch (el.id) {
+	      case 'projectTitle':
+	        this.setState({ projectTitle: el.value });
+	        break;
+	      case 'projectStartDate':
+	        this.setState({ projectStartDate: el.value });
+	        break;
+	      case 'projectEndDate':
+	        this.setState({ projectEndDate: el.value });
+	        break;
+	      case 'projectLocation':
+	        this.setState({ projectLocation: el.value });
+	        break;
+	      case 'projectLatCoord':
+	        this.setState({ projectLatCoord: el.value });
+	        break;
+	      case 'projectLngCoord':
+	        this.setState({ projectLngCoord: el.value });
+	        break;
+	      case 'projectDesc':
+	        this.setState({ projectDesc: el.value });
+	        break;
+	    }
+	  },
+	
+	  submitForm: function () {
+	    ProjectUtil.createProject({
+	      project: {
+	        title: this.state.projectTitle,
+	        start_date: this.state.projectStartDate,
+	        end_date: this.state.projectEndDate,
+	        location: this.state.projectLocation,
+	        lat: this.state.projectLatCoord,
+	        lng: this.state.projectLngCoord,
+	        description: this.state.projectDesc
+	      }
+	    });
+	    this.props.modalCallback();
+	  },
+	
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      { id: 'projectModal' },
+	      React.createElement('img', { src: 'http://res.cloudinary.com/dzyfczxnr/image/upload/v1472766011/portfolio/close.png',
+	        id: 'closeModalButton',
+	        onClick: this.hideModal }),
+	      React.createElement(
+	        'form',
+	        { id: 'projectForm', className: 'flex' },
+	        React.createElement(
+	          'div',
+	          { className: 'flex column' },
+	          React.createElement('input', { id: 'projectTitle', type: 'text', onChange: this.onInputChange, placeholder: 'title', value: this.state.projectTitle }),
+	          React.createElement('input', { id: 'projectStartDate', type: 'text', onChange: this.onInputChange, placeholder: 'start date', value: this.state.projectStartDate }),
+	          React.createElement('input', { id: 'projectEndDate', type: 'text', onChange: this.onInputChange, placeholder: 'end date', value: this.state.projectEndDate }),
+	          React.createElement('input', { id: 'projectLocation', type: 'text', onChange: this.onInputChange, placeholder: 'location', value: this.state.projectLocation }),
+	          React.createElement(
+	            'div',
+	            { className: 'flex center', id: 'coordsForm' },
+	            React.createElement('input', { id: 'projectLatCoord', type: 'text', onChange: this.onInputChange, placeholder: 'lat', value: this.state.projectLatCoord }),
+	            React.createElement('input', { id: 'projectLngCoord', type: 'text', onChange: this.onInputChange, placeholder: 'lng', value: this.state.projectLngCoord })
+	          ),
+	          React.createElement(
+	            'div',
+	            { id: 'projectFormSubmit', onClick: this.submitForm },
+	            'submit!'
+	          )
+	        ),
+	        React.createElement('textarea', { id: 'projectDesc', onChange: this.onInputChange, placeholder: 'description', value: this.state.projectDesc })
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = ProjectForm;
 
 /***/ }
 /******/ ]);
