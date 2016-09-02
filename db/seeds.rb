@@ -18,6 +18,7 @@ Project.create(
   start_date: "December 2016",
   end_date: "January 2017",
   location: "Kirkwood, CA",
+  collaborator: "Arjun",
   lat: "38.7023082",
   lng: "-120.0722442"
 )
@@ -29,6 +30,7 @@ Project.create(
                 were quite yummy (technical term).",
   start_date: "July 2016",
   end_date: "July 2016",
+  collaborator: "Arjun",
   location: "Baltimore, MD",
   lat: "39.290385",
   lng: "-76.61218930000001"
@@ -43,6 +45,7 @@ Project.create(
                 purely in that fashion.",
   start_date: "June 2017",
   end_date: "July 2017",
+  collaborator: "Arjun",
   location: "Barcelona, Spain",
   lat: "41.3851",
   lng: "2.1734"

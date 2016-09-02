@@ -28602,6 +28602,12 @@
 	          React.createElement(
 	            'h3',
 	            { className: 'margin' },
+	            'Collaborators: ',
+	            this.state.project.collaborator
+	          ),
+	          React.createElement(
+	            'h3',
+	            { className: 'margin' },
 	            this.state.project.location
 	          ),
 	          React.createElement(
@@ -29840,6 +29846,7 @@
 	      projectLocation: "",
 	      projectLatCoord: "",
 	      projectLngCoord: "",
+	      projectCollaborator: "",
 	      projectDesc: ""
 	    };
 	  },
@@ -29880,6 +29887,7 @@
 	        location: this.state.projectLocation,
 	        lat: this.state.projectLatCoord,
 	        lng: this.state.projectLngCoord,
+	        collaborator: this.state.projectCollaborator,
 	        description: this.state.projectDesc
 	      }
 	    });
@@ -29903,6 +29911,7 @@
 	          React.createElement('input', { id: 'projectStartDate', type: 'text', onChange: this.onInputChange, placeholder: 'start date', value: this.state.projectStartDate }),
 	          React.createElement('input', { id: 'projectEndDate', type: 'text', onChange: this.onInputChange, placeholder: 'end date', value: this.state.projectEndDate }),
 	          React.createElement('input', { id: 'projectLocation', type: 'text', onChange: this.onInputChange, placeholder: 'location', value: this.state.projectLocation }),
+	          React.createElement('input', { id: 'projectCollaborator', type: 'text', onChange: this.onInputChange, placeholder: 'collaborator', value: this.state.projectCollaborator }),
 	          React.createElement(
 	            'div',
 	            { className: 'flex center', id: 'coordsForm' },
