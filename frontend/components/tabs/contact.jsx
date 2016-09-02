@@ -20,7 +20,7 @@ var Contact = React.createClass({
 
   render: function() {
     return (
-      <div id="contactDisplay" className="sectionDisplay flex center hidden">
+      <div id="contactDisplay" className="flex center hidden">
         <LinkedInLink />
         <EmailLink />
       </div>

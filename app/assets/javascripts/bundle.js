@@ -21622,10 +21622,10 @@
 	    var scrollPos = $(window).scrollTop() + headerBuffer;
 	    if (scrollPos < $("#projectsDisplay").offset().top) {
 	      selectTab('aboutMe');
+	    } else if ($(window).scrollTop() + $(window).height() > $(document).height() - 100) {
+	      selectTab('contact');
 	    } else if (scrollPos < $("#contactDisplay").offset().top) {
 	      selectTab('projects');
-	    } else {
-	      selectTab('contact');
 	    }
 	  });
 	};
@@ -29137,7 +29137,7 @@
 	  render: function () {
 	    return React.createElement(
 	      'div',
-	      { id: 'contactDisplay', className: 'sectionDisplay flex center hidden' },
+	      { id: 'contactDisplay', className: 'flex center hidden' },
 	      React.createElement(LinkedInLink, null),
 	      React.createElement(EmailLink, null)
 	    );
