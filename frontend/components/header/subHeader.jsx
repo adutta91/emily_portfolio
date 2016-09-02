@@ -9,7 +9,7 @@ var TabStore = require('../../stores/tabStore');
 var SubHeader = React.createClass({
   getInitialState: function() {
     return {
-      selectedTab: "aboutMe"
+      selectedTab: TabStore.selectedTab()
     }
   },
 
@@ -23,7 +23,7 @@ var SubHeader = React.createClass({
   },
 
   update: function() {
-    this.setState( {selectedTab: TabStore.selectedTab()} );
+    this.setState( { selectedTab: TabStore.selectedTab() } );
   },
 
   selectTab: function(event) {
@@ -44,7 +44,7 @@ var SubHeader = React.createClass({
       return (
         <h3 key={tab}
             id={tab}
-            className="tab"
+            className={currentTab === tab ? "tab selected" : "tab"}
             onClick={that.selectTab}>
           {TABNAMES[tab]}
         </h3>

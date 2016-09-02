@@ -21564,7 +21564,7 @@
 	
 	  getInitialState: function () {
 	    return {
-	      selectedTab: "aboutMe"
+	      selectedTab: TabStore.selectedTab()
 	    };
 	  },
 	
@@ -21600,7 +21600,7 @@
 	        'h3',
 	        { key: tab,
 	          id: tab,
-	          className: 'tab',
+	          className: currentTab === tab ? "tab selected" : "tab",
 	          onClick: that.selectTab },
 	        TABNAMES[tab]
 	      );
