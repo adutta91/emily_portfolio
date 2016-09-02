@@ -28703,6 +28703,7 @@
 	var React = __webpack_require__(1);
 	
 	var ProjectList = __webpack_require__(209);
+	var StartRotationButton = __webpack_require__(210);
 	
 	var GlobeStore = __webpack_require__(216);
 	var GlobeUtil = __webpack_require__(211);
@@ -28747,7 +28748,8 @@
 	      'div',
 	      { id: 'globeWrapper', className: 'flex column center' },
 	      React.createElement('div', { id: 'globe_div' }),
-	      React.createElement(ProjectList, null)
+	      React.createElement(ProjectList, null),
+	      React.createElement(StartRotationButton, null)
 	    );
 	  }
 	});
@@ -28780,7 +28782,6 @@
 
 	var React = __webpack_require__(1);
 	
-	var StartRotationButton = __webpack_require__(210);
 	var ProjectItem = __webpack_require__(213);
 	
 	var ProjectStore = __webpack_require__(207);
@@ -28825,9 +28826,14 @@
 	  render: function () {
 	    return React.createElement(
 	      'div',
-	      { id: 'projectList', className: 'flex center' },
-	      this.getProjects(),
-	      React.createElement(StartRotationButton, null)
+	      { id: 'projectListWrapper', className: 'flex' },
+	      React.createElement('div', { id: 'projectListBar' }),
+	      React.createElement(
+	        'div',
+	        { id: 'projectList', className: 'flex' },
+	        this.getProjects()
+	      ),
+	      React.createElement('div', { id: 'projectListBar' })
 	    );
 	  }
 	});

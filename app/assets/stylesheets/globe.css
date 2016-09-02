@@ -23,7 +23,7 @@
 }
 
 #globeWrapper {
-  width: 100%;
+  width: 40vw;
   margin-right: 10px;
 }
 
@@ -36,12 +36,6 @@
   cursor: pointer;
   transition: 1s;
 }
-
-/*#rotationButton:hover {
-  cursor: pointer;
-  transform: rotate(360deg);
-  transition: .7s;
-}*/
 
 #rotationButton.on {
   background-color: #2ed025;

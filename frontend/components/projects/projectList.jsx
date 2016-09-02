@@ -1,6 +1,5 @@
 var React = require('react');
 
-var StartRotationButton = require('./startRotationButton');
 var ProjectItem = require('./projectItem');
 
 var ProjectStore = require('../../stores/projectStore');
@@ -44,9 +43,12 @@ var ProjectList = React.createClass({
 
   render: function() {
     return (
-      <div id="projectList" className="flex center">
-        { this.getProjects() }
-        <StartRotationButton />
+      <div id="projectListWrapper" className="flex">
+        <div id="projectListBar" />
+        <div id="projectList" className="flex">
+          { this.getProjects() }
+        </div>
+        <div id="projectListBar" />
       </div>
     )
   }

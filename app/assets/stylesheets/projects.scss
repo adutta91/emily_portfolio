@@ -9,13 +9,13 @@
 
 #projectDetail {
   min-height: 80%;
-  width: 80%;
+  width: 40vw;
   margin-left: 10px;
   align-self: flex-start;
 }
 
 #projectPrompt {
-  width: 80%;
+  width: 40vw;
   min-height: 80%;
   align-self: flex-start;
 }
@@ -30,9 +30,32 @@
   margin: 10px 0;
 }
 
+#projectListWrapper {
+  width: 100%;
+  margin: 0 10px 0 10px;
+}
+
 #projectList {
   width: 100%;
-  margin-top: 10px;
+  margin: 10px;
+  overflow-x: scroll;
+}
+
+#projectListWrapper {
+  width: 90%;
+  margin: 0 auto;
+}
+
+#projectListBar {
+  width: 1px;
+  height: 30px;
+  margin: auto;
+  background: black;
+}
+
+#projectListBar:after {
+  content: "";
+  clear: both;
 }
 
 #projectModal {
@@ -71,16 +94,17 @@
   font-size: 12px;
   padding: 5px;
   margin: 5px;
-  width: 80px;
-  height: 40px;
+  min-width: 80px;
+  min-height: 40px;
   text-align: center;
   transition: 1s;
+  background-color: rgba(37, 128, 208, 0.2);
 }
 
 .projectItem:hover {
   cursor: pointer;
   transition: 1s;
-  background: rgba(0,0,0,.2);
+  background-color: rgba(37, 128, 208, 0.4);
 }
 
 .projectItem.selected {

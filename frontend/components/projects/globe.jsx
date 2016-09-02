@@ -1,6 +1,7 @@
 var React = require('react');
 
 var ProjectList = require('./projectList');
+var StartRotationButton = require('./startRotationButton');
 
 var GlobeStore = require('../../stores/globeStore');
 var GlobeUtil = require('../../utils/globeUtil');
@@ -43,6 +44,7 @@ var Globe = React.createClass({
       <div id="globeWrapper" className="flex column center">
         <div id="globe_div"></div>
         <ProjectList />
+        <StartRotationButton />
       </div>
     )
   }
