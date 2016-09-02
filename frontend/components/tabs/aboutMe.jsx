@@ -1,6 +1,6 @@
 var React = require('react');
 
-var Description = require('./description');
+var Description = require('../aboutMe/description');
 
 var AboutMe = React.createClass({
   componentDidMount: function() {

@@ -28485,7 +28485,7 @@
 
 	var React = __webpack_require__(1);
 	
-	var Description = __webpack_require__(204);
+	var Description = __webpack_require__(233);
 	
 	var AboutMe = React.createClass({
 	  displayName: 'AboutMe',
@@ -28517,26 +28517,7 @@
 	module.exports = AboutMe;
 
 /***/ },
-/* 204 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	
-	var Description = React.createClass({
-	  displayName: "Description",
-	
-	  render: function () {
-	    return React.createElement(
-	      "p",
-	      { className: "description" },
-	      "Multilingual (English, Spanish and Arabic) team leader with experience in program management, global health issues, team building, customer relations, web content development, research, analysis, product innovation, promotion, organization development and mentoring. Combines an extensive knowledge of international cultures with outstanding communication skills to ensure realization of organizational goals within the public and private sectors. Effectively manages in diverse environments addressing key issues with efficient and positive solutions."
-	    );
-	  }
-	});
-	
-	module.exports = Description;
-
-/***/ },
+/* 204 */,
 /* 205 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -29133,6 +29114,8 @@
 
 	var React = __webpack_require__(1);
 	
+	var LinkedInLink = __webpack_require__(234);
+	
 	var Contact = React.createClass({
 	  displayName: 'Contact',
 	
@@ -29154,11 +29137,7 @@
 	    return React.createElement(
 	      'div',
 	      { id: 'contactDisplay', className: 'sectionDisplay flex center hidden' },
-	      React.createElement(
-	        'h1',
-	        null,
-	        ' ~ Contact display in progress ~ '
-	      )
+	      React.createElement(LinkedInLink, null)
 	    );
 	  }
 	});
@@ -29941,6 +29920,47 @@
 	});
 	
 	module.exports = ProjectForm;
+
+/***/ },
+/* 233 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	
+	var Description = React.createClass({
+	  displayName: "Description",
+	
+	  render: function () {
+	    return React.createElement(
+	      "p",
+	      { className: "description" },
+	      "Multilingual (English, Spanish and Arabic) team leader with experience in program management, global health issues, team building, customer relations, web content development, research, analysis, product innovation, promotion, organization development and mentoring. Combines an extensive knowledge of international cultures with outstanding communication skills to ensure realization of organizational goals within the public and private sectors. Effectively manages in diverse environments addressing key issues with efficient and positive solutions."
+	    );
+	  }
+	});
+	
+	module.exports = Description;
+
+/***/ },
+/* 234 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	
+	module.exports = React.createClass({
+	  displayName: 'exports',
+	
+	
+	  clicked: function (event) {
+	    window.open('https://www.linkedin.com/in/emily-combs-29417199', '_blank');
+	  },
+	
+	  render: function () {
+	    return React.createElement('img', { className: 'icon',
+	      src: 'http://res.cloudinary.com/dzyfczxnr/image/upload/v1466453609/portfolio/linkedin.png',
+	      onClick: this.clicked });
+	  }
+	});
 
 /***/ }
 /******/ ]);

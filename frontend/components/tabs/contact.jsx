@@ -1,5 +1,7 @@
 var React = require('react');
 
+var LinkedInLink = require('../contact/linkedInLink');
+
 var Contact = React.createClass({
   componentDidMount: function() {
     this.enterTimer = window.setTimeout(this.changeClass, 250);
@@ -18,7 +20,7 @@ var Contact = React.createClass({
   render: function() {
     return (
       <div id="contactDisplay" className="sectionDisplay flex center hidden">
-        <h1> ~ Contact display in progress ~ </h1>
+        <LinkedInLink />
       </div>
     )
   }
