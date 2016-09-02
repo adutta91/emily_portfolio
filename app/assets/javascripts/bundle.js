@@ -29115,6 +29115,7 @@
 	var React = __webpack_require__(1);
 	
 	var LinkedInLink = __webpack_require__(234);
+	var EmailLink = __webpack_require__(236);
 	
 	var Contact = React.createClass({
 	  displayName: 'Contact',
@@ -29137,7 +29138,8 @@
 	    return React.createElement(
 	      'div',
 	      { id: 'contactDisplay', className: 'sectionDisplay flex center hidden' },
-	      React.createElement(LinkedInLink, null)
+	      React.createElement(LinkedInLink, null),
+	      React.createElement(EmailLink, null)
 	    );
 	  }
 	});
@@ -29958,6 +29960,28 @@
 	  render: function () {
 	    return React.createElement('img', { className: 'icon',
 	      src: 'http://res.cloudinary.com/dzyfczxnr/image/upload/v1466453609/portfolio/linkedin.png',
+	      onClick: this.clicked });
+	  }
+	});
+
+/***/ },
+/* 235 */,
+/* 236 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	
+	module.exports = React.createClass({
+	  displayName: "exports",
+	
+	
+	  clicked: function (event) {
+	    window.location.href = "mailto:asburycombs#gmail.com";
+	  },
+	
+	  render: function () {
+	    return React.createElement("img", { src: "http://res.cloudinary.com/dzyfczxnr/image/upload/v1466717141/portfolio/atsign.jpg",
+	      className: "icon",
 	      onClick: this.clicked });
 	  }
 	});
