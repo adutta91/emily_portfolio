@@ -1,3 +1,5 @@
+// VESTIGIAL - used for other format
+
 var React = require('react');
 
 var TabStore = require('../stores/tabStore');
@@ -30,7 +32,7 @@ var Display = React.createClass({
 
   render: function() {
     return (
-      <div id="display" className="flex">
+      <div id="display" className="flex center">
         { this.getTab() }
       </div>
     )

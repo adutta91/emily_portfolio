@@ -1,3 +1,114 @@
 // Place all the styles related to the Projects controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+#projectsTab {
+  width: 100%;
+  height: 100%;
+}
+
+#projectDetail {
+  min-height: 80%;
+  width: 40vw;
+  margin-left: 10px;
+  align-self: flex-start;
+}
+
+#projectPrompt {
+  width: 40vw;
+  min-height: 80%;
+  align-self: flex-start;
+}
+
+#projectHeader {
+  width: 100%;
+  justify-content: space-around;
+}
+
+#projectDescription {
+  line-height: 24px;
+  margin: 10px 0;
+}
+
+#projectListWrapper {
+  width: 100%;
+  margin: 0 10px 0 10px;
+}
+
+#projectList {
+  width: 100%;
+  margin: 10px;
+  overflow-x: scroll;
+}
+
+#projectListWrapper {
+  width: 90%;
+  margin: 0 auto;
+}
+
+#projectListBar {
+  width: 1px;
+  height: 30px;
+  margin: auto;
+  background: black;
+}
+
+#projectListBar:after {
+  content: "";
+  clear: both;
+}
+
+#projectModal {
+  width: 100%;
+  height: 100%;
+}
+
+#projectForm {
+  width: 100%;
+  height: 100%;
+  justify-content: space-around;
+  padding: 20px;
+}
+
+#coordsForm input {
+  width: 100px;
+}
+
+#projectFormSubmit {
+  margin: 30px auto;
+  border: 1px solid black;
+  padding: 8px;
+  border-radius: 3px;
+  transition: .7s;
+  text-align: center;
+}
+
+#projectFormSubmit:hover {
+  cursor: pointer;
+  background-color: #2580d0;
+  color: white;
+  transition:.7s
+}
+
+.projectItem {
+  font-size: 12px;
+  padding: 5px;
+  margin: 5px;
+  min-width: 80px;
+  min-height: 40px;
+  text-align: center;
+  transition: 1s;
+  background-color: rgba(37, 128, 208, 0.2);
+}
+
+.projectItem:hover {
+  cursor: pointer;
+  transition: 1s;
+  background-color: rgba(37, 128, 208, 0.4);
+}
+
+.projectItem.selected {
+	background: #2580d0;
+  color: white;
+  transition: 1s;
+}

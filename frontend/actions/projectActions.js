@@ -6,5 +6,12 @@ module.exports = {
       actionType: "RECEIVE_PROJECTS",
       projects: projects
     });
+  },
+
+  setProject: function(project) {
+    Dispatcher.dispatch({
+      actionType: "VIEW_PROJECT",
+      project: project
+    })
   }
 }

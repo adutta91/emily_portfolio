@@ -1,0 +1,43 @@
+#display {
+  width: 80vw;
+}
+
+#projectsDisplay {
+  width: 80vw;
+  margin: 0 auto;
+}
+
+#closeModalButton {
+  position: fixed;
+  top: 5px;
+  right: 5px;
+  width: 3vw;
+}
+
+.description {
+  width: 50vw;
+  margin: 0 0 0 30px;
+  line-height: 3.5vh;
+}
+
+.separator {
+  background: black;
+  height: 1px;
+  width: 75%;
+  margin: 0 auto;
+}
+
+.sectionDisplay {
+  width: 100vw;
+  height: 100vh;
+}
+
+.hidden {
+  opacity: 0;
+  transition:.5s;
+}
+
+.loaded {
+  opacity: 1;
+  transition:.5s;
+}

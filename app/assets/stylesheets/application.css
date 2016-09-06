@@ -19,43 +19,55 @@ html {
 }
 
 h1 {
-  margin: 20px 0;
 }
 
 h3, h5 {
+}
+
+input {
+  padding: 10px;
+  font-size: 2.4vw;
   margin: 10px 0;
+  color: #2580d0;
+  border: 1px solid grey;
+  text-align: center;
+}
+
+textarea {
+  color: #2580d0;
+  width: 50%;
+  height: 75%;
+  padding: 10px;
+  font-size: 1.7vw;
+  margin: 10px 45px;
+  border: 1px solid grey;
+}
+
+#app {
+  overflow-y: scroll;
 }
 
 #header {
-  height: 80px;
-  width: 80%;
-  border-bottom: 1px solid black;
-  margin: 0 0 10px 0;
-}
-
-#projectsTab {
-  width: 80vw;
-  height: 80vh;
-}
-
-#projectDetail {
-  width: 50%;
-  height: 80%;
-  margin-left: 20px;
-  align-self: flex-start;
-}
-
-#earth_div {
-  width: 50%;
-  height: 100%;
-}
-
-#projectHeader {
   width: 100%;
+  -webkit-box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.75);
+  box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.75);
+  margin: 0 0 10px 0;
+  justify-content: space-between;
+  position: fixed;
+  top: 0px;
+  height: 7.5vh;
+  z-index: 1000;
+  background-color: white;
 }
 
-#projectDescription {
-  line-height: 24px;
+#subHeader {
+  width: 40%;
+  justify-content: space-around;
+}
+
+#name {
+  margin-left: 4vw;
 }
 
 /* fonts */
@@ -70,7 +82,7 @@ h3 {
 }
 
 h5 {
-  font-size: 1.25vw;
+  font-size: 1vw;
   text-align: left;
   font-weight: 600;
   width: 100%;
@@ -78,24 +90,18 @@ h5 {
 
 /* components */
 .tab {
-  margin: 10px 30px 5px 30px;
-  padding: 0 0 8px 0;
-  border-bottom: 1px solid white;
+  background: linear-gradient(to top, #2580d0 50%, white 50%);
+  background-size: 100% 200%;
+  background-position: top;
+  padding: 8px 5px;
+  transition: all .5s ease;
 }
 
-.tab:after {
-  content: '';
-	display: block;
-	margin: 5px auto;
-	height: 1px;
-	width: 0px;
-	background: transparent;
-	transition: width .5s ease, background-color .5s ease;
-}
-
-.tab.selected:after {
-	width: 100%;
-	background: black;
+.tab.selected {
+  background-position: bottom;
+  transition: all .5s ease;
+  color: white;
+  /*border-radius: 5px 5px 0 0;*/
 }
 
 .tab:hover {
@@ -108,16 +114,14 @@ h5 {
   height: 500px;
 }
 
-.description {
-  width: 50vw;
-  margin: 0 0 0 30px;
+.margin {
+  margin-bottom: 3vh;
 }
 
 /* flex stylings */
 
 .flex {
   display: flex;
-  align-items: center;
 }
 
 .flex.column {
@@ -133,5 +137,6 @@ h5 {
 }
 
 .flex.center {
+  align-items: center;
   justify-content: center;
 }
