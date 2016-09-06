@@ -29875,6 +29875,9 @@
 	      case 'projectDesc':
 	        this.setState({ projectDesc: el.value });
 	        break;
+	      case 'projectCollaborator':
+	        this.setState({ projectCollaborator: el.value });
+	        break;
 	    }
 	  },
 	
