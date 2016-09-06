@@ -21622,10 +21622,10 @@
 	    var scrollPos = $(window).scrollTop() + headerBuffer;
 	    if (scrollPos < $("#projectsDisplay").offset().top) {
 	      selectTab('aboutMe');
+	    } else if ($(window).scrollTop() + $(window).height() > $(document).height() - 100) {
+	      selectTab('contact');
 	    } else if (scrollPos < $("#contactDisplay").offset().top) {
 	      selectTab('projects');
-	    } else {
-	      selectTab('contact');
 	    }
 	  });
 	};
@@ -28619,6 +28619,12 @@
 	          React.createElement(
 	            'h3',
 	            { className: 'margin' },
+	            'Collaborators: ',
+	            this.state.project.collaborator
+	          ),
+	          React.createElement(
+	            'h3',
+	            { className: 'margin' },
 	            this.state.project.location
 	          ),
 	          React.createElement(
@@ -29091,6 +29097,7 @@
 	    };
 	  },
 	
+<<<<<<< HEAD
 	  click: function () {
 	    GlobeUtil.toggleAnimation();
 	  },
@@ -29132,6 +29139,10 @@
 	var React = __webpack_require__(1);
 	
 	var LinkedInLink = __webpack_require__(216);
+=======
+	var LinkedInLink = __webpack_require__(234);
+	var EmailLink = __webpack_require__(236);
+>>>>>>> 0317d4ea3b26de7d955cc50351a6f29f7c4564be
 	
 	var Contact = React.createClass({
 	  displayName: 'Contact',
@@ -29153,8 +29164,9 @@
 	  render: function () {
 	    return React.createElement(
 	      'div',
-	      { id: 'contactDisplay', className: 'sectionDisplay flex center hidden' },
-	      React.createElement(LinkedInLink, null)
+	      { id: 'contactDisplay', className: 'flex center hidden' },
+	      React.createElement(LinkedInLink, null),
+	      React.createElement(EmailLink, null)
 	    );
 	  }
 	});
@@ -29910,6 +29922,7 @@
 	var Store = __webpack_require__(184).Store;
 	var Dispatcher = __webpack_require__(179);
 	
+<<<<<<< HEAD
 	var ModalStore = new Store(Dispatcher);
 	
 	var _projectForm = false;
@@ -29924,6 +29937,100 @@
 	      toggleProjectModal();
 	      ModalStore.__emitChange();
 	      break;
+=======
+	  getInitialState: function () {
+	    return {
+	      projectTitle: "",
+	      projectStartDate: "",
+	      projectEndDate: "",
+	      projectLocation: "",
+	      projectLatCoord: "",
+	      projectLngCoord: "",
+	      projectCollaborator: "",
+	      projectDesc: ""
+	    };
+	  },
+	
+	  onInputChange: function (event) {
+	    var el = event.currentTarget;
+	    switch (el.id) {
+	      case 'projectTitle':
+	        this.setState({ projectTitle: el.value });
+	        break;
+	      case 'projectStartDate':
+	        this.setState({ projectStartDate: el.value });
+	        break;
+	      case 'projectEndDate':
+	        this.setState({ projectEndDate: el.value });
+	        break;
+	      case 'projectLocation':
+	        this.setState({ projectLocation: el.value });
+	        break;
+	      case 'projectLatCoord':
+	        this.setState({ projectLatCoord: el.value });
+	        break;
+	      case 'projectLngCoord':
+	        this.setState({ projectLngCoord: el.value });
+	        break;
+	      case 'projectDesc':
+	        this.setState({ projectDesc: el.value });
+	        break;
+	      case 'projectCollaborator':
+	        this.setState({ projectCollaborator: el.value });
+	        break;
+	    }
+	  },
+	
+	  submitForm: function () {
+	    ProjectUtil.createProject({
+	      project: {
+	        title: this.state.projectTitle,
+	        start_date: this.state.projectStartDate,
+	        end_date: this.state.projectEndDate,
+	        location: this.state.projectLocation,
+	        lat: this.state.projectLatCoord,
+	        lng: this.state.projectLngCoord,
+	        collaborator: this.state.projectCollaborator,
+	        description: this.state.projectDesc
+	      }
+	    });
+	    this.props.modalCallback();
+	  },
+	
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      { id: 'projectModal' },
+	      React.createElement('img', { src: 'http://res.cloudinary.com/dzyfczxnr/image/upload/v1472766011/portfolio/close.png',
+	        id: 'closeModalButton',
+	        onClick: this.hideModal }),
+	      React.createElement(
+	        'form',
+	        { id: 'projectForm', className: 'flex' },
+	        React.createElement(
+	          'div',
+	          { className: 'flex column' },
+	          React.createElement('input', { id: 'projectTitle', type: 'text', onChange: this.onInputChange, placeholder: 'title', value: this.state.projectTitle }),
+	          React.createElement('input', { id: 'projectStartDate', type: 'text', onChange: this.onInputChange, placeholder: 'start date', value: this.state.projectStartDate }),
+	          React.createElement('input', { id: 'projectEndDate', type: 'text', onChange: this.onInputChange, placeholder: 'end date', value: this.state.projectEndDate }),
+	          React.createElement('input', { id: 'projectLocation', type: 'text', onChange: this.onInputChange, placeholder: 'location', value: this.state.projectLocation }),
+	          React.createElement('input', { id: 'projectCollaborator', type: 'text', onChange: this.onInputChange, placeholder: 'collaborator', value: this.state.projectCollaborator }),
+	          React.createElement(
+	            'div',
+	            { className: 'flex center', id: 'coordsForm' },
+	            React.createElement('input', { id: 'projectLatCoord', type: 'text', onChange: this.onInputChange, placeholder: 'lat', value: this.state.projectLatCoord }),
+	            React.createElement('input', { id: 'projectLngCoord', type: 'text', onChange: this.onInputChange, placeholder: 'lng', value: this.state.projectLngCoord })
+	          ),
+	          React.createElement(
+	            'div',
+	            { id: 'projectFormSubmit', onClick: this.submitForm },
+	            'submit!'
+	          )
+	        ),
+	        React.createElement('textarea', { id: 'projectDesc', onChange: this.onInputChange, placeholder: 'description', value: this.state.projectDesc })
+	      )
+	    );
+>>>>>>> 0317d4ea3b26de7d955cc50351a6f29f7c4564be
 	  }
 	};
 	
@@ -29958,6 +30065,28 @@
 	  justifyContent: "space-around",
 	  width: "100%"
 	};
+
+/***/ },
+/* 235 */,
+/* 236 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	
+	module.exports = React.createClass({
+	  displayName: "exports",
+	
+	
+	  clicked: function (event) {
+	    window.location.href = "mailto:asburycombs#gmail.com";
+	  },
+	
+	  render: function () {
+	    return React.createElement("img", { src: "http://res.cloudinary.com/dzyfczxnr/image/upload/v1466717141/portfolio/atsign.jpg",
+	      className: "icon",
+	      onClick: this.clicked });
+	  }
+	});
 
 /***/ }
 /******/ ]);

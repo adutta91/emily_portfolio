@@ -1,6 +1,7 @@
 var React = require('react');
 
 var LinkedInLink = require('../contact/linkedInLink');
+var EmailLink = require('../contact/emailLink');
 
 var Contact = React.createClass({
   componentDidMount: function() {
@@ -19,8 +20,9 @@ var Contact = React.createClass({
 
   render: function() {
     return (
-      <div id="contactDisplay" className="sectionDisplay flex center hidden">
+      <div id="contactDisplay" className="flex center hidden">
         <LinkedInLink />
+        <EmailLink />
       </div>
     )
   }

@@ -16,7 +16,8 @@ class Api::ProjectsController < ApplicationController
   private
 
   def project_params
-    params.require(:project).permit(:title, :description, :location, :start_date, :end_date, :lat, :lng)
+    params.require(:project).permit(:title, :description, :location, :start_date,
+                                    :end_date, :lat, :lng, :collaborator)
   end
 
   def find_project

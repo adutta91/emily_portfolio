@@ -67,10 +67,10 @@ var addScrollListener = function() {
     var scrollPos = $(window).scrollTop() + headerBuffer;
     if (scrollPos < $("#projectsDisplay").offset().top) {
       selectTab('aboutMe');
+    } else if ($(window).scrollTop() + $(window).height() > $(document).height() - 100) {
+      selectTab('contact');
     } else if (scrollPos < $("#contactDisplay").offset().top) {
       selectTab('projects');
-    } else {
-      selectTab('contact');
     }
   });
 };
