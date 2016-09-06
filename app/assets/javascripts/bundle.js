@@ -21416,14 +21416,14 @@
 	var AboutMe = __webpack_require__(201);
 	var Projects = __webpack_require__(203);
 	var Contact = __webpack_require__(215);
-	var ProjectForm = __webpack_require__(217);
+	var ProjectForm = __webpack_require__(218);
 	
-	var Modal = __webpack_require__(218);
-	var ModalUtil = __webpack_require__(227);
-	var ModalStore = __webpack_require__(229);
+	var Modal = __webpack_require__(219);
+	var ModalUtil = __webpack_require__(228);
+	var ModalStore = __webpack_require__(230);
 	
-	var ModalStyle = __webpack_require__(230);
-	var ContentStyle = __webpack_require__(231);
+	var ModalStyle = __webpack_require__(231);
+	var ContentStyle = __webpack_require__(232);
 	
 	var App = React.createClass({
 	  displayName: 'App',
@@ -29097,7 +29097,6 @@
 	    };
 	  },
 	
-<<<<<<< HEAD
 	  click: function () {
 	    GlobeUtil.toggleAnimation();
 	  },
@@ -29139,10 +29138,7 @@
 	var React = __webpack_require__(1);
 	
 	var LinkedInLink = __webpack_require__(216);
-=======
-	var LinkedInLink = __webpack_require__(234);
-	var EmailLink = __webpack_require__(236);
->>>>>>> 0317d4ea3b26de7d955cc50351a6f29f7c4564be
+	var EmailLink = __webpack_require__(217);
 	
 	var Contact = React.createClass({
 	  displayName: 'Contact',
@@ -29200,6 +29196,27 @@
 
 	var React = __webpack_require__(1);
 	
+	module.exports = React.createClass({
+	  displayName: "exports",
+	
+	
+	  clicked: function (event) {
+	    window.location.href = "mailto:asburycombs#gmail.com";
+	  },
+	
+	  render: function () {
+	    return React.createElement("img", { src: "http://res.cloudinary.com/dzyfczxnr/image/upload/v1466717141/portfolio/atsign.jpg",
+	      className: "icon",
+	      onClick: this.clicked });
+	  }
+	});
+
+/***/ },
+/* 218 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	
 	var ProjectUtil = __webpack_require__(209);
 	
 	var ProjectForm = React.createClass({
@@ -29214,6 +29231,7 @@
 	      projectLocation: "",
 	      projectLatCoord: "",
 	      projectLngCoord: "",
+	      projectCollaborator: "",
 	      projectDesc: ""
 	    };
 	  },
@@ -29242,6 +29260,9 @@
 	      case 'projectDesc':
 	        this.setState({ projectDesc: el.value });
 	        break;
+	      case 'projectCollaborator':
+	        this.setState({ projectCollaborator: el.value });
+	        break;
 	    }
 	  },
 	
@@ -29254,6 +29275,7 @@
 	        location: this.state.projectLocation,
 	        lat: this.state.projectLatCoord,
 	        lng: this.state.projectLngCoord,
+	        collaborator: this.state.projectCollaborator,
 	        description: this.state.projectDesc
 	      }
 	    });
@@ -29277,6 +29299,7 @@
 	          React.createElement('input', { id: 'projectStartDate', type: 'text', onChange: this.onInputChange, placeholder: 'start date', value: this.state.projectStartDate }),
 	          React.createElement('input', { id: 'projectEndDate', type: 'text', onChange: this.onInputChange, placeholder: 'end date', value: this.state.projectEndDate }),
 	          React.createElement('input', { id: 'projectLocation', type: 'text', onChange: this.onInputChange, placeholder: 'location', value: this.state.projectLocation }),
+	          React.createElement('input', { id: 'projectCollaborator', type: 'text', onChange: this.onInputChange, placeholder: 'collaborator', value: this.state.projectCollaborator }),
 	          React.createElement(
 	            'div',
 	            { className: 'flex center', id: 'coordsForm' },
@@ -29298,12 +29321,12 @@
 	module.exports = ProjectForm;
 
 /***/ },
-/* 218 */
+/* 219 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var modalFactory = __webpack_require__(219);
-	var insertKeyframesRule = __webpack_require__(224);
-	var appendVendorPrefix = __webpack_require__(221);
+	var modalFactory = __webpack_require__(220);
+	var insertKeyframesRule = __webpack_require__(225);
+	var appendVendorPrefix = __webpack_require__(222);
 	
 	var animation = {
 	    show: {
@@ -29437,12 +29460,12 @@
 
 
 /***/ },
-/* 219 */
+/* 220 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var transitionEvents = __webpack_require__(220);
-	var appendVendorPrefix = __webpack_require__(221);
+	var transitionEvents = __webpack_require__(221);
+	var appendVendorPrefix = __webpack_require__(222);
 	
 	module.exports = function(animation){
 	
@@ -29621,7 +29644,7 @@
 
 
 /***/ },
-/* 220 */
+/* 221 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -29722,12 +29745,12 @@
 
 
 /***/ },
-/* 221 */
+/* 222 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var getVendorPropertyName = __webpack_require__(222);
+	var getVendorPropertyName = __webpack_require__(223);
 	
 	module.exports = function(target, sources) {
 	  var to = Object(target);
@@ -29758,12 +29781,12 @@
 
 
 /***/ },
-/* 222 */
+/* 223 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var builtinStyle = __webpack_require__(223);
+	var builtinStyle = __webpack_require__(224);
 	var prefixes = ['Moz', 'Webkit', 'O', 'ms'];
 	var domVendorPrefix;
 	
@@ -29801,7 +29824,7 @@
 
 
 /***/ },
-/* 223 */
+/* 224 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -29810,13 +29833,13 @@
 
 
 /***/ },
-/* 224 */
+/* 225 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var insertRule = __webpack_require__(225);
-	var vendorPrefix = __webpack_require__(226)();
+	var insertRule = __webpack_require__(226);
+	var vendorPrefix = __webpack_require__(227)();
 	var index = 0;
 	
 	module.exports = function(keyframes) {
@@ -29846,7 +29869,7 @@
 
 
 /***/ },
-/* 225 */
+/* 226 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -29871,7 +29894,7 @@
 
 
 /***/ },
-/* 226 */
+/* 227 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -29890,10 +29913,10 @@
 
 
 /***/ },
-/* 227 */
+/* 228 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var ModalActions = __webpack_require__(228);
+	var ModalActions = __webpack_require__(229);
 	
 	module.exports = {
 	  toggleProjectModal: function () {
@@ -29902,7 +29925,7 @@
 	};
 
 /***/ },
-/* 228 */
+/* 229 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Dispatcher = __webpack_require__(179);
@@ -29916,13 +29939,12 @@
 	};
 
 /***/ },
-/* 229 */
+/* 230 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Store = __webpack_require__(184).Store;
 	var Dispatcher = __webpack_require__(179);
 	
-<<<<<<< HEAD
 	var ModalStore = new Store(Dispatcher);
 	
 	var _projectForm = false;
@@ -29937,100 +29959,6 @@
 	      toggleProjectModal();
 	      ModalStore.__emitChange();
 	      break;
-=======
-	  getInitialState: function () {
-	    return {
-	      projectTitle: "",
-	      projectStartDate: "",
-	      projectEndDate: "",
-	      projectLocation: "",
-	      projectLatCoord: "",
-	      projectLngCoord: "",
-	      projectCollaborator: "",
-	      projectDesc: ""
-	    };
-	  },
-	
-	  onInputChange: function (event) {
-	    var el = event.currentTarget;
-	    switch (el.id) {
-	      case 'projectTitle':
-	        this.setState({ projectTitle: el.value });
-	        break;
-	      case 'projectStartDate':
-	        this.setState({ projectStartDate: el.value });
-	        break;
-	      case 'projectEndDate':
-	        this.setState({ projectEndDate: el.value });
-	        break;
-	      case 'projectLocation':
-	        this.setState({ projectLocation: el.value });
-	        break;
-	      case 'projectLatCoord':
-	        this.setState({ projectLatCoord: el.value });
-	        break;
-	      case 'projectLngCoord':
-	        this.setState({ projectLngCoord: el.value });
-	        break;
-	      case 'projectDesc':
-	        this.setState({ projectDesc: el.value });
-	        break;
-	      case 'projectCollaborator':
-	        this.setState({ projectCollaborator: el.value });
-	        break;
-	    }
-	  },
-	
-	  submitForm: function () {
-	    ProjectUtil.createProject({
-	      project: {
-	        title: this.state.projectTitle,
-	        start_date: this.state.projectStartDate,
-	        end_date: this.state.projectEndDate,
-	        location: this.state.projectLocation,
-	        lat: this.state.projectLatCoord,
-	        lng: this.state.projectLngCoord,
-	        collaborator: this.state.projectCollaborator,
-	        description: this.state.projectDesc
-	      }
-	    });
-	    this.props.modalCallback();
-	  },
-	
-	  render: function () {
-	    return React.createElement(
-	      'div',
-	      { id: 'projectModal' },
-	      React.createElement('img', { src: 'http://res.cloudinary.com/dzyfczxnr/image/upload/v1472766011/portfolio/close.png',
-	        id: 'closeModalButton',
-	        onClick: this.hideModal }),
-	      React.createElement(
-	        'form',
-	        { id: 'projectForm', className: 'flex' },
-	        React.createElement(
-	          'div',
-	          { className: 'flex column' },
-	          React.createElement('input', { id: 'projectTitle', type: 'text', onChange: this.onInputChange, placeholder: 'title', value: this.state.projectTitle }),
-	          React.createElement('input', { id: 'projectStartDate', type: 'text', onChange: this.onInputChange, placeholder: 'start date', value: this.state.projectStartDate }),
-	          React.createElement('input', { id: 'projectEndDate', type: 'text', onChange: this.onInputChange, placeholder: 'end date', value: this.state.projectEndDate }),
-	          React.createElement('input', { id: 'projectLocation', type: 'text', onChange: this.onInputChange, placeholder: 'location', value: this.state.projectLocation }),
-	          React.createElement('input', { id: 'projectCollaborator', type: 'text', onChange: this.onInputChange, placeholder: 'collaborator', value: this.state.projectCollaborator }),
-	          React.createElement(
-	            'div',
-	            { className: 'flex center', id: 'coordsForm' },
-	            React.createElement('input', { id: 'projectLatCoord', type: 'text', onChange: this.onInputChange, placeholder: 'lat', value: this.state.projectLatCoord }),
-	            React.createElement('input', { id: 'projectLngCoord', type: 'text', onChange: this.onInputChange, placeholder: 'lng', value: this.state.projectLngCoord })
-	          ),
-	          React.createElement(
-	            'div',
-	            { id: 'projectFormSubmit', onClick: this.submitForm },
-	            'submit!'
-	          )
-	        ),
-	        React.createElement('textarea', { id: 'projectDesc', onChange: this.onInputChange, placeholder: 'description', value: this.state.projectDesc })
-	      )
-	    );
->>>>>>> 0317d4ea3b26de7d955cc50351a6f29f7c4564be
 	  }
 	};
 	
@@ -30041,7 +29969,7 @@
 	module.exports = ModalStore;
 
 /***/ },
-/* 230 */
+/* 231 */
 /***/ function(module, exports) {
 
 	module.exports = {
@@ -30054,7 +29982,7 @@
 	};
 
 /***/ },
-/* 231 */
+/* 232 */
 /***/ function(module, exports) {
 
 	module.exports = {
@@ -30065,28 +29993,6 @@
 	  justifyContent: "space-around",
 	  width: "100%"
 	};
-
-/***/ },
-/* 235 */,
-/* 236 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	
-	module.exports = React.createClass({
-	  displayName: "exports",
-	
-	
-	  clicked: function (event) {
-	    window.location.href = "mailto:asburycombs#gmail.com";
-	  },
-	
-	  render: function () {
-	    return React.createElement("img", { src: "http://res.cloudinary.com/dzyfczxnr/image/upload/v1466717141/portfolio/atsign.jpg",
-	      className: "icon",
-	      onClick: this.clicked });
-	  }
-	});
 
 /***/ }
 /******/ ]);
