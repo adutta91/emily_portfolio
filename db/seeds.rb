@@ -14,8 +14,8 @@ Project.create(
                 schools of nursing, public health and medicine.",
   start_date: "January 2016",
   end_date: "January 2017",
-  lat: "12.6500000",
-  lng: "-8.0000000",
+  lat: "12.634024",
+  lng: "-7.999979",
   location: "Bamako, Mali",
   collaborator: "Johns Hopkins University"
 )
