@@ -21417,13 +21417,14 @@
 	var Projects = __webpack_require__(203);
 	var Contact = __webpack_require__(215);
 	var ProjectForm = __webpack_require__(218);
+	var AdminDashboard = __webpack_require__(220);
 	
-	var Modal = __webpack_require__(219);
-	var ModalUtil = __webpack_require__(228);
-	var ModalStore = __webpack_require__(230);
+	var Modal = __webpack_require__(222);
+	var ModalUtil = __webpack_require__(231);
+	var ModalStore = __webpack_require__(233);
 	
-	var ModalStyle = __webpack_require__(231);
-	var ContentStyle = __webpack_require__(232);
+	var ModalStyle = __webpack_require__(234);
+	var ContentStyle = __webpack_require__(235);
 	
 	var App = React.createClass({
 	  displayName: 'App',
@@ -21473,7 +21474,7 @@
 	        { ref: 'modal',
 	          modalStyle: ModalStyle,
 	          contentStyle: ContentStyle },
-	        React.createElement(ProjectForm, { modalCallback: this.hideModal })
+	        React.createElement(AdminDashboard, null)
 	      )
 	    );
 	  }
@@ -29245,25 +29246,35 @@
 
 	var React = __webpack_require__(1);
 	
+	var ProjectStore = __webpack_require__(205);
 	var ProjectUtil = __webpack_require__(209);
 	var GlobeUtil = __webpack_require__(211);
-	var CoordStore = __webpack_require__(233);
+	var CoordStore = __webpack_require__(219);
 	
 	var ProjectForm = React.createClass({
 	  displayName: 'ProjectForm',
 	
 	
 	  getInitialState: function () {
-	    return {
-	      projectTitle: "",
-	      projectStartDate: "",
-	      projectEndDate: "",
-	      projectLocation: "",
-	      projectLatCoord: "",
-	      projectLngCoord: "",
-	      projectCollaborator: "",
-	      projectDesc: ""
-	    };
+	    if (this.props.new) {
+	      return {
+	        projectTitle: "",
+	        projectStartDate: "",
+	        projectEndDate: "",
+	        projectLocation: "",
+	        projectCollaborator: "",
+	        projectDesc: ""
+	      };
+	    } else {
+	      return {
+	        projectTitle: ProjectStore.viewedProject().title,
+	        projectStartDate: ProjectStore.viewedProject().start_date,
+	        projectEndDate: ProjectStore.viewedProject().end_date,
+	        projectLocation: ProjectStore.viewedProject().location,
+	        projectCollaborator: ProjectStore.viewedProject().collaborators,
+	        projectDesc: ProjectStore.viewedProject().description
+	      };
+	    }
 	  },
 	
 	  onInputChange: function (event) {
@@ -29317,16 +29328,33 @@
 	        collaborator: this.state.projectCollaborator
 	      }
 	    };
-	    ProjectUtil.createProject(project);
+	    if (this.props.new) {
+	      ProjectUtil.createProject(project);
+	    } else {
+	      ProjectUtil.updateProject(project);
+	    }
+	  },
+	
+	  getTitle: function () {
+	    if (this.props.new) {
+	      return "Add a Project";
+	    } else {
+	      return "Edit Project";
+	    }
 	  },
 	
 	  render: function () {
 	    return React.createElement(
 	      'div',
-	      { id: 'projectModal' },
+	      null,
 	      React.createElement('img', { src: 'http://res.cloudinary.com/dzyfczxnr/image/upload/v1472766011/portfolio/close.png',
 	        id: 'closeModalButton',
 	        onClick: this.hideModal }),
+	      React.createElement(
+	        'h3',
+	        { className: 'textCenter' },
+	        this.getTitle()
+	      ),
 	      React.createElement(
 	        'form',
 	        { id: 'projectForm', className: 'flex' },
@@ -29360,9 +29388,105 @@
 /* 219 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var modalFactory = __webpack_require__(220);
-	var insertKeyframesRule = __webpack_require__(225);
-	var appendVendorPrefix = __webpack_require__(222);
+	var Store = __webpack_require__(184).Store;
+	var Dispatcher = __webpack_require__(179);
+	
+	var CoordStore = new Store(Dispatcher);
+	
+	var _coords = [];
+	
+	CoordStore.coords = function () {
+	  return _coords;
+	};
+	
+	CoordStore.__onDispatch = function (payload) {
+	  switch (payload.actionType) {
+	    case 'RECEIVE_COORDS':
+	      resetCoords(payload.coords);
+	      CoordStore.__emitChange();
+	      break;
+	  }
+	};
+	
+	var resetCoords = function (coords) {
+	  _coords = coords;
+	};
+	
+	module.exports = CoordStore;
+
+/***/ },
+/* 220 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	
+	var DashComponents = __webpack_require__(221);
+	
+	var DashboardStore = __webpack_require__(239);
+	
+	var ProjectList = __webpack_require__(207);
+	var AddProjectButton = __webpack_require__(236);
+	
+	module.exports = React.createClass({
+	  displayName: 'exports',
+	
+	
+	  getInitialState: function () {
+	    return {
+	      display: "projects"
+	    };
+	  },
+	
+	  componentDidMount: function () {
+	    this.dashboardListener = DashboardStore.addListener(this.update);
+	  },
+	
+	  componentWillUnmount: function () {
+	    this.dashboardListener.remove();
+	  },
+	
+	  update: function () {
+	    this.setState({ display: DashboardStore.display() });
+	  },
+	
+	  getDisplay: function () {
+	    return DashComponents[this.state.display];
+	  },
+	
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      { id: 'projectModal', className: 'adminDashboard' },
+	      React.createElement(
+	        'div',
+	        { className: 'flex' },
+	        React.createElement(ProjectList, null),
+	        React.createElement(AddProjectButton, null)
+	      ),
+	      this.getDisplay()
+	    );
+	  }
+	});
+
+/***/ },
+/* 221 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	
+	var ProjectForm = __webpack_require__(218);
+	
+	module.exports = {
+	  "form": React.createElement(ProjectForm, { 'new': true })
+	};
+
+/***/ },
+/* 222 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var modalFactory = __webpack_require__(223);
+	var insertKeyframesRule = __webpack_require__(228);
+	var appendVendorPrefix = __webpack_require__(225);
 	
 	var animation = {
 	    show: {
@@ -29496,12 +29620,12 @@
 
 
 /***/ },
-/* 220 */
+/* 223 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var transitionEvents = __webpack_require__(221);
-	var appendVendorPrefix = __webpack_require__(222);
+	var transitionEvents = __webpack_require__(224);
+	var appendVendorPrefix = __webpack_require__(225);
 	
 	module.exports = function(animation){
 	
@@ -29680,7 +29804,7 @@
 
 
 /***/ },
-/* 221 */
+/* 224 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -29781,12 +29905,12 @@
 
 
 /***/ },
-/* 222 */
+/* 225 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var getVendorPropertyName = __webpack_require__(223);
+	var getVendorPropertyName = __webpack_require__(226);
 	
 	module.exports = function(target, sources) {
 	  var to = Object(target);
@@ -29817,12 +29941,12 @@
 
 
 /***/ },
-/* 223 */
+/* 226 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var builtinStyle = __webpack_require__(224);
+	var builtinStyle = __webpack_require__(227);
 	var prefixes = ['Moz', 'Webkit', 'O', 'ms'];
 	var domVendorPrefix;
 	
@@ -29860,7 +29984,7 @@
 
 
 /***/ },
-/* 224 */
+/* 227 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -29869,13 +29993,13 @@
 
 
 /***/ },
-/* 225 */
+/* 228 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var insertRule = __webpack_require__(226);
-	var vendorPrefix = __webpack_require__(227)();
+	var insertRule = __webpack_require__(229);
+	var vendorPrefix = __webpack_require__(230)();
 	var index = 0;
 	
 	module.exports = function(keyframes) {
@@ -29905,7 +30029,7 @@
 
 
 /***/ },
-/* 226 */
+/* 229 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -29930,7 +30054,7 @@
 
 
 /***/ },
-/* 227 */
+/* 230 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -29949,10 +30073,10 @@
 
 
 /***/ },
-/* 228 */
+/* 231 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var ModalActions = __webpack_require__(229);
+	var ModalActions = __webpack_require__(232);
 	
 	module.exports = {
 	  toggleProjectModal: function () {
@@ -29961,7 +30085,7 @@
 	};
 
 /***/ },
-/* 229 */
+/* 232 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Dispatcher = __webpack_require__(179);
@@ -29975,7 +30099,7 @@
 	};
 
 /***/ },
-/* 230 */
+/* 233 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Store = __webpack_require__(184).Store;
@@ -30005,7 +30129,7 @@
 	module.exports = ModalStore;
 
 /***/ },
-/* 231 */
+/* 234 */
 /***/ function(module, exports) {
 
 	module.exports = {
@@ -30018,7 +30142,7 @@
 	};
 
 /***/ },
-/* 232 */
+/* 235 */
 /***/ function(module, exports) {
 
 	module.exports = {
@@ -30031,34 +30155,84 @@
 	};
 
 /***/ },
-/* 233 */
+/* 236 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	
+	var DashboardUtil = __webpack_require__(237);
+	
+	module.exports = React.createClass({
+	  displayName: 'exports',
+	
+	
+	  click: function (event) {
+	    DashboardUtil.resetDisplay("form");
+	  },
+	
+	  render: function () {
+	    return React.createElement('img', { src: 'http://res.cloudinary.com/dzyfczxnr/image/upload/v1456979318/add.png',
+	      className: 'icon',
+	      onClick: this.click });
+	  }
+	});
+
+/***/ },
+/* 237 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var DashboardActions = __webpack_require__(238);
+	
+	module.exports = {
+	  resetDisplay: function (display) {
+	    DashboardActions.resetDisplay(display);
+	  }
+	};
+
+/***/ },
+/* 238 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Dispatcher = __webpack_require__(179);
+	
+	module.exports = {
+	  resetDisplay: function (display) {
+	    Dispatcher.dispatch({
+	      actionType: 'RESET_DISPLAY',
+	      display: display
+	    });
+	  }
+	};
+
+/***/ },
+/* 239 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Store = __webpack_require__(184).Store;
 	var Dispatcher = __webpack_require__(179);
 	
-	var CoordStore = new Store(Dispatcher);
+	var DashboardStore = new Store(Dispatcher);
 	
-	var _coords = [];
+	var _display = "projects";
 	
-	CoordStore.coords = function () {
-	  return _coords;
+	DashboardStore.display = function () {
+	  return _display;
 	};
 	
-	CoordStore.__onDispatch = function (payload) {
+	DashboardStore.__onDispatch = function (payload) {
 	  switch (payload.actionType) {
-	    case 'RECEIVE_COORDS':
-	      resetCoords(payload.coords);
-	      CoordStore.__emitChange();
+	    case 'RESET_DISPLAY':
+	      resetDisplay(payload.display);
+	      DashboardStore.__emitChange();
 	      break;
 	  }
 	};
 	
-	var resetCoords = function (coords) {
-	  _coords = coords;
+	var resetDisplay = function (display) {
+	  _display = display;
 	};
 	
-	module.exports = CoordStore;
+	module.exports = DashboardStore;
 
 /***/ }
 /******/ ]);

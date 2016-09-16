@@ -89,6 +89,10 @@ h5 {
 }
 
 /* components */
+.textCenter {
+  text-align: center;
+}
+
 .tab {
   background: linear-gradient(to top, #2580d0 50%, white 50%);
   background-size: 100% 200%;

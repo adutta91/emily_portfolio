@@ -5,7 +5,8 @@ var SubHeader = require('./header/subHeader');
 var AboutMe = require('./tabs/aboutMe');
 var Projects = require('./tabs/projects');
 var Contact = require ('./tabs/contact');
-var ProjectForm = require('./projects/projectForm');
+var ProjectForm = require('./dashboard/projectForm');
+var AdminDashboard = require('./dashboard/adminDashboard');
 
 var Modal = require('boron/DropModal');
 var ModalUtil = require('../utils/modalUtil');
@@ -55,7 +56,7 @@ var App = React.createClass({
         <Modal ref="modal"
                modalStyle={ModalStyle}
                contentStyle={ContentStyle}>
-            <ProjectForm modalCallback={this.hideModal} />
+          <AdminDashboard />
         </Modal>
       </div>
     )

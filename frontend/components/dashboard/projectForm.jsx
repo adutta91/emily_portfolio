@@ -1,5 +1,7 @@
 var React = require('react');
 
+
+var ProjectStore = require('../../stores/projectStore');
 var ProjectUtil = require('../../utils/projectUtil');
 var GlobeUtil = require('../../utils/globeUtil');
 var CoordStore = require('../../stores/coordStore');
@@ -7,16 +9,25 @@ var CoordStore = require('../../stores/coordStore');
 var ProjectForm = React.createClass({
 
   getInitialState: function() {
-    return ({
-      projectTitle: "",
-      projectStartDate: "",
-      projectEndDate: "",
-      projectLocation: "",
-      projectLatCoord: "",
-      projectLngCoord: "",
-      projectCollaborator: "",
-      projectDesc: ""
-    })
+    if (this.props.new) {
+      return ({
+        projectTitle: "",
+        projectStartDate: "",
+        projectEndDate: "",
+        projectLocation: "",
+        projectCollaborator: "",
+        projectDesc: ""
+      })
+    } else {
+      return ({
+        projectTitle: ProjectStore.viewedProject().title,
+        projectStartDate: ProjectStore.viewedProject().start_date,
+        projectEndDate: ProjectStore.viewedProject().end_date,
+        projectLocation: ProjectStore.viewedProject().location,
+        projectCollaborator: ProjectStore.viewedProject().collaborators,
+        projectDesc: ProjectStore.viewedProject().description
+      })
+    }
   },
 
   onInputChange: function(event) {
@@ -70,15 +81,28 @@ var ProjectForm = React.createClass({
         collaborator: this.state.projectCollaborator
       }
     };
-    ProjectUtil.createProject(project);
+    if (this.props.new) {
+      ProjectUtil.createProject(project);
+    } else {
+      ProjectUtil.updateProject(project);
+    }
+  },
+
+  getTitle: function() {
+    if (this.props.new) {
+      return "Add a Project"
+    } else {
+      return "Edit Project"
+    }
   },
 
   render: function() {
     return (
-      <div id="projectModal">
+      <div>
         <img src="http://res.cloudinary.com/dzyfczxnr/image/upload/v1472766011/portfolio/close.png"
              id="closeModalButton"
              onClick={this.hideModal}/>
+        <h3 className="textCenter">{this.getTitle()}</h3>
         <form id="projectForm" className="flex">
            <div className="flex column">
              <input id="projectTitle" type="text" onChange={this.onInputChange} placeholder="title" value={this.state.projectTitle}/>
