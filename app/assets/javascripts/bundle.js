@@ -28906,7 +28906,7 @@
 	    var className = this.getClassName() + " flex center";
 	    return React.createElement(
 	      'div',
-	      { className: className,
+	      { id: 'projectListItem', className: className,
 	        onClick: this.setProject },
 	      this.props.project.title
 	    );

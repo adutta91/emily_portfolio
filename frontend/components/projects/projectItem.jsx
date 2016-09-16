@@ -22,7 +22,7 @@ var ProjectItem = React.createClass({
   render: function() {
     var className = this.getClassName() + " flex center";
     return (
-      <div className={className}
+      <div id="projectListItem" className={className}
            onClick={this.setProject}>
           {this.props.project.title}
       </div>
