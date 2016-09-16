@@ -28804,6 +28804,8 @@
 	var ProjectStore = __webpack_require__(205);
 	var GlobeStore = __webpack_require__(213);
 	
+	var MONTHS = __webpack_require__(241);
+	
 	var ProjectList = React.createClass({
 	  displayName: 'ProjectList',
 	
@@ -28828,7 +28830,8 @@
 	
 	  getProjects: function () {
 	    if (this.state.projects.length > 0) {
-	      return this.state.projects.map(function (project) {
+	      var projects = sortProjects(this.state.projects);
+	      return projects.map(function (project) {
 	        return React.createElement(ProjectItem, { key: project.title, project: project });
 	      });
 	    }
@@ -28848,6 +28851,27 @@
 	    );
 	  }
 	});
+	
+	var sortProjects = function (projects) {
+	  return projects.sort(function (a, b) {
+	    var yearA = Number(a.start_date.split(' ')[1]);
+	    var yearB = Number(b.start_date.split(' ')[1]);
+	    var monthA = MONTHS[a.start_date.split(' ')[0].toUpperCase()];
+	    var monthB = MONTHS[b.start_date.split(' ')[0].toUpperCase()];
+	
+	    if (yearA < yearB) {
+	      return -1;
+	    } else if (yearA > yearB) {
+	      return 1;
+	    } else if (monthA < monthB) {
+	      return -1;
+	    } else if (monthA > monthB) {
+	      return 1;
+	    } else {
+	      return 0;
+	    }
+	  });
+	};
 	
 	module.exports = ProjectList;
 
@@ -30344,6 +30368,25 @@
 	    );
 	  }
 	});
+
+/***/ },
+/* 241 */
+/***/ function(module, exports) {
+
+	module.exports = {
+	  'JANUARY': 1,
+	  'FEBRUARY': 2,
+	  'MARCH': 3,
+	  'APRIL': 4,
+	  'MAY': 5,
+	  'JUNE': 6,
+	  'JULY': 7,
+	  'AUGUST': 8,
+	  'SEPTEMBER': 9,
+	  'OCTOBER': 10,
+	  'NOVEMBER': 11,
+	  'DECEMBER': 12
+	};
 
 /***/ }
 /******/ ]);
