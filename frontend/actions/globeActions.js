@@ -24,5 +24,12 @@ module.exports = {
     Dispatcher.dispatch({
       actionType: "STOP_ANIMATION"
     });
+  },
+
+  receiveCoords: function(coords) {
+    Dispatcher.dispatch({
+      actionType: 'RECEIVE_COORDS',
+      coords: coords
+    });
   }
 };

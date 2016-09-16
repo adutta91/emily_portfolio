@@ -21,13 +21,25 @@ var ProjectInfo = React.createClass({
     this.setState({ project: ProjectStore.viewedProject() });
   },
 
+  getCollaborators: function() {
+    if (this.state.project.collaborator.length > 0) {
+      return (
+        <h3 className="margin">Collaborators: {this.state.project.collaborator}</h3>
+      )
+    } else {
+      return (
+        <h3 className="margin"></h3>
+      )
+    }
+  },
+
   displayProjectInfo: function() {
     if (this.state.project && this.state.project.title) {
       return (
         <div id="projectDetail" className="flex column center">
           <div id="projectHeader" className="flex column">
             <h1 className="margin">{this.state.project.title}</h1>
-            <h3 className="margin">Collaborators: {this.state.project.collaborator}</h3>
+            {this.getCollaborators()}
             <h3 className="margin">{this.state.project.location}</h3>
             <h5 className="margin">{this.state.project.start_date} - {this.state.project.end_date}</h5>
           </div>

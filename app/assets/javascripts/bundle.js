@@ -28603,6 +28603,19 @@
 	    this.setState({ project: ProjectStore.viewedProject() });
 	  },
 	
+	  getCollaborators: function () {
+	    if (this.state.project.collaborator.length > 0) {
+	      return React.createElement(
+	        'h3',
+	        { className: 'margin' },
+	        'Collaborators: ',
+	        this.state.project.collaborator
+	      );
+	    } else {
+	      return React.createElement('h3', { className: 'margin' });
+	    }
+	  },
+	
 	  displayProjectInfo: function () {
 	    if (this.state.project && this.state.project.title) {
 	      return React.createElement(
@@ -28616,12 +28629,7 @@
 	            { className: 'margin' },
 	            this.state.project.title
 	          ),
-	          React.createElement(
-	            'h3',
-	            { className: 'margin' },
-	            'Collaborators: ',
-	            this.state.project.collaborator
-	          ),
+	          this.getCollaborators(),
 	          React.createElement(
 	            'h3',
 	            { className: 'margin' },
@@ -28917,8 +28925,8 @@
 	      url: 'api/projects',
 	      method: 'POST',
 	      data: data,
-	      success: function () {
-	        debugger;
+	      success: function (data) {
+	        location.reload();
 	      },
 	      error: function (error) {
 	        alert(error.responseText);
@@ -28970,6 +28978,19 @@
 	
 	  stopAnimation: function () {
 	    GlobeActions.stopAnimation();
+	  },
+	
+	  getCoords: function (address) {
+	    $.ajax({
+	      url: 'https://maps.googleapis.com/maps/api/geocode/json?address=' + address + '&key=' + window.geoCode.key,
+	      method: 'POST',
+	      success: function (data) {
+	        GlobeActions.receiveCoords(data.results[0].geometry.location);
+	      },
+	      error: function (error) {
+	        console.log(error.responseText);
+	      }
+	    });
 	  }
 	};
 
@@ -29002,6 +29023,13 @@
 	  stopAnimation: function () {
 	    Dispatcher.dispatch({
 	      actionType: "STOP_ANIMATION"
+	    });
+	  },
+	
+	  receiveCoords: function (coords) {
+	    Dispatcher.dispatch({
+	      actionType: 'RECEIVE_COORDS',
+	      coords: coords
 	    });
 	  }
 	};
@@ -29218,6 +29246,8 @@
 	var React = __webpack_require__(1);
 	
 	var ProjectUtil = __webpack_require__(209);
+	var GlobeUtil = __webpack_require__(211);
+	var CoordStore = __webpack_require__(233);
 	
 	var ProjectForm = React.createClass({
 	  displayName: 'ProjectForm',
@@ -29251,12 +29281,6 @@
 	      case 'projectLocation':
 	        this.setState({ projectLocation: el.value });
 	        break;
-	      case 'projectLatCoord':
-	        this.setState({ projectLatCoord: el.value });
-	        break;
-	      case 'projectLngCoord':
-	        this.setState({ projectLngCoord: el.value });
-	        break;
 	      case 'projectDesc':
 	        this.setState({ projectDesc: el.value });
 	        break;
@@ -29267,19 +29291,33 @@
 	  },
 	
 	  submitForm: function () {
-	    ProjectUtil.createProject({
+	    GlobeUtil.getCoords(this.state.projectLocation);
+	    // this.props.modalCallback();
+	  },
+	
+	  componentDidMount: function () {
+	    this.coordListener = CoordStore.addListener(this.update);
+	  },
+	
+	  componentWillUnmount: function () {
+	    this.coordListener.remove();
+	  },
+	
+	  update: function () {
+	    var coords = CoordStore.coords();
+	    var project = {
 	      project: {
 	        title: this.state.projectTitle,
+	        description: this.state.projectDesc,
+	        location: this.state.projectLocation,
+	        lat: coords.lat,
+	        lng: coords.lng,
 	        start_date: this.state.projectStartDate,
 	        end_date: this.state.projectEndDate,
-	        location: this.state.projectLocation,
-	        lat: this.state.projectLatCoord,
-	        lng: this.state.projectLngCoord,
-	        collaborator: this.state.projectCollaborator,
-	        description: this.state.projectDesc
+	        collaborator: this.state.projectCollaborator
 	      }
-	    });
-	    this.props.modalCallback();
+	    };
+	    ProjectUtil.createProject(project);
 	  },
 	
 	  render: function () {
@@ -29302,12 +29340,6 @@
 	          React.createElement('input', { id: 'projectCollaborator', type: 'text', onChange: this.onInputChange, placeholder: 'collaborator', value: this.state.projectCollaborator }),
 	          React.createElement(
 	            'div',
-	            { className: 'flex center', id: 'coordsForm' },
-	            React.createElement('input', { id: 'projectLatCoord', type: 'text', onChange: this.onInputChange, placeholder: 'lat', value: this.state.projectLatCoord }),
-	            React.createElement('input', { id: 'projectLngCoord', type: 'text', onChange: this.onInputChange, placeholder: 'lng', value: this.state.projectLngCoord })
-	          ),
-	          React.createElement(
-	            'div',
 	            { id: 'projectFormSubmit', onClick: this.submitForm },
 	            'submit!'
 	          )
@@ -29317,6 +29349,10 @@
 	    );
 	  }
 	});
+	
+	var trimCoords = function (coord) {
+	  return coord.split(" ")[0];
+	};
 	
 	module.exports = ProjectForm;
 
@@ -29993,6 +30029,36 @@
 	  justifyContent: "space-around",
 	  width: "100%"
 	};
+
+/***/ },
+/* 233 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Store = __webpack_require__(184).Store;
+	var Dispatcher = __webpack_require__(179);
+	
+	var CoordStore = new Store(Dispatcher);
+	
+	var _coords = [];
+	
+	CoordStore.coords = function () {
+	  return _coords;
+	};
+	
+	CoordStore.__onDispatch = function (payload) {
+	  switch (payload.actionType) {
+	    case 'RECEIVE_COORDS':
+	      resetCoords(payload.coords);
+	      CoordStore.__emitChange();
+	      break;
+	  }
+	};
+	
+	var resetCoords = function (coords) {
+	  _coords = coords;
+	};
+	
+	module.exports = CoordStore;
 
 /***/ }
 /******/ ]);

@@ -15,6 +15,5 @@
 #
 
 class Project < ActiveRecord::Base
-  validates :title, :description, :lat, :location, :lng, :start_date, :end_date,
-  :collaborator, presence: true
+  validates :title, :description, :location, :lat, :lng, presence: true
 end

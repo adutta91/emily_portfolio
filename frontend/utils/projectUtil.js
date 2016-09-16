@@ -27,8 +27,8 @@ module.exports = {
       url: 'api/projects',
       method: 'POST',
       data: data,
-      success: function() {
-        debugger;
+      success: function(data) {
+        location.reload();
       },
       error: function(error) {
         alert(error.responseText);
