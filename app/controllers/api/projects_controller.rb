@@ -22,6 +22,14 @@ class Api::ProjectsController < ApplicationController
     end
   end
 
+  def destroy
+    @project = find_project
+    if @project
+      @project.destroy
+      render :show
+    end
+  end
+
   private
 
   def project_params

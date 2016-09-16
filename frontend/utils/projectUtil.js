@@ -27,7 +27,7 @@ module.exports = {
       url: 'api/projects',
       method: 'POST',
       data: data,
-      success: function(data) {
+      success: function(response) {
         location.reload();
       },
       error: function(error) {
@@ -41,14 +41,26 @@ module.exports = {
       url: 'api/projects/' + data.project.id,
       method: 'PATCH',
       data: data,
-      success: function(data) {
-        debugger;
+      success: function(response) {
         location.reload();
       },
       error: function(error) {
         console.log(error.responseText);
       }
     });
+  },
+
+  deleteProject: function(id) {
+    $.ajax({
+      url: 'api/projects/' + id,
+      method: 'DELETE',
+      success: function(response) {
+        location.reload();
+      },
+      error: function(error) {
+        console.log(error.responseText);
+      }
+    })
   },
 
   clearViewedProject: function() {

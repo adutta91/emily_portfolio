@@ -120,6 +120,20 @@ var ProjectForm = React.createClass({
     }
   },
 
+  deleteProject: function() {
+    ProjectUtil.deleteProject(ProjectStore.viewedProject().id);
+  },
+
+  getDeleteButton: function() {
+    if (this.props.new) {
+      return;
+    } else {
+      return (
+        <div id="projectFormSubmit" onClick={this.deleteProject}>delete</div>
+      )
+    }
+  },
+
   render: function() {
     return (
       <div>
@@ -135,6 +149,7 @@ var ProjectForm = React.createClass({
              <input id="projectLocation" type="text" onChange={this.onInputChange} placeholder="location" value={this.state.projectLocation}/>
              <input id="projectCollaborator" type="text" onChange={this.onInputChange} placeholder="collaborator" value={this.state.projectCollaborator}/>
              <div id="projectFormSubmit" onClick={this.submitForm}>submit!</div>
+             { this.getDeleteButton() }
            </div>
            <textarea id="projectDesc" onChange={this.onInputChange} placeholder="description" value={this.state.projectDesc}></textarea>
         </form>

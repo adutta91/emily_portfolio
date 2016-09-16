@@ -28948,7 +28948,7 @@
 	      url: 'api/projects',
 	      method: 'POST',
 	      data: data,
-	      success: function (data) {
+	      success: function (response) {
 	        location.reload();
 	      },
 	      error: function (error) {
@@ -28962,8 +28962,20 @@
 	      url: 'api/projects/' + data.project.id,
 	      method: 'PATCH',
 	      data: data,
-	      success: function (data) {
-	        debugger;
+	      success: function (response) {
+	        location.reload();
+	      },
+	      error: function (error) {
+	        console.log(error.responseText);
+	      }
+	    });
+	  },
+	
+	  deleteProject: function (id) {
+	    $.ajax({
+	      url: 'api/projects/' + id,
+	      method: 'DELETE',
+	      success: function (response) {
 	        location.reload();
 	      },
 	      error: function (error) {
@@ -29423,6 +29435,22 @@
 	    }
 	  },
 	
+	  deleteProject: function () {
+	    ProjectUtil.deleteProject(ProjectStore.viewedProject().id);
+	  },
+	
+	  getDeleteButton: function () {
+	    if (this.props.new) {
+	      return;
+	    } else {
+	      return React.createElement(
+	        'div',
+	        { id: 'projectFormSubmit', onClick: this.deleteProject },
+	        'delete'
+	      );
+	    }
+	  },
+	
 	  render: function () {
 	    return React.createElement(
 	      'div',
@@ -29450,7 +29478,8 @@
 	            'div',
 	            { id: 'projectFormSubmit', onClick: this.submitForm },
 	            'submit!'
-	          )
+	          ),
+	          this.getDeleteButton()
 	        ),
 	        React.createElement('textarea', { id: 'projectDesc', onChange: this.onInputChange, placeholder: 'description', value: this.state.projectDesc })
 	      )
