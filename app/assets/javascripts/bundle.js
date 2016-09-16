@@ -28830,12 +28830,6 @@
 	    }
 	  },
 	
-	  displayButton: function () {
-	    if (!GlobeStore.animation()) {
-	      return React.createElement(StartRotationButton, null);
-	    }
-	  },
-	
 	  render: function () {
 	    return React.createElement(
 	      'div',

@@ -35,11 +35,6 @@ var ProjectList = React.createClass({
     }
   },
 
-  displayButton: function() {
-    if(!GlobeStore.animation()) {
-      return ( <StartRotationButton /> );
-    }
-  },
 
   render: function() {
     return (

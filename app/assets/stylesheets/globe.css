@@ -25,6 +25,7 @@
 #globeWrapper {
   width: 40vw;
   margin-right: 10px;
+  position: relative;
 }
 
 
@@ -35,6 +36,9 @@
   padding: 2px;
   cursor: pointer;
   transition: 1s;
+  position: absolute;
+  left: 0;
+  top: 20%;
 }
 
 #rotationButton.on {
