@@ -58,39 +58,6 @@
   clear: both;
 }
 
-#projectModal {
-  width: 100%;
-  height: 100%;
-}
-
-#projectForm {
-  width: 80%;
-  height: 100%;
-  justify-content: space-between;
-  padding: 20px;
-  margin: 0 auto;
-}
-
-#coordsForm input {
-  width: 100px;
-}
-
-#projectFormSubmit {
-  margin: 30px auto;
-  border: 1px solid black;
-  padding: 8px;
-  border-radius: 3px;
-  transition: .7s;
-  text-align: center;
-}
-
-#projectFormSubmit:hover {
-  cursor: pointer;
-  background-color: #2580d0;
-  color: white;
-  transition:.7s
-}
-
 .projectItem {
   font-size: 12px;
   padding: 5px;

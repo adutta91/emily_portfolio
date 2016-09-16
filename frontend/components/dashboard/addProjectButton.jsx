@@ -5,7 +5,7 @@ var DashboardUtil = require('../../utils/dashboardUtil');
 module.exports = React.createClass({
 
   click: function(event) {
-    DashboardUtil.resetDisplay("form");
+    DashboardUtil.resetDisplay("newForm");
   },
 
   render: function() {

@@ -29417,6 +29417,7 @@
 	var DashComponents = __webpack_require__(221);
 	
 	var DashboardStore = __webpack_require__(239);
+	var ProjectStore = __webpack_require__(205);
 	
 	var ProjectList = __webpack_require__(207);
 	var AddProjectButton = __webpack_require__(236);
@@ -29427,20 +29428,26 @@
 	
 	  getInitialState: function () {
 	    return {
-	      display: "projects"
+	      display: "intro"
 	    };
 	  },
 	
 	  componentDidMount: function () {
-	    this.dashboardListener = DashboardStore.addListener(this.update);
+	    this.dashboardListener = DashboardStore.addListener(this.updateForm);
+	    this.projectListener = DashboardStore.addListener(this.updateProject);
 	  },
 	
 	  componentWillUnmount: function () {
 	    this.dashboardListener.remove();
+	    this.projectListener.remove();
 	  },
 	
-	  update: function () {
+	  updateForm: function () {
 	    this.setState({ display: DashboardStore.display() });
+	  },
+	
+	  updateProject: function () {
+	    this.setState({});
 	  },
 	
 	  getDisplay: function () {
@@ -29469,9 +29476,12 @@
 	var React = __webpack_require__(1);
 	
 	var ProjectForm = __webpack_require__(218);
+	var DashIntro = __webpack_require__(240);
 	
 	module.exports = {
-	  "form": React.createElement(ProjectForm, { 'new': true })
+	  "newForm": React.createElement(ProjectForm, { 'new': true }),
+	  "editForm": React.createElement(ProjectForm, { 'new': false }),
+	  "intro": React.createElement(DashIntro, null)
 	};
 
 /***/ },
@@ -30161,7 +30171,7 @@
 	
 	
 	  click: function (event) {
-	    DashboardUtil.resetDisplay("form");
+	    DashboardUtil.resetDisplay("newForm");
 	  },
 	
 	  render: function () {
@@ -30227,6 +30237,47 @@
 	};
 	
 	module.exports = DashboardStore;
+
+/***/ },
+/* 240 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	
+	module.exports = React.createClass({
+	  displayName: "exports",
+	
+	  render: function () {
+	    return React.createElement(
+	      "div",
+	      { id: "dashIntro", className: "flex column center" },
+	      React.createElement(
+	        "h3",
+	        { id: "dashTitle" },
+	        "Howdy!"
+	      ),
+	      React.createElement("br", null),
+	      React.createElement("br", null),
+	      React.createElement(
+	        "p",
+	        null,
+	        "Welcome to your ",
+	        React.createElement(
+	          "strong",
+	          null,
+	          "Project Dashboard"
+	        ),
+	        "! Here you can view, edit, or delete projects by selecting the corresponding one above, or add a new project by selecting the plus icon in the upper righthand corner. If you have any questions or run into any issues, feel free to contact ",
+	        React.createElement(
+	          "a",
+	          { href: "mailto:arjundutta91@gmail.com" },
+	          "me"
+	        ),
+	        ". I hope you are having a nice day!!!"
+	      )
+	    );
+	  }
+	});
 
 /***/ }
 /******/ ]);
