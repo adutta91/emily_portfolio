@@ -1,6 +1,5 @@
 var React = require('react');
 
-
 var ProjectStore = require('../../stores/projectStore');
 var ProjectUtil = require('../../utils/projectUtil');
 var GlobeUtil = require('../../utils/globeUtil');
@@ -24,7 +23,7 @@ var ProjectForm = React.createClass({
         projectStartDate: ProjectStore.viewedProject().start_date,
         projectEndDate: ProjectStore.viewedProject().end_date,
         projectLocation: ProjectStore.viewedProject().location,
-        projectCollaborator: ProjectStore.viewedProject().collaborators,
+        projectCollaborator: ProjectStore.viewedProject().collaborator,
         projectDesc: ProjectStore.viewedProject().description
       })
     }
@@ -56,34 +55,59 @@ var ProjectForm = React.createClass({
 
   submitForm: function() {
     GlobeUtil.getCoords(this.state.projectLocation);
-    // this.props.modalCallback();
   },
 
   componentDidMount: function() {
     this.coordListener = CoordStore.addListener(this.update);
+    this.projectListener = ProjectStore.addListener(this.updateParams);
   },
 
   componentWillUnmount: function() {
     this.coordListener.remove();
+    this.projectListener.remove();
+  },
+
+  updateParams: function() {
+    this.setState({
+      projectTitle: ProjectStore.viewedProject().title,
+      projectStartDate: ProjectStore.viewedProject().start_date,
+      projectEndDate: ProjectStore.viewedProject().end_date,
+      projectLocation: ProjectStore.viewedProject().location,
+      projectCollaborator: ProjectStore.viewedProject().collaborator,
+      projectDesc: ProjectStore.viewedProject().description
+    })
   },
 
   update: function() {
     var coords = CoordStore.coords();
-    var project = {
-      project: {
-        title: this.state.projectTitle,
-        description: this.state.projectDesc,
-        location: this.state.projectLocation,
-        lat: coords.lat,
-        lng: coords.lng,
-        start_date: this.state.projectStartDate,
-        end_date: this.state.projectEndDate,
-        collaborator: this.state.projectCollaborator
-      }
-    };
     if (this.props.new) {
+      var project = {
+        project: {
+          title: this.state.projectTitle,
+          description: this.state.projectDesc,
+          location: this.state.projectLocation,
+          lat: coords.lat,
+          lng: coords.lng,
+          start_date: this.state.projectStartDate,
+          end_date: this.state.projectEndDate,
+          collaborator: this.state.projectCollaborator
+        }
+      };
       ProjectUtil.createProject(project);
     } else {
+      var project = {
+        project: {
+          title: this.state.projectTitle,
+          description: this.state.projectDesc,
+          location: this.state.projectLocation,
+          lat: coords.lat,
+          lng: coords.lng,
+          start_date: this.state.projectStartDate,
+          end_date: this.state.projectEndDate,
+          collaborator: this.state.projectCollaborator,
+          id: ProjectStore.viewedProject().id
+        }
+      };
       ProjectUtil.updateProject(project);
     }
   },

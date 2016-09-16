@@ -3,6 +3,7 @@ var React = require('react');
 var DashComponents = require('../../assets/dashComponents');
 
 var DashboardStore = require('../../stores/dashboardStore');
+var DashboardUtil = require('../../utils/dashboardUtil');
 var ProjectStore = require('../../stores/projectStore');
 
 var ProjectList = require('../projects/projectList');
@@ -12,13 +13,13 @@ module.exports = React.createClass({
 
   getInitialState: function() {
     return ({
-      display: "intro"
+      display: "intro",
     });
   },
 
   componentDidMount: function() {
     this.dashboardListener = DashboardStore.addListener(this.updateForm);
-    this.projectListener = DashboardStore.addListener(this.updateProject);
+    this.projectListener = ProjectStore.addListener(this.updateProject);
   },
 
   componentWillUnmount: function() {
@@ -31,7 +32,8 @@ module.exports = React.createClass({
   },
 
   updateProject: function() {
-    this.setState({})
+    // DashboardUtil.resetDisplay('editForm');
+    this.setState({ display: 'editForm' })
   },
 
   getDisplay: function() {

@@ -31,8 +31,27 @@ module.exports = {
         location.reload();
       },
       error: function(error) {
-        alert(error.responseText);
+        console.log(error.responseText);
       }
     })
+  },
+
+  updateProject: function(data) {
+    $.ajax({
+      url: 'api/projects/' + data.project.id,
+      method: 'PATCH',
+      data: data,
+      success: function(data) {
+        debugger;
+        location.reload();
+      },
+      error: function(error) {
+        console.log(error.responseText);
+      }
+    });
+  },
+
+  clearViewedProject: function() {
+    ProjectActions.clearViewedProject();
   }
 }

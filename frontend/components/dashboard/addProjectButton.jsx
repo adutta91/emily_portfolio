@@ -1,10 +1,12 @@
 var React = require('react');
 
 var DashboardUtil = require('../../utils/dashboardUtil');
+var ProjectUtil = require('../../utils/projectUtil');
 
 module.exports = React.createClass({
 
   click: function(event) {
+    ProjectUtil.clearViewedProject();
     DashboardUtil.resetDisplay("newForm");
   },
 

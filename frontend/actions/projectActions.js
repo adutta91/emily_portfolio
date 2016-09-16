@@ -13,5 +13,19 @@ module.exports = {
       actionType: "VIEW_PROJECT",
       project: project
     })
+  },
+
+  clearViewedProject: function() {
+    Dispatcher.dispatch({
+      actionType: "CLEAR_VIEWED_PROJECT",
+      project: {
+        title: "",
+        start_date: "",
+        end_date: "",
+        location: "",
+        collaborator: "",
+        description: ""
+      }
+    });
   }
 }

@@ -24,6 +24,10 @@ ProjectStore.__onDispatch = function(payload) {
       resetViewedProject(payload.project);
       ProjectStore.__emitChange();
       break;
+    case 'CLEAR_VIEWED_PROJECT':
+      resetViewedProject(payload.project);
+      ProjectStore.__emitChange();
+      break;
   }
 };
 

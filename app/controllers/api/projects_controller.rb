@@ -13,11 +13,20 @@ class Api::ProjectsController < ApplicationController
     @projects = Project.all
   end
 
+  def update
+    @project = find_project
+    if @project.update(project_params)
+      render :show
+    else
+      render :errors, status: 422
+    end
+  end
+
   private
 
   def project_params
     params.require(:project).permit(:title, :description, :location, :start_date,
-                                    :end_date, :lat, :lng, :collaborator)
+                                    :end_date, :lat, :lng, :collaborator, :id)
   end
 
   def find_project

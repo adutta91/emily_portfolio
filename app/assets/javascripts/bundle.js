@@ -28696,6 +28696,10 @@
 	      resetViewedProject(payload.project);
 	      ProjectStore.__emitChange();
 	      break;
+	    case 'CLEAR_VIEWED_PROJECT':
+	      resetViewedProject(payload.project);
+	      ProjectStore.__emitChange();
+	      break;
 	  }
 	};
 	
@@ -28924,9 +28928,28 @@
 	        location.reload();
 	      },
 	      error: function (error) {
-	        alert(error.responseText);
+	        console.log(error.responseText);
 	      }
 	    });
+	  },
+	
+	  updateProject: function (data) {
+	    $.ajax({
+	      url: 'api/projects/' + data.project.id,
+	      method: 'PATCH',
+	      data: data,
+	      success: function (data) {
+	        debugger;
+	        location.reload();
+	      },
+	      error: function (error) {
+	        console.log(error.responseText);
+	      }
+	    });
+	  },
+	
+	  clearViewedProject: function () {
+	    ProjectActions.clearViewedProject();
 	  }
 	};
 
@@ -28948,6 +28971,20 @@
 	    Dispatcher.dispatch({
 	      actionType: "VIEW_PROJECT",
 	      project: project
+	    });
+	  },
+	
+	  clearViewedProject: function () {
+	    Dispatcher.dispatch({
+	      actionType: "CLEAR_VIEWED_PROJECT",
+	      project: {
+	        title: "",
+	        start_date: "",
+	        end_date: "",
+	        location: "",
+	        collaborator: "",
+	        description: ""
+	      }
 	    });
 	  }
 	};
@@ -29265,7 +29302,7 @@
 	        projectStartDate: ProjectStore.viewedProject().start_date,
 	        projectEndDate: ProjectStore.viewedProject().end_date,
 	        projectLocation: ProjectStore.viewedProject().location,
-	        projectCollaborator: ProjectStore.viewedProject().collaborators,
+	        projectCollaborator: ProjectStore.viewedProject().collaborator,
 	        projectDesc: ProjectStore.viewedProject().description
 	      };
 	    }
@@ -29297,34 +29334,59 @@
 	
 	  submitForm: function () {
 	    GlobeUtil.getCoords(this.state.projectLocation);
-	    // this.props.modalCallback();
 	  },
 	
 	  componentDidMount: function () {
 	    this.coordListener = CoordStore.addListener(this.update);
+	    this.projectListener = ProjectStore.addListener(this.updateParams);
 	  },
 	
 	  componentWillUnmount: function () {
 	    this.coordListener.remove();
+	    this.projectListener.remove();
+	  },
+	
+	  updateParams: function () {
+	    this.setState({
+	      projectTitle: ProjectStore.viewedProject().title,
+	      projectStartDate: ProjectStore.viewedProject().start_date,
+	      projectEndDate: ProjectStore.viewedProject().end_date,
+	      projectLocation: ProjectStore.viewedProject().location,
+	      projectCollaborator: ProjectStore.viewedProject().collaborator,
+	      projectDesc: ProjectStore.viewedProject().description
+	    });
 	  },
 	
 	  update: function () {
 	    var coords = CoordStore.coords();
-	    var project = {
-	      project: {
-	        title: this.state.projectTitle,
-	        description: this.state.projectDesc,
-	        location: this.state.projectLocation,
-	        lat: coords.lat,
-	        lng: coords.lng,
-	        start_date: this.state.projectStartDate,
-	        end_date: this.state.projectEndDate,
-	        collaborator: this.state.projectCollaborator
-	      }
-	    };
 	    if (this.props.new) {
+	      var project = {
+	        project: {
+	          title: this.state.projectTitle,
+	          description: this.state.projectDesc,
+	          location: this.state.projectLocation,
+	          lat: coords.lat,
+	          lng: coords.lng,
+	          start_date: this.state.projectStartDate,
+	          end_date: this.state.projectEndDate,
+	          collaborator: this.state.projectCollaborator
+	        }
+	      };
 	      ProjectUtil.createProject(project);
 	    } else {
+	      var project = {
+	        project: {
+	          title: this.state.projectTitle,
+	          description: this.state.projectDesc,
+	          location: this.state.projectLocation,
+	          lat: coords.lat,
+	          lng: coords.lng,
+	          start_date: this.state.projectStartDate,
+	          end_date: this.state.projectEndDate,
+	          collaborator: this.state.projectCollaborator,
+	          id: ProjectStore.viewedProject().id
+	        }
+	      };
 	      ProjectUtil.updateProject(project);
 	    }
 	  },
@@ -29417,6 +29479,7 @@
 	var DashComponents = __webpack_require__(221);
 	
 	var DashboardStore = __webpack_require__(239);
+	var DashboardUtil = __webpack_require__(237);
 	var ProjectStore = __webpack_require__(205);
 	
 	var ProjectList = __webpack_require__(207);
@@ -29434,7 +29497,7 @@
 	
 	  componentDidMount: function () {
 	    this.dashboardListener = DashboardStore.addListener(this.updateForm);
-	    this.projectListener = DashboardStore.addListener(this.updateProject);
+	    this.projectListener = ProjectStore.addListener(this.updateProject);
 	  },
 	
 	  componentWillUnmount: function () {
@@ -29447,7 +29510,8 @@
 	  },
 	
 	  updateProject: function () {
-	    this.setState({});
+	    // DashboardUtil.resetDisplay('editForm');
+	    this.setState({ display: 'editForm' });
 	  },
 	
 	  getDisplay: function () {
@@ -30165,12 +30229,14 @@
 	var React = __webpack_require__(1);
 	
 	var DashboardUtil = __webpack_require__(237);
+	var ProjectUtil = __webpack_require__(209);
 	
 	module.exports = React.createClass({
 	  displayName: 'exports',
 	
 	
 	  click: function (event) {
+	    ProjectUtil.clearViewedProject();
 	    DashboardUtil.resetDisplay("newForm");
 	  },
 	
