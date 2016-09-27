@@ -1,7 +1,7 @@
 var React = require('react');
 
-var TABS = require('../../assets/tabs');
-var TABNAMES = require('../../assets/tabNames');
+var TABS = require('../../assets/objects/tabs');
+var TABNAMES = require('../../assets/objects/tabNames');
 
 var TabUtil = require('../../utils/tabUtil');
 var TabStore = require('../../stores/tabStore');

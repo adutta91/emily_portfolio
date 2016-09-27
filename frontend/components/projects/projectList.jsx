@@ -5,7 +5,7 @@ var ProjectItem = require('./projectItem');
 var ProjectStore = require('../../stores/projectStore');
 var GlobeStore = require('../../stores/globeStore');
 
-var MONTHS = require('../../assets/months');
+var MONTHS = require('../../assets/objects/months');
 
 var ProjectList = React.createClass({
 

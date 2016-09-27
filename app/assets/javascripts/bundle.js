@@ -21415,16 +21415,16 @@
 	var SubHeader = __webpack_require__(174);
 	var AboutMe = __webpack_require__(201);
 	var Projects = __webpack_require__(203);
-	var Contact = __webpack_require__(215);
-	var ProjectForm = __webpack_require__(218);
-	var AdminDashboard = __webpack_require__(220);
+	var Contact = __webpack_require__(216);
+	var ProjectForm = __webpack_require__(219);
+	var AdminDashboard = __webpack_require__(221);
 	
-	var Modal = __webpack_require__(222);
-	var ModalUtil = __webpack_require__(231);
-	var ModalStore = __webpack_require__(233);
+	var Modal = __webpack_require__(228);
+	var ModalUtil = __webpack_require__(237);
+	var ModalStore = __webpack_require__(239);
 	
-	var ModalStyle = __webpack_require__(234);
-	var ContentStyle = __webpack_require__(235);
+	var ModalStyle = __webpack_require__(240);
+	var ContentStyle = __webpack_require__(241);
 	
 	var App = React.createClass({
 	  displayName: 'App',
@@ -28720,7 +28720,7 @@
 	var React = __webpack_require__(1);
 	
 	var ProjectList = __webpack_require__(207);
-	var StartRotationButton = __webpack_require__(214);
+	var StartRotationButton = __webpack_require__(215);
 	
 	var GlobeStore = __webpack_require__(213);
 	var GlobeUtil = __webpack_require__(211);
@@ -28804,7 +28804,7 @@
 	var ProjectStore = __webpack_require__(205);
 	var GlobeStore = __webpack_require__(213);
 	
-	var MONTHS = __webpack_require__(241);
+	var MONTHS = __webpack_require__(214);
 	
 	var ProjectList = React.createClass({
 	  displayName: 'ProjectList',
@@ -29177,6 +29177,25 @@
 
 /***/ },
 /* 214 */
+/***/ function(module, exports) {
+
+	module.exports = {
+	  'JANUARY': 1,
+	  'FEBRUARY': 2,
+	  'MARCH': 3,
+	  'APRIL': 4,
+	  'MAY': 5,
+	  'JUNE': 6,
+	  'JULY': 7,
+	  'AUGUST': 8,
+	  'SEPTEMBER': 9,
+	  'OCTOBER': 10,
+	  'NOVEMBER': 11,
+	  'DECEMBER': 12
+	};
+
+/***/ },
+/* 215 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -29228,13 +29247,13 @@
 	module.exports = StartRotationButton;
 
 /***/ },
-/* 215 */
+/* 216 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	
-	var LinkedInLink = __webpack_require__(216);
-	var EmailLink = __webpack_require__(217);
+	var LinkedInLink = __webpack_require__(217);
+	var EmailLink = __webpack_require__(218);
 	
 	var Contact = React.createClass({
 	  displayName: 'Contact',
@@ -29266,7 +29285,7 @@
 	module.exports = Contact;
 
 /***/ },
-/* 216 */
+/* 217 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -29287,7 +29306,7 @@
 	});
 
 /***/ },
-/* 217 */
+/* 218 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -29308,7 +29327,7 @@
 	});
 
 /***/ },
-/* 218 */
+/* 219 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -29316,7 +29335,7 @@
 	var ProjectStore = __webpack_require__(205);
 	var ProjectUtil = __webpack_require__(209);
 	var GlobeUtil = __webpack_require__(211);
-	var CoordStore = __webpack_require__(219);
+	var CoordStore = __webpack_require__(220);
 	
 	var ProjectForm = React.createClass({
 	  displayName: 'ProjectForm',
@@ -29494,7 +29513,7 @@
 	module.exports = ProjectForm;
 
 /***/ },
-/* 219 */
+/* 220 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Store = __webpack_require__(184).Store;
@@ -29524,19 +29543,19 @@
 	module.exports = CoordStore;
 
 /***/ },
-/* 220 */
+/* 221 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	
-	var DashComponents = __webpack_require__(221);
+	var DashComponents = __webpack_require__(222);
 	
-	var DashboardStore = __webpack_require__(239);
-	var DashboardUtil = __webpack_require__(237);
+	var DashboardStore = __webpack_require__(224);
+	var DashboardUtil = __webpack_require__(225);
 	var ProjectStore = __webpack_require__(205);
 	
 	var ProjectList = __webpack_require__(207);
-	var AddProjectButton = __webpack_require__(236);
+	var AddProjectButton = __webpack_require__(227);
 	
 	module.exports = React.createClass({
 	  displayName: 'exports',
@@ -29587,13 +29606,13 @@
 	});
 
 /***/ },
-/* 221 */
+/* 222 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	
-	var ProjectForm = __webpack_require__(218);
-	var DashIntro = __webpack_require__(240);
+	var ProjectForm = __webpack_require__(219);
+	var DashIntro = __webpack_require__(223);
 	
 	module.exports = {
 	  "newForm": React.createElement(ProjectForm, { 'new': true }),
@@ -29602,12 +29621,135 @@
 	};
 
 /***/ },
-/* 222 */
+/* 223 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var modalFactory = __webpack_require__(223);
-	var insertKeyframesRule = __webpack_require__(228);
-	var appendVendorPrefix = __webpack_require__(225);
+	var React = __webpack_require__(1);
+	
+	module.exports = React.createClass({
+	  displayName: "exports",
+	
+	  render: function () {
+	    return React.createElement(
+	      "div",
+	      { id: "dashIntro", className: "flex column center" },
+	      React.createElement(
+	        "h3",
+	        { id: "dashTitle" },
+	        "Howdy!"
+	      ),
+	      React.createElement("br", null),
+	      React.createElement("br", null),
+	      React.createElement(
+	        "p",
+	        null,
+	        "Welcome to your ",
+	        React.createElement(
+	          "strong",
+	          null,
+	          "Project Dashboard"
+	        ),
+	        "! Here you can view, edit, or delete projects by selecting the corresponding one above, or add a new project by selecting the plus icon in the upper righthand corner. If you have any questions or run into any issues, feel free to contact ",
+	        React.createElement(
+	          "a",
+	          { href: "mailto:arjundutta91@gmail.com" },
+	          "me"
+	        ),
+	        ". I hope you are having a nice day!!!"
+	      )
+	    );
+	  }
+	});
+
+/***/ },
+/* 224 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Store = __webpack_require__(184).Store;
+	var Dispatcher = __webpack_require__(179);
+	
+	var DashboardStore = new Store(Dispatcher);
+	
+	var _display = "projects";
+	
+	DashboardStore.display = function () {
+	  return _display;
+	};
+	
+	DashboardStore.__onDispatch = function (payload) {
+	  switch (payload.actionType) {
+	    case 'RESET_DISPLAY':
+	      resetDisplay(payload.display);
+	      DashboardStore.__emitChange();
+	      break;
+	  }
+	};
+	
+	var resetDisplay = function (display) {
+	  _display = display;
+	};
+	
+	module.exports = DashboardStore;
+
+/***/ },
+/* 225 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var DashboardActions = __webpack_require__(226);
+	
+	module.exports = {
+	  resetDisplay: function (display) {
+	    DashboardActions.resetDisplay(display);
+	  }
+	};
+
+/***/ },
+/* 226 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Dispatcher = __webpack_require__(179);
+	
+	module.exports = {
+	  resetDisplay: function (display) {
+	    Dispatcher.dispatch({
+	      actionType: 'RESET_DISPLAY',
+	      display: display
+	    });
+	  }
+	};
+
+/***/ },
+/* 227 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	
+	var DashboardUtil = __webpack_require__(225);
+	var ProjectUtil = __webpack_require__(209);
+	
+	module.exports = React.createClass({
+	  displayName: 'exports',
+	
+	
+	  click: function (event) {
+	    ProjectUtil.clearViewedProject();
+	    DashboardUtil.resetDisplay("newForm");
+	  },
+	
+	  render: function () {
+	    return React.createElement('img', { src: 'http://res.cloudinary.com/dzyfczxnr/image/upload/v1456979318/add.png',
+	      className: 'icon',
+	      onClick: this.click });
+	  }
+	});
+
+/***/ },
+/* 228 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var modalFactory = __webpack_require__(229);
+	var insertKeyframesRule = __webpack_require__(234);
+	var appendVendorPrefix = __webpack_require__(231);
 	
 	var animation = {
 	    show: {
@@ -29741,12 +29883,12 @@
 
 
 /***/ },
-/* 223 */
+/* 229 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var transitionEvents = __webpack_require__(224);
-	var appendVendorPrefix = __webpack_require__(225);
+	var transitionEvents = __webpack_require__(230);
+	var appendVendorPrefix = __webpack_require__(231);
 	
 	module.exports = function(animation){
 	
@@ -29925,7 +30067,7 @@
 
 
 /***/ },
-/* 224 */
+/* 230 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -30026,12 +30168,12 @@
 
 
 /***/ },
-/* 225 */
+/* 231 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var getVendorPropertyName = __webpack_require__(226);
+	var getVendorPropertyName = __webpack_require__(232);
 	
 	module.exports = function(target, sources) {
 	  var to = Object(target);
@@ -30062,12 +30204,12 @@
 
 
 /***/ },
-/* 226 */
+/* 232 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var builtinStyle = __webpack_require__(227);
+	var builtinStyle = __webpack_require__(233);
 	var prefixes = ['Moz', 'Webkit', 'O', 'ms'];
 	var domVendorPrefix;
 	
@@ -30105,7 +30247,7 @@
 
 
 /***/ },
-/* 227 */
+/* 233 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -30114,13 +30256,13 @@
 
 
 /***/ },
-/* 228 */
+/* 234 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var insertRule = __webpack_require__(229);
-	var vendorPrefix = __webpack_require__(230)();
+	var insertRule = __webpack_require__(235);
+	var vendorPrefix = __webpack_require__(236)();
 	var index = 0;
 	
 	module.exports = function(keyframes) {
@@ -30150,7 +30292,7 @@
 
 
 /***/ },
-/* 229 */
+/* 235 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -30175,7 +30317,7 @@
 
 
 /***/ },
-/* 230 */
+/* 236 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -30194,10 +30336,10 @@
 
 
 /***/ },
-/* 231 */
+/* 237 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var ModalActions = __webpack_require__(232);
+	var ModalActions = __webpack_require__(238);
 	
 	module.exports = {
 	  toggleProjectModal: function () {
@@ -30206,7 +30348,7 @@
 	};
 
 /***/ },
-/* 232 */
+/* 238 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Dispatcher = __webpack_require__(179);
@@ -30220,7 +30362,7 @@
 	};
 
 /***/ },
-/* 233 */
+/* 239 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Store = __webpack_require__(184).Store;
@@ -30250,7 +30392,7 @@
 	module.exports = ModalStore;
 
 /***/ },
-/* 234 */
+/* 240 */
 /***/ function(module, exports) {
 
 	module.exports = {
@@ -30263,7 +30405,7 @@
 	};
 
 /***/ },
-/* 235 */
+/* 241 */
 /***/ function(module, exports) {
 
 	module.exports = {
@@ -30273,148 +30415,6 @@
 	  alignItems: "center",
 	  justifyContent: "space-around",
 	  width: "100%"
-	};
-
-/***/ },
-/* 236 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	
-	var DashboardUtil = __webpack_require__(237);
-	var ProjectUtil = __webpack_require__(209);
-	
-	module.exports = React.createClass({
-	  displayName: 'exports',
-	
-	
-	  click: function (event) {
-	    ProjectUtil.clearViewedProject();
-	    DashboardUtil.resetDisplay("newForm");
-	  },
-	
-	  render: function () {
-	    return React.createElement('img', { src: 'http://res.cloudinary.com/dzyfczxnr/image/upload/v1456979318/add.png',
-	      className: 'icon',
-	      onClick: this.click });
-	  }
-	});
-
-/***/ },
-/* 237 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var DashboardActions = __webpack_require__(238);
-	
-	module.exports = {
-	  resetDisplay: function (display) {
-	    DashboardActions.resetDisplay(display);
-	  }
-	};
-
-/***/ },
-/* 238 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var Dispatcher = __webpack_require__(179);
-	
-	module.exports = {
-	  resetDisplay: function (display) {
-	    Dispatcher.dispatch({
-	      actionType: 'RESET_DISPLAY',
-	      display: display
-	    });
-	  }
-	};
-
-/***/ },
-/* 239 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var Store = __webpack_require__(184).Store;
-	var Dispatcher = __webpack_require__(179);
-	
-	var DashboardStore = new Store(Dispatcher);
-	
-	var _display = "projects";
-	
-	DashboardStore.display = function () {
-	  return _display;
-	};
-	
-	DashboardStore.__onDispatch = function (payload) {
-	  switch (payload.actionType) {
-	    case 'RESET_DISPLAY':
-	      resetDisplay(payload.display);
-	      DashboardStore.__emitChange();
-	      break;
-	  }
-	};
-	
-	var resetDisplay = function (display) {
-	  _display = display;
-	};
-	
-	module.exports = DashboardStore;
-
-/***/ },
-/* 240 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	
-	module.exports = React.createClass({
-	  displayName: "exports",
-	
-	  render: function () {
-	    return React.createElement(
-	      "div",
-	      { id: "dashIntro", className: "flex column center" },
-	      React.createElement(
-	        "h3",
-	        { id: "dashTitle" },
-	        "Howdy!"
-	      ),
-	      React.createElement("br", null),
-	      React.createElement("br", null),
-	      React.createElement(
-	        "p",
-	        null,
-	        "Welcome to your ",
-	        React.createElement(
-	          "strong",
-	          null,
-	          "Project Dashboard"
-	        ),
-	        "! Here you can view, edit, or delete projects by selecting the corresponding one above, or add a new project by selecting the plus icon in the upper righthand corner. If you have any questions or run into any issues, feel free to contact ",
-	        React.createElement(
-	          "a",
-	          { href: "mailto:arjundutta91@gmail.com" },
-	          "me"
-	        ),
-	        ". I hope you are having a nice day!!!"
-	      )
-	    );
-	  }
-	});
-
-/***/ },
-/* 241 */
-/***/ function(module, exports) {
-
-	module.exports = {
-	  'JANUARY': 1,
-	  'FEBRUARY': 2,
-	  'MARCH': 3,
-	  'APRIL': 4,
-	  'MAY': 5,
-	  'JUNE': 6,
-	  'JULY': 7,
-	  'AUGUST': 8,
-	  'SEPTEMBER': 9,
-	  'OCTOBER': 10,
-	  'NOVEMBER': 11,
-	  'DECEMBER': 12
 	};
 
 /***/ }

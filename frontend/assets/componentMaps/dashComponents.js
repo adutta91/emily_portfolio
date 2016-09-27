@@ -1,7 +1,7 @@
 var React = require('react');
 
-var ProjectForm = require('../components/dashboard/projectForm');
-var DashIntro = require('../components/dashboard/dashIntro');
+var ProjectForm = require('../../components/dashboard/projectForm');
+var DashIntro = require('../../components/dashboard/dashIntro');
 
 module.exports = {
   "newForm": <ProjectForm new={true}/>,

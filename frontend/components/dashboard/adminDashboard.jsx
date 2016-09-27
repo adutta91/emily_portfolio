@@ -1,6 +1,6 @@
 var React = require('react');
 
-var DashComponents = require('../../assets/dashComponents');
+var DashComponents = require('../../assets/componentMaps/dashComponents');
 
 var DashboardStore = require('../../stores/dashboardStore');
 var DashboardUtil = require('../../utils/dashboardUtil');

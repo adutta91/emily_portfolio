@@ -4,7 +4,7 @@ var React = require('react');
 
 var TabStore = require('../stores/tabStore');
 
-var TABCOMPONENTS = require('../assets/tabComponents');
+var TABCOMPONENTS = require('../assets/componentMaps/tabComponents');
 
 var Display = React.createClass({
 

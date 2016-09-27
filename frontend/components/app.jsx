@@ -12,8 +12,8 @@ var Modal = require('boron/DropModal');
 var ModalUtil = require('../utils/modalUtil');
 var ModalStore = require('../stores/modalStore');
 
-var ModalStyle = require('../assets/modalStyle');
-var ContentStyle = require('../assets/contentStyle');
+var ModalStyle = require('../assets/styles/modalStyle');
+var ContentStyle = require('../assets/styles/contentStyle');
 
 var App = React.createClass({
 
